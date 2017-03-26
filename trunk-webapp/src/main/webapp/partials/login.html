@@ -1,0 +1,31 @@
+<div ng-include="'partials/top.html'"></div>
+
+<!-- Vista de Login --> 
+<div class="row">
+	<div class="col-md-4 col-md-offset-4">
+		<div class="well well-sm" >
+
+			<form>
+				<!-- Panel de Error --> 
+				<div class="alert alert-danger" ng-show="login.errorMessage">{{login.errorMessage}}</div>
+				
+				<!-- Campo - Usuario --> 
+				<div class="form-group">
+					<h2>Usuario</h2>
+					<input type="text" class="form-control" placeholder="Usuario" ng-model="login.textoNombre">
+				</div>
+
+				<!-- Campo - Contraseña --> 
+				<div class="form-group">
+					<h2>Contraseña</h2>
+					<input type="password" class="form-control" placeholder="Contraseña" ng-model="login.textoContrasenia">
+				</div>
+
+				<!-- Boton - Entrar --> 
+				<button class="btn btn-default btn-lg btn-block" type="submit" ng-click="login.logIn()">Entrar</button>
+
+			</form>
+		</div>
+
+	</div>
+</div>

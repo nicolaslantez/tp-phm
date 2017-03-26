@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es" ng-app="poiApp">
+<head>
+
+  <title>Búsqueda de Puntos de Interés</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- jQuery -->
+  <script src="node_modules/jquery/dist/jquery.min.js"></script>
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+  <!-- AngularJS -->
+  <script src="node_modules/angular/angular.min.js"></script>
+  <script src="node_modules/angular-animate/angular-animate.min.js"></script>
+  <script src="node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
+  <script src="node_modules/angular-local-storage/dist/angular-local-storage.min.js"></script>
+  
+  <!-- Moment.js -->
+  <script src="node_modules/moment/moment.js"></script>
+
+  <!-- Underscore -->
+  <script src="node_modules/underscore/underscore-min.js"></script>
+
+  <!-- Custom CSS -->
+  <link href="css/main.css" rel="stylesheet">
+
+</head>
+<body>
+  <div class="container-fluid">
+
+    <!-- Vista dinámica -->
+    <div ui-view></div>
+
+  </div>
+
+  <!-- Dominio -->
+  <script src="js/domain/geodds.js"></script>
+  <script src="js/domain/horario.js"></script>
+  <script src="js/domain/poi.js"></script>
+  <script src="js/domain/banco.js"></script>
+  <script src="js/domain/cgp.js"></script>
+  <script src="js/domain/colectivo.js"></script>
+  <script src="js/domain/local.js"></script>
+  <script src="js/domain/opinion.js"></script>
+  <script src="js/domain/usuario.js"></script>
+
+  <!-- App -->
+  <script src="js/app.js"></script>
+  <script src="js/controllers/controllers.js"></script>
+  <script src="js/routes.js"></script>
+
+  <!-- Services -->
+  <script src="js/services/poiService.js"></script>
+  <script src="js/services/usuarioService.js"></script>
+  
+  <!-- Controllers -->
+  <script src="js/controllers/detalleController.js"></script>
+  <script src="js/controllers/busquedaController.js"></script>
+  <script src="js/controllers/userController.js"></script>
+
+</body>
+</html>

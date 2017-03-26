@@ -1,0 +1,56 @@
+h1 {
+    font-size: 5em;
+    color: white;
+    margin: 0.8em;
+}
+
+body {
+    background-color: rgba(91, 174, 215, 0.8);
+    background-image: url('../images/fondo.png');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    font-family: 'Museo Slab';
+    text-align: center;
+    margin: 0.8em;
+}
+
+.well {
+    background-color: rgba(91, 174, 215, 0.8);
+    margin: 0.4em;
+    border-width: 0.2em;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+li {
+    cursor: pointer;
+}
+
+label {
+    color: white;
+}
+
+h2 {
+    font-size: 1.5em;
+    color: white;
+    margin: 0.2em;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+table {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+th {
+    color: white;
+    text-align: center;
+}
+
+@font-face {
+    font-family: 'Museo Slab';
+    src: url('../fonts/Museo Slab.ttf');
+}

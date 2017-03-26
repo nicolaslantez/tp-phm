@@ -1,0 +1,113 @@
+<div ng-include="'partials/top.html'"></div>
+<!-- Vista de Detalle -->
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+        <div class="well well-sm">
+            <div class="alert alert-danger" ng-show="detalle.errorMessage">{{detalle.errorMessage}}</div>
+            <div class="form-group">
+
+                <!-- Boton - Volver -->
+                <button class="btn btn-default pull-left" ui-sref="busqueda">
+                    <span class="glyphicon glyphicon-arrow-left"></span>
+                </button>
+            
+                <!-- Boton - Favorito -->
+                <button class="btn btn-default pull-right" ng-click="detalle.changeFavorito()">
+                    <span class="glyphicon" ng-class="{'glyphicon-star': detalle.esFavorito(), 'glyphicon-star-empty': !detalle.esFavorito() }"></span>
+                </button>
+
+                 <h2 class="text-center">{{detalle.poi.nombre}}</h2>
+
+            </div>
+
+            <hr>
+
+            <div class="form-group">
+                <div ng-switch="detalle.poi.tipo">
+                    <div ng-switch-when="Banco" class="form-group">
+                        <div ng-include="'partials/detalle_poi_banco.html'"></div>
+                    </div>
+            
+                    <div ng-switch-when="Colectivo" class="form-group">
+                        <div ng-include="'partials/detalle_poi_colectivo.html'"></div>
+                    </div>
+            
+                    <div ng-switch-when="CGP" class="form-group">
+                        <div ng-include="'partials/detalle_poi_cgp.html'"></div>
+                    </div>
+            
+                    <div ng-switch-when="Local" class="form-group">
+                        <div ng-include="'partials/detalle_poi_local.html'"></div>
+                    </div>    
+                </div>
+
+                <hr>
+                
+                <label>Calificación Promedio: {{detalle.poi.calificacionPromedio()}} </label>
+                <label><span class="col-sm-4"></span></label>
+                <label>Distancia: {{detalle.poi.distancia(detalle.usuario.ubicacion)}} cuadras</label>
+
+            </div>
+            
+            <hr>
+            
+            <!-- Panel - Nueva Opinion -->
+            <div class="form-group">
+                <div class="col-sm-8">
+
+                    <!-- Comentario de Opinion -->
+                    <label><span class="glyphicon glyphicon-edit"></span> Comentario</label>
+                    <textarea placeholder="Escriba aquí su comentario" ng-model="detalle.textoComentario" class="form-control" rows="4">
+                    </textarea>
+
+                </div>
+                <div class="col-sm-4">
+
+                    <!-- Calificacion de Opinion -->
+                    <label><span class="glyphicon glyphicon-star-empty"></span> Calificación</label>
+                    <div class="input-group spinner btn-block">
+                        <input ng-model="detalle.calificacion" type="number" class="form-control" placeholder="Entre 1 y 5" value="" min="{{detalle.calificacionMinima}}" max="{{detalle.calificacionMaxima}}" onkeydown="return false">
+                    </div>
+
+                    <label></label>
+                    
+                    <!-- Boton - Enviar/Editar Opinion -->
+                    <button class="btn btn-default btn-block" ng-click="detalle.addOpinion()">{{detalle.poi.usuarioYaOpino(detalle.usuario) ? "Editar" : "Enviar" }}</button>
+
+                </div>
+            </div>
+
+            <label></label>
+            <label></label>
+
+            <!-- Opiniones de otros usuarios -->
+            <div class="form-group">
+                <label class="col-sm-12"><span class="glyphicon glyphicon-comment"></span> Opiniones de Usuarios</label>
+                <table class="table table-hover table-responsive">
+
+                    <!-- Columnas -->
+                    <thead>
+                        <tr>
+                            <th class="col-sm-4">Usuario</th>
+                            <th class="col-sm-2">Calificación</th>
+                            <th class="col-sm-6">Comentario<th>
+                        </tr>
+                    </thead>
+
+                    <!-- Opiniones -->
+                    <tbody>
+                        <tr ng-show="!detalle.poi.tieneOpiniones()" class="active">
+                            <td colspan="4">Todavía no hay opiniones. ¡Sé el primero en opinar!</td>
+                        </tr>
+                        <tr ng-repeat="opinion in detalle.poi.listaOpiniones" class="active">
+                            <td>{{opinion.usuarioOpinador}}</td>
+                            <td>{{opinion.calificacion}}</td>
+                            <td>{{opinion.comentario}}<td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

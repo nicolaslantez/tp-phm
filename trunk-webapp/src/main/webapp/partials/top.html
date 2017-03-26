@@ -1,0 +1,25 @@
+<!-- Boton de Usuario -->
+<div class="row">
+    <nav class="navbar navbar-default navbar-left" ng-controller="userController as login" ng-show="login.usuario">
+        <ul class="nav navbar-nav">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" role="button">
+
+                    <!-- Nombre de Usuario -->
+                    <span class="glyphicon glyphicon-user"></span> {{login.usuario.nombre}} <span class="caret"></span>
+
+                </a>
+                <ul class="dropdown-menu">
+
+                    <!-- Boton - Salir -->
+                    <li><a ng-click="login.logOut()"><span class="glyphicon glyphicon-off"></span> Salir</a></li>
+
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</div>
+<!-- Logo -->
+<div class="row">
+    <h1>Búsqueda de Puntos de Interés</h1>
+</div>

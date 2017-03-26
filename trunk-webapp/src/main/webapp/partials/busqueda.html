@@ -1,0 +1,53 @@
+<div ng-include="'partials/top.html'"></div>
+<!-- Barra de Busqueda -->
+<div class="row">
+    <div class="well well-sm">
+        <form>
+            <div class="input-group input-group-lg">
+
+                <!-- Texto de Busqueda  -->
+                <input ng-model="busqueda.textoBusqueda" type="text" class="form-control" placeholder="¿Qué está buscando?">
+
+                <!-- Boton - Buscar  -->
+                <span class="input-group-btn">
+                  <button class="btn btn-default" type="submit" ng-click="busqueda.buscar()">
+                    <span class="glyphicon glyphicon-search"></span>
+                  </button>
+                </span>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Tabla de Resultados -->
+<div class="row">
+    <div class="well well-sm">
+        <table class="table table-hover table-responsive">
+            <h2>Resultados</h2>
+
+            <!-- Columnas -->
+            <thead>
+                <tr>
+                    <th class="col-sm-3"><span class="glyphicon glyphicon-menu-hamburger"></span> Nombre</th>
+                    <th class="col-sm-3"><span class="glyphicon glyphicon-home"></span> Domicilio</th>
+                    <th class="col-sm-2"><span class="glyphicon glyphicon-star"></span> ¿Favorito?</th>
+                    <th class="col-sm-2"><span class="glyphicon glyphicon-flag"></span> ¿Está Cerca?</th>
+                    <th class="col-sm-2"><span class="glyphicon glyphicon-time"></span> ¿Está Disponible?</th>
+                </tr>
+            </thead>
+
+            <!-- Resultados de Busqueda -->
+            <tbody>
+                <tr ng-repeat="poi in busqueda.pois() | filter: busqueda.filtro" class="active clickable" ui-sref="detalle({id: poi.id})">
+                    <td>{{poi.nombre}}</td>
+                    <td>{{poi.domicilio}}</td>
+                    <td>{{busqueda.usuario.esFavorito(poi) | siNo }}</td>
+                    <td>{{poi.estaCerca(busqueda.usuario.ubicacion) | siNo }}</td>
+                    <td>{{poi.estaDisponible() | siNo }}</td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+</div>

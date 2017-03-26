@@ -1,0 +1,13 @@
+<div class="row">
+    <label>Compañía: {{detalle.poi.compania}}</label>
+</div>
+<div class="row">
+    <label>Barrio: {{detalle.poi.barrio}}</label>
+</div>
+<div class="row">
+    <label>Domicilio: {{detalle.poi.domicilio}}</label>
+</div>
+<div class="row">
+    <label>Servicios: </label>
+    <label ng-repeat="servicio in detalle.poi.servicios">{{servicio}} &nbsp </label>
+</div>
