@@ -1,0 +1,5 @@
+*/.idea/*
+*/POIs-domain.iml
+trunk-domain/src/main/xtend-gen/
+trunk-domain/src/test/xtend-gen/
+*/target/*
