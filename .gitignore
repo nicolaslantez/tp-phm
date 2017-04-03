@@ -3,3 +3,17 @@
 trunk-domain/src/main/xtend-gen/
 trunk-domain/src/test/xtend-gen/
 */target/*
+trunk-app/.classpath
+trunk-app/.project
+trunk-app/.settings
+trunk-app/src/main/generated-sources
+trunk-domain/.classpath
+trunk-domain/.project
+trunk-domain/.settings
+trunk-domain/src/main/generated-sources
+trunk-domain/src/test/generated-sources
+trunk-webapp/.classpath
+trunk-webapp/.project
+trunk-webapp/.settings
+trunk-webapp/src/main/webapp/node_modules
+trunk-webapp/src/main/xtend-gen

@@ -1,37 +1,45 @@
 import busqueda.Usuario
-import org.apache.commons.collections15.Predicate
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.commons.model.CollectionBasedRepo
+import org.hibernate.Criteria
+import org.hibernate.FetchMode
+import org.hibernate.HibernateException
+import org.hibernate.criterion.Restrictions
 
 @Accessors
-class RepoUsuario extends CollectionBasedRepo<Usuario> {
+class RepoUsuario extends RepoDefault<Usuario> {
+	
 	static RepoUsuario repoUsuarios
 	Usuario usuarioActivo
 
 	def static RepoUsuario getInstance() {
 		if (repoUsuarios == null) {
-			repoUsuarios = new RepoUsuario
+			repoUsuarios = new RepoUsuario()
 		}
-		repoUsuarios
+		return repoUsuarios
 	}
 
-	private new() {	}
-
-	override createExample() {
-		new Usuario
-	}
 
 	override getEntityType() {
 		typeof(Usuario)
 	}
 
-	override protected Predicate<Usuario> getCriterio(Usuario example) {
-		new Predicate<Usuario> {
+	override addQueryByExample(Criteria criteria, Usuario usuario) {
+		if (usuario.nombre != null) {
+			criteria.add(Restrictions.eq("nombre", usuario.nombre))
+		}
+	}
 
-			override evaluate(Usuario usuario) {
-				usuario.nombre.contains(example.nombre)
-			}
-
+	def Usuario searchById(Integer id) {
+		val session = openSession
+		try {
+			session.createCriteria(Usuario)
+				.setFetchMode("usuarios", FetchMode.JOIN)
+				.add(Restrictions.eq("id", id)).
+				uniqueResult as Usuario
+		} catch (HibernateException e) {
+			throw new RuntimeException(e)
+		} finally {
+			session.close
 		}
 	}
 

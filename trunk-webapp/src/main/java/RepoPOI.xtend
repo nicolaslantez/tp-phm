@@ -1,9 +1,11 @@
 import java.util.List
-import org.apache.commons.collections15.Predicate
-import org.uqbar.commons.model.CollectionBasedRepo
+import org.hibernate.Criteria
+import org.hibernate.FetchMode
+import org.hibernate.HibernateException
+import org.hibernate.criterion.Restrictions
 import poi.POI
 
-class RepoPOI extends CollectionBasedRepo<POI> {
+class RepoPOI extends RepoDefault<POI> {
 	static RepoPOI repoPois
 
 	def static RepoPOI getInstance() {
@@ -12,16 +14,31 @@ class RepoPOI extends CollectionBasedRepo<POI> {
 		repoPois
 	}
 
-	private new() {}
+	private new() {
+	}
 
 	def List<POI> search(String string) {
 		repoPois.allInstances.filter[coincideBusqueda(string)].toList
 	}
 
-	override protected Predicate<POI> getCriterio(POI example) { }
+	override getEntityType() { typeof(POI) }
 
-	override getEntityType() {typeof(POI) }
+	override addQueryByExample(Criteria criteria, POI poi) {
+		if (poi.domicilio != null) {
+			criteria.add(Restrictions.eq("domicilio", poi.domicilio))
+		}
+	}
 
-	override createExample() {}
+	def POI searchById(Integer id) {
+		val session = openSession
+		try {
+			session.createCriteria(POI).setFetchMode("Pois", FetchMode.JOIN).add(Restrictions.eq("id", id)).
+				uniqueResult as POI
+		} catch (HibernateException e) {
+			throw new RuntimeException(e)
+		} finally {
+			session.close
+		}
+	}
 
 }

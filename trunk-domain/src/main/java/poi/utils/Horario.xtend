@@ -3,14 +3,28 @@ package poi.utils
 import java.time.DayOfWeek
 import java.util.Map
 import java.util.Set
+import javax.persistence.Column
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
+import javax.persistence.MapKey
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
 import org.joda.time.LocalTime
+import org.uqbar.commons.utils.Observable
 
 import static extension creacionales.DiasFactory.*
 
 @Accessors
+@Entity
+@Observable
 class Horario {
+	
+	@Id
+	@GeneratedValue
+	private Long id
+	
+	@MapKey( name = "horarios")
 	Map<DayOfWeek, Set<RangoHorario>> diasHabiles = newLinkedHashMap
 
 	def boolean estaDisponible(DateTime momento) {
@@ -37,8 +51,19 @@ class Horario {
 }
 
 @Accessors
+@Entity
+@Observable
 class RangoHorario {
+
+	@Id
+	@GeneratedValue
+	private Long id
+	
+	
+	//TODO:  datetime sql
+	@Column
 	LocalTime abre
+	@Column
 	LocalTime cierra
 
 	def boolean estaDisponible(LocalTime hora) {

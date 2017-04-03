@@ -1,25 +1,44 @@
 package busqueda
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import creacionales.ServiceLocator
 import java.util.List
 import java.util.Set
+import javax.persistence.Column
+import javax.persistence.Entity
+import javax.persistence.FetchType
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
+import javax.persistence.Inheritance
+import javax.persistence.InheritanceType
+import javax.persistence.ManyToMany
 import observers.busqueda.BusquedaObserver
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.commons.model.Entity
 import org.uqbar.commons.utils.Observable
 import org.uqbar.geodds.Point
 import poi.POI
 
 import static extension creacionales.ObserverFactory.*
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 @Observable
 @Accessors
 @JsonIgnoreProperties(ignoreUnknown = true)
-class Usuario extends Entity{
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+class Usuario {
+	
+	@Id
+	@GeneratedValue
+	private Long id
+	
+	@Column (length = 50 )
 	String nombre
+	
+	@Column ( length = 50 )
 	String contrasenia
+	
+	@ManyToMany ( fetch = FetchType.LAZY)
 	List<POI> listaFavoritos = newArrayList
 
 	@JsonIgnore
