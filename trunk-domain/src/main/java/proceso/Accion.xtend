@@ -13,7 +13,7 @@ abstract class Accion {
 	def void undo(Set<Usuario> usuarios)
 }
 
-class AgregarObserver extends Accion {
+/*class AgregarObserver extends Accion {
 	override ejecutar(Set<Usuario> usuarios) {
 		usuarios.forEach[addObserver(nombreObserver)]
 	}
@@ -34,3 +34,4 @@ class QuitarObserver extends Accion {
 	}
 
 }
+*/

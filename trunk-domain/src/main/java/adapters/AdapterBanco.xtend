@@ -22,7 +22,7 @@ final class AdapterBanco {
 		new BancoBuilder()
 			.barrio(json.get("sucursal").asString)
 			.compania(json.get("banco").asString)
-			.ubicacion(json.get("x").asDouble, json.get("y").asDouble)
+			//.ubicacion(json.get("x").asDouble, json.get("y").asDouble)
 			.servicios(json.get("servicios").asArray
 											.map[asString]
 											.toSet)

@@ -2,11 +2,12 @@ package poi
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import java.util.Set
+import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.FetchType
 import javax.persistence.OneToMany
-import javax.persistence.OneToOne
+import javax.persistence.Transient
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
 import org.uqbar.commons.utils.Observable
@@ -15,7 +16,6 @@ import org.uqbar.geodds.Polygon
 import poi.utils.Servicio
 
 import static extension poi.utils.POIUtils.*
-import javax.persistence.Transient
 
 @Accessors
 @Entity
@@ -29,10 +29,10 @@ class CGP extends POI {
 	Point ubicacion
 
 	@Column(length=10)
-	int CoordenadaX
+	double coordenadaX
 
 	@Column(length=10)
-	int CoordenadaY
+	double coordenadaY
 	
 //	@OneToOne ( fetch = FetchType.LAZY)
 	@Transient
@@ -45,7 +45,7 @@ class CGP extends POI {
 	@Column ( length = 10 )
 	int lado3
 	
-	@OneToMany ( fetch = FetchType.LAZY)
+	@OneToMany ( fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	Set<Servicio> servicios = newHashSet
 
 	override estaCerca(Point coordenada) {

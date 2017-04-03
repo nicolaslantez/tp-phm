@@ -9,7 +9,7 @@ class UsuarioBuilder {
 		usuario
 	}
 
-	def info() {
+/* 	def info() {
 		add("Info")
 	}
 
@@ -21,10 +21,10 @@ class UsuarioBuilder {
 		add("Notificar Demora")
 	}
 
-	def add(String string) {
+ 	def add(String string) {
 		usuario.addObserver(string)
 		this
-	}
+	}*/
 	
 	def nombre(String string) {
 		usuario.setNombre(string)

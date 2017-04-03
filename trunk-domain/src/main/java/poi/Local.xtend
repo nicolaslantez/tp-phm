@@ -3,14 +3,16 @@ package poi
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import java.util.Set
+import javax.persistence.CascadeType
 import javax.persistence.Column
+import javax.persistence.ElementCollection
 import javax.persistence.Entity
 import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
-import javax.persistence.ManyToMany
 import javax.persistence.ManyToOne
 import javax.persistence.OneToOne
+import javax.persistence.Transient
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
 import org.uqbar.commons.utils.Observable
@@ -18,7 +20,6 @@ import org.uqbar.geodds.Point
 import poi.utils.Horario
 
 import static extension poi.utils.POIUtils.*
-import javax.persistence.Transient
 
 @Accessors
 @Entity
@@ -27,7 +28,7 @@ class Local extends POI {
 	@JsonIgnore
 	
 	//TODO: VER ACA! ONE TO MANY?
-	@OneToOne( fetch = FetchType.LAZY)
+	@OneToOne( fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	Horario horario
 	
 //	TODO: CASCADA EN ONE TO ONE?
@@ -36,16 +37,16 @@ class Local extends POI {
 	Point ubicacion
 	
 	@Column( length = 10)
-	int CoordenadaX
+	double coordenadaX
 	
 	@Column( length = 10)
-	int CoordenadaY
+	double coordenadaY
 	
 	
-	@ManyToOne ( fetch = FetchType.LAZY)
+	@ManyToOne ( fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	Rubro rubro
 	
-	@ManyToMany (fetch  = FetchType.LAZY)
+	@ElementCollection
 	Set<String> palabrasClave = newHashSet
 	
 	@Column ( length = 50 )

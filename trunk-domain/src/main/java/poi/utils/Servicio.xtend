@@ -3,6 +3,7 @@ package poi.utils
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
+import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.FetchType
@@ -27,7 +28,7 @@ class Servicio {
 	
 	@JsonIgnore
 	
-	@OneToOne( fetch = FetchType.LAZY)
+	@OneToOne( fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	Horario horario
 	
 	@Column( length = 50 )

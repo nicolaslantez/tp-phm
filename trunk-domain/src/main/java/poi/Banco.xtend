@@ -3,10 +3,11 @@ package poi
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import java.util.Set
+import javax.persistence.CascadeType
 import javax.persistence.Column
+import javax.persistence.ElementCollection
 import javax.persistence.Entity
 import javax.persistence.FetchType
-import javax.persistence.ManyToMany
 import javax.persistence.OneToOne
 import javax.persistence.Transient
 import org.eclipse.xtend.lib.annotations.Accessors
@@ -23,19 +24,19 @@ import static extension poi.utils.POIUtils.*
 class Banco extends POI {
 	@JsonIgnore
 	// TODO: VER ACA! ONE TO MANY?
-	@OneToOne(fetch=FetchType.LAZY)
+	@OneToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	Horario horario
 
 	@Transient
 	Point ubicacion
 
 	@Column(length=10)
-	int CoordenadaX
+	double coordenadaX
 
 	@Column(length=10)
-	int CoordenadaY
+	double coordenadaY
 
-	@ManyToMany(fetch=FetchType.LAZY)
+	@ElementCollection
 	Set<String> servicios = newHashSet
 
 	@Column(length=50)

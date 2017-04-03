@@ -37,8 +37,14 @@ class BancoBuilder {
 		this
 	}
 
-	def ubicacion(double x, double y) {
+	/*def ubicacion(double x, double y) {
 		banco.ubicacion = new Point(x, y)
+		this
+	}*/
+	
+	def xy(Point point){
+		banco.coordenadaX = point.latitude()
+		banco.coordenadaY = point.longitude()
 		this
 	}
 

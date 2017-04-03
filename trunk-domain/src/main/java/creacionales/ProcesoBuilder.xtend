@@ -1,12 +1,10 @@
 package creacionales
 
 import proceso.ActualizarLocales
-import proceso.AgregarObserver
 import proceso.BorrarPOI
 import proceso.ModificarUsuarios
 import proceso.Proceso
 import proceso.ProcesoMultiple
-import proceso.QuitarObserver
 
 class ProcesoBuilder {
 	def actualizarLocales(String ruta) {
@@ -33,7 +31,7 @@ class ModificarUsuariosBuilder {
 		proceso
 	}
 
-	def agreguen(String string) {
+	/*def agreguen(String string) {
 		proceso.listaAcciones.add(new AgregarObserver => [nombreObserver = string])
 		this
 	}
@@ -41,7 +39,7 @@ class ModificarUsuariosBuilder {
 	def quiten(String string) {
 		proceso.listaAcciones.add(new QuitarObserver => [nombreObserver = string])
 		this
-	}
+	}*/
 }
 
 class ProcesoMultipleBuilder {

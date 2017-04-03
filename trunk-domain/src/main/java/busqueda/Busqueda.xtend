@@ -20,7 +20,7 @@ class Busqueda {
 
 		tiempo = ( System.currentTimeMillis - inicio) / 1000d
 
-		usuario.listaObservers.forEach[realizarAccion(this, usuario)]
+		//usuario.listaObservers.forEach[realizarAccion(this, usuario)]
 
 		resultados
 	}

@@ -7,7 +7,7 @@ import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
-import javax.persistence.MapKey
+import javax.persistence.Transient
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
 import org.joda.time.LocalTime
@@ -19,12 +19,12 @@ import static extension creacionales.DiasFactory.*
 @Entity
 @Observable
 class Horario {
-	
+
 	@Id
 	@GeneratedValue
 	private Long id
-	
-	@MapKey( name = "horarios")
+
+	@Transient
 	Map<DayOfWeek, Set<RangoHorario>> diasHabiles = newLinkedHashMap
 
 	def boolean estaDisponible(DateTime momento) {
@@ -58,9 +58,8 @@ class RangoHorario {
 	@Id
 	@GeneratedValue
 	private Long id
-	
-	
-	//TODO:  datetime sql
+
+	// TODO:  datetime sql
 	@Column
 	LocalTime abre
 	@Column

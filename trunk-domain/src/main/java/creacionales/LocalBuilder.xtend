@@ -33,8 +33,14 @@ class LocalBuilder {
 		this
 	}
 
-	def ubicacion(double x, double y) {
+	/*def ubicacion(double x, double y) {
 		local.ubicacion = new Point(x, y)
+		this
+	}*/
+	
+	def xy(Point point){
+		local.coordenadaX = point.latitude()
+		local.coordenadaY = point.longitude()
 		this
 	}
 

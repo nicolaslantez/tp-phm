@@ -6,6 +6,7 @@ import creacionales.ServiceLocator
 import java.util.List
 import java.util.Set
 import javax.persistence.Column
+import javax.persistence.ElementCollection
 import javax.persistence.Entity
 import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
@@ -41,8 +42,9 @@ class Usuario {
 	@ManyToMany ( fetch = FetchType.LAZY)
 	List<POI> listaFavoritos = newArrayList
 
-	@JsonIgnore
-	Set<BusquedaObserver> listaObservers = newHashSet
+	/* @JsonIgnore
+	@ElementCollection
+	Set<BusquedaObserver> listaObservers = newHashSet*/
 
 	new() {
 		ServiceLocator.instance.usuarios.add(this)
@@ -52,14 +54,14 @@ class Usuario {
 		ServiceLocator.instance.servicioBusqueda.realizar(this, valor)
 	}
 
-	def addObserver(String string) {
+	/*def addObserver(String string) {
 		listaObservers.add(string.toObserver)
 	}
 
 	def removeObserver(String string) {
 		listaObservers.remove(string.toObserver)
 	}
-
+*/
 	def void addFavorito(POI poi) {
 		listaFavoritos.add(poi)
 	}

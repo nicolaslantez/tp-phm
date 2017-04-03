@@ -1,24 +1,24 @@
 package poi
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import java.util.Set
+import javax.persistence.Column
+import javax.persistence.Entity
+import javax.persistence.Transient
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
+import org.uqbar.commons.utils.Observable
 import org.uqbar.geodds.Point
 
 import static extension poi.utils.POIUtils.*
-import com.fasterxml.jackson.annotation.JsonIgnore
-import javax.persistence.Entity
-import org.uqbar.commons.utils.Observable
-import javax.persistence.ManyToMany
-import javax.persistence.FetchType
-import javax.persistence.Column
 
 @Accessors
 @Entity
 @Observable
 class Colectivo extends POI {
 	
-	@ManyToMany ( fetch = FetchType.LAZY)
+	//@ManyToMany ( fetch = FetchType.LAZY)
+	@Transient
 	Set<Point> paradas = newHashSet
 	
 	@Column( length = 10)

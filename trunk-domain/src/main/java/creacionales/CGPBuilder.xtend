@@ -16,11 +16,22 @@ class CGPBuilder {
 		this
 	}
 	
-	def ubicacion(double x, double y){
+	/*def ubicacion(double x, double y){
 		cgp.ubicacion = new Point(x, y)
 		this
+	}*/
+	
+	def xy(Point point){
+		cgp.coordenadaX = point.latitude()
+		cgp.coordenadaY = point.longitude()
+		this
 	}
-
+	
+	/*def y(Point point){
+		cgp.coordenadaY = point.longitude()
+		this
+	}*/
+	
 	def limite(double x, double y) {
 		cgp.limites.add(new Point(x, y))
 		this
