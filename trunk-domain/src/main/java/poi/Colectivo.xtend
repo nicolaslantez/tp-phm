@@ -1,9 +1,14 @@
 package poi
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import java.util.List
 import java.util.Set
+import javax.persistence.CollectionTable
 import javax.persistence.Column
+import javax.persistence.ElementCollection
 import javax.persistence.Entity
+import javax.persistence.FetchType
+import javax.persistence.JoinColumn
 import javax.persistence.Transient
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
@@ -17,11 +22,20 @@ import static extension poi.utils.POIUtils.*
 @Observable
 class Colectivo extends POI {
 	
-	//@ManyToMany ( fetch = FetchType.LAZY)
 	@Transient
 	Set<Point> paradas = newHashSet
+	
+	//TODO: VER COMO JUNTAR AMBAS LISTAS EN LA MISMA FILA
+	@ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name="Paradas", joinColumns=@JoinColumn(name="Colectivo_id"))
+    @Column(name="coordenadaX")
+	List<Double> coordenadasX = newArrayList
+	
+	@ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name="Paradas", joinColumns=@JoinColumn(name="Colectivo_id"))
+    @Column(name="coordenadaY")
+	List<Double> coordenadasY = newArrayList
 
-		
 	@Column( length = 10)
 	int nroLinea
 

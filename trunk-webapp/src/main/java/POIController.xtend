@@ -105,11 +105,11 @@ class POIController {
 
 		val cgp11 = new POIBuilder().cgp.comuna(11).xy(new Point(11, 11)).servicio(dni).servicio(cuit_cuil).domicilio(
 			"Ayacucho 2742").limite1(new Point(7, 11)).limite2(new Point(11, 7)).limite3(new Point(11, 13)).build
-		val linea343 = new POIBuilder().colectivo.numero(343).domicilio("Gdor. Ugarte 4071").parada(1, 1).parada(2, 1).
+		val linea343 = new POIBuilder().colectivo.numero(343).domicilio("Gdor. Ugarte 4071").parada(new Point(1, 1)).parada(new Point(2, 1)).
 			build
 
-		val linea237 = new POIBuilder().colectivo.numero(237).domicilio("Av. Marquez 2711").parada(11, 11).parada(11,
-			10).parada(11, 9).parada(7, 9).parada(7, 7).parada(7, 1).build
+		val linea237 = new POIBuilder().colectivo.numero(237).domicilio("Av. Marquez 2711").parada(new Point(11, 11)).parada(new Point(11,
+			10)).parada(new Point(11, 9)).parada(new Point(7, 9)).parada(new Point(7, 7)).parada(new Point(7, 1)).build
 
 		val maninHnos = new POIBuilder().local.nombre("Manin Hnos.").rubro(rubroFruteria).clave("fruta").domicilio(
 			"Moreno 3146").xy(new Point(3, 1)).horario(#["Lunes", "Martes", "Miercoles", "Jueves", "Viernes"], 10, 0, 19,

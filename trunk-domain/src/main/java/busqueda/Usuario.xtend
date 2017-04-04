@@ -1,26 +1,19 @@
 package busqueda
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import creacionales.ServiceLocator
 import java.util.List
-import java.util.Set
 import javax.persistence.Column
-import javax.persistence.ElementCollection
 import javax.persistence.Entity
 import javax.persistence.FetchType
-import javax.persistence.GeneratedValue
 import javax.persistence.Id
 import javax.persistence.Inheritance
 import javax.persistence.InheritanceType
 import javax.persistence.ManyToMany
-import observers.busqueda.BusquedaObserver
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 import org.uqbar.geodds.Point
 import poi.POI
-
-import static extension creacionales.ObserverFactory.*
 
 @Observable
 @Accessors
@@ -30,10 +23,6 @@ import static extension creacionales.ObserverFactory.*
 class Usuario {
 	
 	@Id
-	@GeneratedValue
-	private Long id
-	
-	//TODO:  NOMBRE = PK (nickname) 
 	@Column (length = 50 )
 	String nombre
 	
