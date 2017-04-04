@@ -33,13 +33,14 @@ class Usuario {
 	@GeneratedValue
 	private Long id
 	
+	//TODO:  NOMBRE = PK (nickname) 
 	@Column (length = 50 )
 	String nombre
 	
 	@Column ( length = 50 )
 	String contrasenia
 	
-	@ManyToMany ( fetch = FetchType.LAZY)
+	@ManyToMany ( fetch = FetchType.EAGER)
 	List<POI> listaFavoritos = newArrayList
 
 	/* @JsonIgnore

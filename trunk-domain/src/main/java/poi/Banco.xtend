@@ -3,12 +3,11 @@ package poi
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import java.util.Set
-import javax.persistence.CascadeType
+import javax.persistence.CollectionTable
 import javax.persistence.Column
 import javax.persistence.ElementCollection
 import javax.persistence.Entity
-import javax.persistence.FetchType
-import javax.persistence.OneToOne
+import javax.persistence.JoinColumn
 import javax.persistence.Transient
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
@@ -17,6 +16,7 @@ import org.uqbar.geodds.Point
 import poi.utils.Horario
 
 import static extension poi.utils.POIUtils.*
+import javax.persistence.FetchType
 
 @Accessors
 @Entity
@@ -24,7 +24,8 @@ import static extension poi.utils.POIUtils.*
 class Banco extends POI {
 	@JsonIgnore
 	// TODO: VER ACA! ONE TO MANY?
-	@OneToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+//	@OneToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@Transient
 	Horario horario
 
 	@Transient
@@ -36,7 +37,12 @@ class Banco extends POI {
 	@Column(length=10)
 	double coordenadaY
 
-	@ElementCollection
+//	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+//	@ElementCollection
+//	@Transient
+	@ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name="ServicioBanco", joinColumns=@JoinColumn(name="Banco_id"))
+    @Column(name="servicio")
 	Set<String> servicios = newHashSet
 
 	@Column(length=50)

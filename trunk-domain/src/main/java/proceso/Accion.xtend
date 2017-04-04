@@ -13,25 +13,25 @@ abstract class Accion {
 	def void undo(Set<Usuario> usuarios)
 }
 
-/*class AgregarObserver extends Accion {
-	override ejecutar(Set<Usuario> usuarios) {
-		usuarios.forEach[addObserver(nombreObserver)]
-	}
-
-	override undo(Set<Usuario> usuarios) {
-		usuarios.forEach[removeObserver(nombreObserver)]
-	}
-
-}
-
-class QuitarObserver extends Accion {
-	override ejecutar(Set<Usuario> usuarios) {
-		usuarios.forEach[removeObserver(nombreObserver)]
-	}
-
-	override undo(Set<Usuario> usuarios) {
-		usuarios.forEach[addObserver(nombreObserver)]
-	}
-
-}
-*/
+///*class AgregarObserver extends Accion {
+//	override ejecutar(Set<Usuario> usuarios) {
+//		usuarios.forEach[addObserver(nombreObserver)]
+//	}
+//
+//	override undo(Set<Usuario> usuarios) {
+//		usuarios.forEach[removeObserver(nombreObserver)]
+//	}
+//
+//}
+//
+//class QuitarObserver extends Accion {
+//	override ejecutar(Set<Usuario> usuarios) {
+//		usuarios.forEach[removeObserver(nombreObserver)]
+//	}
+//
+//	override undo(Set<Usuario> usuarios) {
+//		usuarios.forEach[addObserver(nombreObserver)]
+//	}
+//
+//}
+//*/

@@ -11,7 +11,6 @@ import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
 import javax.persistence.ManyToOne
-import javax.persistence.OneToOne
 import javax.persistence.Transient
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
@@ -28,7 +27,8 @@ class Local extends POI {
 	@JsonIgnore
 	
 	//TODO: VER ACA! ONE TO MANY?
-	@OneToOne( fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+//	@OneToOne( fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@Transient
 	Horario horario
 	
 //	TODO: CASCADA EN ONE TO ONE?

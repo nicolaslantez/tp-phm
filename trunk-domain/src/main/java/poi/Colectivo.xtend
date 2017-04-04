@@ -20,7 +20,8 @@ class Colectivo extends POI {
 	//@ManyToMany ( fetch = FetchType.LAZY)
 	@Transient
 	Set<Point> paradas = newHashSet
-	
+
+		
 	@Column( length = 10)
 	int nroLinea
 

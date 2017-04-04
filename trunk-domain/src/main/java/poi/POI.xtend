@@ -16,6 +16,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
 import org.uqbar.commons.utils.Observable
 import org.uqbar.geodds.Point
+import javax.persistence.Transient
 
 @Observable
 @Accessors
@@ -32,7 +33,8 @@ abstract class POI {
 	String domicilio
 	
 	//TODO: cuando se hace click en un poi carga las review de ese POI
-	@OneToMany( fetch = FetchType.LAZY , cascade = CascadeType.ALL)
+//	@OneToMany( fetch = FetchType.LAZY , cascade = CascadeType.ALL)
+	@Transient
 	List<Opinion> listaOpiniones = newArrayList
 
 	def boolean estaCerca(Point coordenada)
