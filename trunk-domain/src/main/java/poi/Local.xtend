@@ -4,12 +4,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import java.util.Set
 import javax.persistence.CascadeType
+import javax.persistence.CollectionTable
 import javax.persistence.Column
 import javax.persistence.ElementCollection
 import javax.persistence.Entity
 import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
+import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 import javax.persistence.Transient
 import org.eclipse.xtend.lib.annotations.Accessors
@@ -31,8 +33,6 @@ class Local extends POI {
 	@Transient
 	Horario horario
 	
-//	TODO: CASCADA EN ONE TO ONE?
-//	@OneToOne( fetch = FetchType.LAZY	)
 	@Transient
 	Point ubicacion
 	
@@ -42,11 +42,12 @@ class Local extends POI {
 	@Column( length = 10)
 	double coordenadaY
 	
-	
 	@ManyToOne ( fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	Rubro rubro
 	
-	@ElementCollection
+	@ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name="PalabrasClaves", joinColumns=@JoinColumn(name="Local_id"))
+    @Column(name="palabraClave")
 	Set<String> palabrasClave = newHashSet
 	
 	@Column ( length = 50 )

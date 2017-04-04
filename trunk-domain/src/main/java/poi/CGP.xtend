@@ -45,8 +45,7 @@ class CGP extends POI {
 	@Column ( length = 10 )
 	double lado3
 	
-//	@OneToMany ( fetch = FetchType.LAZY, cascade=CascadeType.ALL)
-	@Transient
+	@OneToMany ( fetch = FetchType.EAGER, cascade=CascadeType.ALL)	
 	Set<Servicio> servicios = newHashSet
 
 	override estaCerca(Point coordenada) {
