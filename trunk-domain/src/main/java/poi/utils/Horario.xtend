@@ -7,7 +7,7 @@ import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
-import javax.persistence.MapKey
+import javax.persistence.Transient
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
 import org.joda.time.LocalTime
@@ -24,10 +24,11 @@ class Horario {
 	@GeneratedValue
 	private Long id
 
-	@ElementCollection(fetch = FetchType.EAGER)
-    @JoinColumns({@JoinColumn(name = "ID_USER", referencedColumnName = "ID"), @JoinColumn(name = "ID_DOMAIN", referencedColumnName = "ID_DOMAIN")})
-    @OneToMany(targetEntity = Preferences.class, fetch = FetchType.LAZY)
-    @MapKey(name = "key")
+	//@ElementCollection(fetch = FetchType.EAGER)
+   // @JoinColumns({@JoinColumn(name = "ID_USER", referencedColumnName = "ID"), @JoinColumn(name = "ID_DOMAIN", referencedColumnName = "ID_DOMAIN")})
+   // @OneToMany(targetEntity = Preferences.class, fetch = FetchType.LAZY)
+   // @MapKey(name = "key")
+   @Transient
 	Map<DayOfWeek, Set<RangoHorario>> diasHabiles = newLinkedHashMap
 
 	def boolean estaDisponible(DateTime momento) {

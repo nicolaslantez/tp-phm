@@ -31,9 +31,22 @@ class CGPBuilder {
 		cgp.coordenadaY = point.longitude()
 		this
 	}*/
+	//TODO: VER COMO CALCULAR EL LADO
+	def limite1(Point point) {
+		cgp.lado1 = point.latitude() + point.longitude()
+		//cgp.limites.add(new Point(x, y))
+		this
+	}
 	
-	def limite(double x, double y) {
-		cgp.limites.add(new Point(x, y))
+	def limite2(Point point) {
+		cgp.lado2 = point.latitude() + point.longitude()
+		//cgp.limites.add(new Point(x, y))
+		this
+	}
+	
+	def limite3(Point point) {
+		cgp.lado3 = point.latitude() + point.longitude()
+		//cgp.limites.add(new Point(x, y))
 		this
 	}
 	

@@ -96,18 +96,15 @@ class POIController {
 		val rubroFruteria = new Rubro => [nombre = "Fruteria" radio = 5]
 
 		val rubroPanaderia = new Rubro => [nombre = "Panaderia" radio = 3]
-
-	//	val cgp15 = new POIBuilder().cgp.comuna(15).ubicacion(2, 2).servicio(rentas).servicio(bici).domicilio(
-		//	"Av. Cordoba 5690").limite(0, 2).limite(2, 0).limite(4, 2).build
-
-	//	val cgp11 = new POIBuilder().cgp.comuna(11).ubicacion(11, 11).servicio(dni).servicio(cuit_cuil).domicilio(
-	//		"Ayacucho 2742").limite(7, 11).limite(11, 7).limite(11, 13).build
+		
+		//val cgp15 = new POIBuilder().cgp.comuna(15).xy(new Point(2,2)).servicio(rentas).servicio(bici).domicilio(
+		//"Av. Cordoba 5690").limite(0, 2).limite(2, 0).limite(4, 2).build
 		
 		val cgp15 = new POIBuilder().cgp.comuna(15).xy(new Point(2,2)).servicio(rentas).servicio(bici).domicilio(
-		"Av. Cordoba 5690").limite(0, 2).limite(2, 0).limite(4, 2).build
+		"Av. Cordoba 5690").limite1(new Point(0, 2)).limite2(new Point(2, 0)).limite3(new Point(4, 2)).build
 
 		val cgp11 = new POIBuilder().cgp.comuna(11).xy(new Point(11, 11)).servicio(dni).servicio(cuit_cuil).domicilio(
-			"Ayacucho 2742").limite(7, 11).limite(11, 7).limite(11, 13).build
+			"Ayacucho 2742").limite1(new Point(7, 11)).limite2(new Point(11, 7)).limite3(new Point(11, 13)).build
 		val linea343 = new POIBuilder().colectivo.numero(343).domicilio("Gdor. Ugarte 4071").parada(1, 1).parada(2, 1).
 			build
 

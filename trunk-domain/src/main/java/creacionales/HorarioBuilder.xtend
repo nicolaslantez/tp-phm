@@ -1,12 +1,14 @@
 package creacionales
 
 import java.time.DayOfWeek
+import javax.persistence.Entity
 import org.joda.time.LocalTime
 import poi.utils.Horario
 import poi.utils.RangoHorario
 
 import static extension creacionales.DiasFactory.*
 
+@Entity
 class HorarioBuilder {
 	Horario horario = new Horario
 	

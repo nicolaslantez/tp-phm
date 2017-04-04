@@ -88,14 +88,4 @@ abstract class RepoDefault<T> {
 	def abstract Class<T> getEntityType()
 
 	def abstract void addQueryByExample(Criteria criteria, T t)
-	
- 	
- 	
- 	
- 	
- 	
- 	
- 	
- 	
- 	
 }

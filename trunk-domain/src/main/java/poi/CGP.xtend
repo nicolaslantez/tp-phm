@@ -39,11 +39,11 @@ class CGP extends POI {
 	Polygon limites = new Polygon
 	
 	@Column ( length = 10 )
-	int lado1
+	double lado1
 	@Column ( length = 10 )
-	int lado2
+	double lado2
 	@Column ( length = 10 )
-	int lado3
+	double lado3
 	
 //	@OneToMany ( fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	@Transient

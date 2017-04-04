@@ -37,9 +37,6 @@ class Banco extends POI {
 	@Column(length=10)
 	double coordenadaY
 
-//	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-//	@ElementCollection
-//	@Transient
 	@ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name="ServicioBanco", joinColumns=@JoinColumn(name="Banco_id"))
     @Column(name="servicio")
