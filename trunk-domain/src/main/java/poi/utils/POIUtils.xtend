@@ -1,9 +1,7 @@
 package poi.utils
 
-import org.uqbar.geodds.Point
-
 final class POIUtils {
-	def static boolean estaCerca(Point coordenada, Point otraCoordenada, int nroCuadras) {
+	def static boolean estaCerca(Punto coordenada, Punto otraCoordenada, int nroCuadras) {
 		coordenada.distance(otraCoordenada) * 10 < nroCuadras
 	}
 

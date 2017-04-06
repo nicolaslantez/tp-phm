@@ -13,12 +13,13 @@ import javax.persistence.GeneratedValue
 import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
+import javax.persistence.OneToOne
 import javax.persistence.Transient
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
 import org.uqbar.commons.utils.Observable
-import org.uqbar.geodds.Point
 import poi.utils.Horario
+import poi.utils.Punto
 
 import static extension poi.utils.POIUtils.*
 
@@ -33,14 +34,15 @@ class Local extends POI {
 	@Transient
 	Horario horario
 	
-	@Transient
-	Point ubicacion
+	//@Transient
+	//Point ubicacion
+	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	Punto ubicacion
+	//@Column( length = 10)
+	//double coordenadaX
 	
-	@Column( length = 10)
-	double coordenadaX
-	
-	@Column( length = 10)
-	double coordenadaY
+	//@Column( length = 10)
+	//double coordenadaY
 	
 	@ManyToOne ( fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	Rubro rubro
@@ -53,7 +55,7 @@ class Local extends POI {
 	@Column ( length = 50 )
 	String nombre
 
-	override estaCerca(Point coordenada) {
+	override estaCerca(Punto coordenada) {
 		ubicacion.estaCerca(coordenada, rubro.radio)
 	}
 
@@ -69,7 +71,7 @@ class Local extends POI {
 		horario.estaDisponible(momento)
 	}
 
-	override getDistancia(Point coordenada) {
+	override getDistancia(Punto coordenada) {
 		ubicacion.distance(coordenada)
 	}
 

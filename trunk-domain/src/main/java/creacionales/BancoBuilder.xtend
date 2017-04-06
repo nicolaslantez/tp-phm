@@ -1,7 +1,7 @@
 package creacionales
 
-import org.uqbar.geodds.Point
 import poi.Banco
+import poi.utils.Punto
 
 class BancoBuilder {
 	Banco banco = new Banco => [
@@ -37,15 +37,15 @@ class BancoBuilder {
 		this
 	}
 
-	/*def ubicacion(double x, double y) {
-		banco.ubicacion = new Point(x, y)
+	def ubicacion(double x, double y) {
+		banco.ubicacion = new Punto(x, y)
 		this
-	}*/
-	
-	def xy(Point point){
+	}
+
+	/*def xy(Point point){
 		banco.coordenadaX = point.latitude()
 		banco.coordenadaY = point.longitude()
 		this
-	}
+	}*/
 
 }

@@ -6,13 +6,14 @@ import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.FetchType
+import javax.persistence.ManyToOne
 import javax.persistence.OneToMany
-import javax.persistence.Transient
+import javax.persistence.OneToOne
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
 import org.uqbar.commons.utils.Observable
-import org.uqbar.geodds.Point
-import org.uqbar.geodds.Polygon
+import poi.utils.Poligono
+import poi.utils.Punto
 import poi.utils.Servicio
 
 import static extension poi.utils.POIUtils.*
@@ -25,30 +26,23 @@ class CGP extends POI {
 	@Column( length = 10)
 	int nroComuna
 	
-	@Transient
-	Point ubicacion
+	//@Transient
+	//Point ubicacion
+	@OneToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+	Punto ubicacion
+	//@Column(length=10)
+	//double coordenadaX
 
-	@Column(length=10)
-	double coordenadaX
-
-	@Column(length=10)
-	double coordenadaY
+	//@Column(length=10)
+	//double coordenadaY
 	
-//	@OneToOne ( fetch = FetchType.LAZY)
-	@Transient
-	Polygon limites = new Polygon
-	
-	@Column ( length = 10 )
-	double lado1
-	@Column ( length = 10 )
-	double lado2
-	@Column ( length = 10 )
-	double lado3
+	@OneToOne ( fetch = FetchType.EAGER, cascade=CascadeType.ALL)	
+	Poligono limites = new Poligono
 	
 	@OneToMany ( fetch = FetchType.EAGER, cascade=CascadeType.ALL)	
 	Set<Servicio> servicios = newHashSet
 
-	override estaCerca(Point coordenada) {
+	override estaCerca(Punto coordenada) {
 		limites.isInside(coordenada)
 	}
 
@@ -75,7 +69,7 @@ class CGP extends POI {
 		builder.toString
 	}
 	
-	override getDistancia(Point coordenada) {
+	override getDistancia(Punto coordenada) {
 		ubicacion.distance(coordenada)
 	}
 	

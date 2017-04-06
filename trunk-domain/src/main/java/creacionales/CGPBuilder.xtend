@@ -1,7 +1,7 @@
 package creacionales
 
-import org.uqbar.geodds.Point
 import poi.CGP
+import poi.utils.Punto
 import poi.utils.Servicio
 
 class CGPBuilder {
@@ -16,29 +16,24 @@ class CGPBuilder {
 		this
 	}
 	
-	/*def ubicacion(double x, double y){
-		cgp.ubicacion = new Point(x, y)
+	def ubicacion(double x, double y){
+		cgp.ubicacion = new Punto(x, y)
 		this
-	}*/
+	}
 	
-	def xy(Point point){
+	/*def xy(Point point){
 		cgp.coordenadaX = point.latitude()
 		cgp.coordenadaY = point.longitude()
 		this
-	}
-	
-	/*def y(Point point){
-		cgp.coordenadaY = point.longitude()
-		this
 	}*/
+	
 	//TODO: VER COMO CALCULAR EL LADO
-	def limite1(Point point) {
-		cgp.lado1 = point.latitude() + point.longitude()
-		//cgp.limites.add(new Point(x, y))
+	def limite(double x, double y) {
+		cgp.limites.add(new Punto(x, y))
 		this
 	}
 	
-	def limite2(Point point) {
+	/*def limite2(Point point) {
 		cgp.lado2 = point.latitude() + point.longitude()
 		//cgp.limites.add(new Point(x, y))
 		this
@@ -48,7 +43,7 @@ class CGPBuilder {
 		cgp.lado3 = point.latitude() + point.longitude()
 		//cgp.limites.add(new Point(x, y))
 		this
-	}
+	}*/
 	
 	def domicilio(String _domicilio){
 		cgp.domicilio = _domicilio

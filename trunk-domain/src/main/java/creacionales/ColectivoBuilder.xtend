@@ -1,7 +1,7 @@
 package creacionales
 
-import org.uqbar.geodds.Point
 import poi.Colectivo
+import poi.utils.Punto
 
 class ColectivoBuilder {
 	Colectivo colectivo = new Colectivo
@@ -20,15 +20,15 @@ class ColectivoBuilder {
 		this
 	}
 
-	/*def parada(double x, double y) {
-		colectivo.paradas.add(new Point(x, y))
+	def parada(double x, double y) {
+		colectivo.paradas.add(new Punto(x, y))
 		this
-	}*/
+	}
 	
-	def parada(Point point) {
+	/*def parada(Point point) {
 		colectivo.coordenadasX.add(point.latitude)
 		colectivo.coordenadasY.add(point.longitude)
 		this
-	}
+	}*/
 	
 }

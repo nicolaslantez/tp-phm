@@ -12,6 +12,8 @@ import poi.Opinion
 import poi.POI
 import poi.Rubro
 import poi.utils.Horario
+import poi.utils.Poligono
+import poi.utils.Punto
 import poi.utils.RangoHorario
 import poi.utils.Servicio
 
@@ -28,6 +30,8 @@ abstract class RepoDefault<T> {
  	.addAnnotatedClass(Servicio)
  	.addAnnotatedClass(RangoHorario)
  	.addAnnotatedClass(Opinion)
+ 	.addAnnotatedClass(Punto)
+ 	.addAnnotatedClass(Poligono)
  	.buildSessionFactory()
  	
  	def List<T> allInstances() {

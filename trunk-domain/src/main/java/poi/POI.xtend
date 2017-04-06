@@ -13,7 +13,7 @@ import javax.persistence.Transient
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
 import org.uqbar.commons.utils.Observable
-import org.uqbar.geodds.Point
+import poi.utils.Punto
 
 @Observable
 @Accessors
@@ -34,7 +34,7 @@ abstract class POI {
 	@Transient
 	List<Opinion> listaOpiniones = newArrayList
 
-	def boolean estaCerca(Point coordenada)
+	def boolean estaCerca(Punto coordenada)
 
 	def boolean coincideBusqueda(String string)
 
@@ -42,7 +42,7 @@ abstract class POI {
 
 	def boolean estaDisponible(DateTime momento)
 
-	def Double getDistancia(Point coordenada)
+	def Double getDistancia(Punto coordenada)
 
 	def String getNombre()
 

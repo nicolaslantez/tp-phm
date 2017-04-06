@@ -1,19 +1,16 @@
 package poi
 
 import com.fasterxml.jackson.annotation.JsonIgnore
-import java.util.List
 import java.util.Set
-import javax.persistence.CollectionTable
+import javax.persistence.CascadeType
 import javax.persistence.Column
-import javax.persistence.ElementCollection
 import javax.persistence.Entity
 import javax.persistence.FetchType
-import javax.persistence.JoinColumn
-import javax.persistence.Transient
+import javax.persistence.OneToMany
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
 import org.uqbar.commons.utils.Observable
-import org.uqbar.geodds.Point
+import poi.utils.Punto
 
 import static extension poi.utils.POIUtils.*
 
@@ -22,11 +19,13 @@ import static extension poi.utils.POIUtils.*
 @Observable
 class Colectivo extends POI {
 	
-	@Transient
-	Set<Point> paradas = newHashSet
+	//@Transient
+	//Set<Point> paradas = newHashSet
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	Set<Punto> paradas = newHashSet
 	
 	//TODO: VER COMO JUNTAR AMBAS LISTAS EN LA MISMA FILA
-	@ElementCollection(fetch = FetchType.EAGER)
+	/* @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name="Paradas", joinColumns=@JoinColumn(name="Colectivo_id"))
     @Column(name="coordenadaX")
 	List<Double> coordenadasX = newArrayList
@@ -34,12 +33,12 @@ class Colectivo extends POI {
 	@ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name="Paradas", joinColumns=@JoinColumn(name="Colectivo_id"))
     @Column(name="coordenadaY")
-	List<Double> coordenadasY = newArrayList
+	List<Double> coordenadasY = newArrayList*/
 
 	@Column( length = 10)
 	int nroLinea
 
-	override estaCerca(Point coordenada) {
+	override estaCerca(Punto coordenada) {
 		paradas.exists[estaCerca(coordenada, 1)]
 	}
 
@@ -64,7 +63,7 @@ class Colectivo extends POI {
 		paradas.size()
 	}
 	
-	override getDistancia(Point coordenada) {
+	override getDistancia(Punto coordenada) {
 		paradas.minBy[distance(coordenada)].distance(coordenada)
 	}
 	

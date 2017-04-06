@@ -3,20 +3,22 @@ package poi
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import java.util.Set
+import javax.persistence.CascadeType
 import javax.persistence.CollectionTable
 import javax.persistence.Column
 import javax.persistence.ElementCollection
 import javax.persistence.Entity
+import javax.persistence.FetchType
 import javax.persistence.JoinColumn
+import javax.persistence.OneToOne
 import javax.persistence.Transient
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
 import org.uqbar.commons.utils.Observable
-import org.uqbar.geodds.Point
 import poi.utils.Horario
+import poi.utils.Punto
 
 import static extension poi.utils.POIUtils.*
-import javax.persistence.FetchType
 
 @Accessors
 @Entity
@@ -28,14 +30,15 @@ class Banco extends POI {
 	@Transient
 	Horario horario
 
-	@Transient
-	Point ubicacion
+	//@Transient
+	//Point ubicacion
+	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	Punto ubicacion
+	//@Column(length=10)
+	//double coordenadaX
 
-	@Column(length=10)
-	double coordenadaX
-
-	@Column(length=10)
-	double coordenadaY
+	//@Column(length=10)
+	//double coordenadaY
 
 	@ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name="ServicioBanco", joinColumns=@JoinColumn(name="Banco_id"))
@@ -48,7 +51,7 @@ class Banco extends POI {
 	@Column(length=50)
 	String compania
 
-	override estaCerca(Point coordenada) {
+	override estaCerca(Punto coordenada) {
 		ubicacion.estaCerca(coordenada, 5)
 	}
 
@@ -80,7 +83,7 @@ class Banco extends POI {
 		builder.toString
 	}
 
-	override getDistancia(Point coordenada) {
+	override getDistancia(Punto coordenada) {
 		ubicacion.distance(coordenada)
 	}
 

@@ -1,8 +1,8 @@
 package creacionales
 
-import org.uqbar.geodds.Point
 import poi.Local
 import poi.Rubro
+import poi.utils.Punto
 
 class LocalBuilder {
 	HorarioBuilder horario = new HorarioBuilder
@@ -33,16 +33,16 @@ class LocalBuilder {
 		this
 	}
 
-	/*def ubicacion(double x, double y) {
-		local.ubicacion = new Point(x, y)
+	def ubicacion(double x, double y) {
+		local.ubicacion = new Punto(x, y)
 		this
-	}*/
+	}
 	
-	def xy(Point point){
+	/*def xy(Point point){
 		local.coordenadaX = point.latitude()
 		local.coordenadaY = point.longitude()
 		this
-	}
+	}*/
 
 	def nombre(String _nombre) {
 		local.nombre = _nombre
