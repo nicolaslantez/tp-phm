@@ -29,9 +29,8 @@ class HorarioBuilder {
 		DayOfWeek.of(nroDia).dia(horAbre, minAbre, horCierra, minCierra)
 	}
 
-	def dia(DayOfWeek dia, int horAbre, int minAbre, int horCierra, int minCierra) {
-		var rangosAux = horario.diasHabiles.get(dia) ?: newHashSet
-		rangosAux.add(crearRango(horAbre, minAbre, horCierra, minCierra))
+	def dia(DayOfWeek dia, int horAbre, int minAbre, int horCierra, int minCierra) {		
+		var rangosAux = crearRango(horAbre, minAbre, horCierra, minCierra)
 		horario.diasHabiles.put(dia, rangosAux)
 		this
 	}

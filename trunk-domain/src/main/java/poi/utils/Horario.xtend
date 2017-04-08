@@ -2,12 +2,13 @@ package poi.utils
 
 import java.time.DayOfWeek
 import java.util.Map
-import java.util.Set
+import javax.persistence.CollectionTable
 import javax.persistence.Column
+import javax.persistence.ElementCollection
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
-import javax.persistence.Transient
+import javax.persistence.MapKeyJoinColumn
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
 import org.joda.time.LocalTime
@@ -24,11 +25,10 @@ class Horario {
 	@GeneratedValue
 	private Long id
 
-//	@ElementCollection
-//	@CollectionTable(name="diasHabiles")
-//	@MapKeyJoinColumn(name="horario_id")
-//	@Column(name="diaHabil")
-	@Transient
+	@ElementCollection
+	@CollectionTable(name="diasHabiles")
+	@MapKeyJoinColumn(name="horario_id")
+	@Column(name="diaHabil")	
 	Map<DayOfWeek, RangoHorario> diasHabiles = newLinkedHashMap
 
 	def boolean estaDisponible(DateTime momento) {
@@ -42,13 +42,13 @@ class Horario {
 
 	override toString() {
 		val builder = new StringBuilder
-		diasHabiles.forEach[dia, horario|horario.forEach[rango|builder.append(dia.toNombreDia + ": " + rango + "\n")]]
+		diasHabiles.forEach[dia, horario|builder.append(dia.toNombreDia + ": " + horario + "\n")]
 		builder.toString
 	}
 
 	def toJSON() {
 		val array = newArrayList
-		diasHabiles.forEach[dia, listaRango|listaRango.forEach[rango|array.add(new RangoJSON(dia, rango))]]
+		diasHabiles.forEach[dia, listaRango|array.add(new RangoJSON(dia, listaRango))]
 		array
 	}
 

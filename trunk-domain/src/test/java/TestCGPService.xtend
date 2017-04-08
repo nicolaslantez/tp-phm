@@ -71,7 +71,7 @@ class TestCGPService {
 		val servicioDNI = cgp.servicios.get(0)
 		Assert.assertEquals("DNI" , servicioDNI.nombre)
 		
-		val horarioLunes = servicioDNI.horario.diasHabiles.get(DayOfWeek.MONDAY).get(0)
+		val horarioLunes = servicioDNI.horario.diasHabiles.get(DayOfWeek.MONDAY)
 		Assert.assertEquals(new LocalTime(8,0), horarioLunes.abre)
 		Assert.assertEquals(new LocalTime(17,30), horarioLunes.cierra)
 	}
