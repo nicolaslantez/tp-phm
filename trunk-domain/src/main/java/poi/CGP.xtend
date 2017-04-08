@@ -6,7 +6,6 @@ import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.FetchType
-import javax.persistence.ManyToOne
 import javax.persistence.OneToMany
 import javax.persistence.OneToOne
 import org.eclipse.xtend.lib.annotations.Accessors
@@ -25,16 +24,9 @@ class CGP extends POI {
 	
 	@Column( length = 10)
 	int nroComuna
-	
-	//@Transient
-	//Point ubicacion
+		
 	@OneToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	Punto ubicacion
-	//@Column(length=10)
-	//double coordenadaX
-
-	//@Column(length=10)
-	//double coordenadaY
 	
 	@OneToOne ( fetch = FetchType.EAGER, cascade=CascadeType.ALL)	
 	Poligono limites = new Poligono

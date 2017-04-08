@@ -2,13 +2,17 @@ package poi.utils
 
 import java.time.DayOfWeek
 import java.util.Map
-import javax.persistence.CollectionTable
+import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.ElementCollection
 import javax.persistence.Entity
+import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
-import javax.persistence.MapKeyJoinColumn
+import javax.persistence.JoinColumn
+import javax.persistence.JoinTable
+import javax.persistence.MapKey
+import javax.persistence.OneToMany
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
 import org.joda.time.LocalTime
@@ -26,9 +30,9 @@ class Horario {
 	private Long id
 
 	@ElementCollection
-	@CollectionTable(name="diasHabiles")
-	@MapKeyJoinColumn(name="horario_id")
-	@Column(name="diaHabil")	
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)	
+	@MapKey(name="id")
+	@Column(name="lantez")
 	Map<DayOfWeek, RangoHorario> diasHabiles = newLinkedHashMap
 
 	def boolean estaDisponible(DateTime momento) {
