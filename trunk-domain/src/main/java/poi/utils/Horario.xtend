@@ -29,15 +29,15 @@ class Horario {
 //	@MapKeyJoinColumn(name="horario_id")
 //	@Column(name="diaHabil")
 	@Transient
-	Map<DayOfWeek, Set<RangoHorario>> diasHabiles = newLinkedHashMap
+	Map<DayOfWeek, RangoHorario> diasHabiles = newLinkedHashMap
 
 	def boolean estaDisponible(DateTime momento) {
 		val dia = DayOfWeek.of(momento.getDayOfWeek())
 		val hora = momento.toLocalTime()
 
-		val rangosDia = diasHabiles.get(dia) ?: newHashSet
+		val rangosDia = diasHabiles.get(dia) ?: new RangoHorario
 
-		rangosDia.exists[estaDisponible(hora)]
+		rangosDia.estaDisponible(hora)
 	}
 
 	override toString() {
