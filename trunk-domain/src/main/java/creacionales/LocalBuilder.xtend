@@ -38,12 +38,6 @@ class LocalBuilder {
 		this
 	}
 	
-	/*def xy(Point point){
-		local.coordenadaX = point.latitude()
-		local.coordenadaY = point.longitude()
-		this
-	}*/
-
 	def nombre(String _nombre) {
 		local.nombre = _nombre
 		this
@@ -61,6 +55,11 @@ class LocalBuilder {
 
 	def clave(String palabra) {
 		local.palabrasClave.add(palabra)
+		this
+	}
+	
+	def estaHabilitado(int validacion) {
+		local.estaHabilitado = validacion
 		this
 	}
 }

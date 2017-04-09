@@ -45,4 +45,9 @@ class CGPBuilder {
 		cgp.servicios = coleccionServicios.toSet
 		this
 	}
+	
+	def estaHabilitado(int validacion) {
+		cgp.estaHabilitado = validacion
+		this
+	}
 }

@@ -97,30 +97,30 @@ class POIController {
 
 		val rubroPanaderia = new Rubro => [nombre = "Panaderia" radio = 3]		
 		
-		val cgp15 = new POIBuilder().cgp.comuna(15).ubicacion(2,2).servicio(rentas).servicio(bici).domicilio(
+		val cgp15 = new POIBuilder().cgp.comuna(15).estaHabilitado(0).ubicacion(2,2).servicio(rentas).servicio(bici).domicilio(
 		"Av. Cordoba 5690").limite(0, 2).limite(2, 0).limite(4, 2).build
 
-		val cgp11 = new POIBuilder().cgp.comuna(11).ubicacion(11, 11).servicio(dni).servicio(cuit_cuil).domicilio(
+		val cgp11 = new POIBuilder().cgp.comuna(11).estaHabilitado(1).ubicacion(11, 11).servicio(dni).servicio(cuit_cuil).domicilio(
 			"Ayacucho 2742").limite(7, 11).limite(11, 7).limite(11, 13).build
 			
-		val linea343 = new POIBuilder().colectivo.numero(343).domicilio("Gdor. Ugarte 4071").parada(1, 1).parada(2, 1).
+		val linea343 = new POIBuilder().colectivo.numero(343).estaHabilitado(1).domicilio("Gdor. Ugarte 4071").parada(1, 1).parada(2, 1).
 			build
 
-		val linea237 = new POIBuilder().colectivo.numero(237).domicilio("Av. Marquez 2711").parada(11, 11).parada(11,
+		val linea237 = new POIBuilder().colectivo.numero(237).estaHabilitado(1).domicilio("Av. Marquez 2711").parada(11, 11).parada(11,
 			10).parada(11, 9).parada(7, 9).parada(7, 7).parada(7, 1).build
 
-		val maninHnos = new POIBuilder().local.nombre("Manin Hnos.").rubro(rubroFruteria).clave("fruta").domicilio(
+		val maninHnos = new POIBuilder().local.nombre("Manin Hnos.").estaHabilitado(1).rubro(rubroFruteria).clave("fruta").domicilio(
 			"Moreno 3146").ubicacion(3, 1).horario(#["Lunes", "Martes", "Miercoles", "Jueves", "Viernes"], 10, 0, 19,
 			0).horario("Sabado", 10, 0, 13, 0).build
 
-		val trigoDeOro = new POIBuilder().local.nombre("Trigo de Oro").rubro(rubroPanaderia).clave("pan").clave(
+		val trigoDeOro = new POIBuilder().local.nombre("Trigo de Oro").estaHabilitado(0).rubro(rubroPanaderia).clave("pan").clave(
 			"facturas").domicilio("Alcorta 3798").ubicacion(11, 7).horario(
 			#["Martes", "Miercoles", "Jueves", "Viernes", "Domingo"], 7, 0, 20, 0).build
 
-		val nacionSanMartin = new POIBuilder().banco.compania("Nacion").barrio("San Martin").domicilio("Mitre 3920").
+		val nacionSanMartin = new POIBuilder().banco.compania("Nacion").estaHabilitado(1).barrio("San Martin").domicilio("Mitre 3920").
 			servicio("Depositos").servicio("Extracciones").servicio("Plazo Fijo").ubicacion(4, 1).build
 
-		val credicoopVillaLynch = new POIBuilder().banco.compania("Credicoop").barrio("Villa Lynch").domicilio(
+		val credicoopVillaLynch = new POIBuilder().banco.compania("Credicoop").estaHabilitado(1).barrio("Villa Lynch").domicilio(
 			"Profesor M. Ashkar 1103").servicio("Depositos").servicio("Extracciones").servicio("Prestamos").servicio(
 			"Banca Empresaria").servicio("Plazo Fijo").ubicacion(2, 3).build
 

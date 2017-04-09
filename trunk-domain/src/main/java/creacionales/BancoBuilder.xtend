@@ -42,10 +42,9 @@ class BancoBuilder {
 		this
 	}
 
-	/*def xy(Point point){
-		banco.coordenadaX = point.latitude()
-		banco.coordenadaY = point.longitude()
+	def estaHabilitado(int validacion) {
+		banco.estaHabilitado = validacion
 		this
-	}*/
+	}
 
 }

@@ -25,10 +25,9 @@ class ColectivoBuilder {
 		this
 	}
 	
-	/*def parada(Point point) {
-		colectivo.coordenadasX.add(point.latitude)
-		colectivo.coordenadasY.add(point.longitude)
+	def estaHabilitado(int validacion) {
+		colectivo.estaHabilitado = validacion
 		this
-	}*/
+	}
 	
 }

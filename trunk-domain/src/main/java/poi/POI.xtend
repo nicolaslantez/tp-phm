@@ -21,15 +21,19 @@ import poi.utils.Punto
 @Entity
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 abstract class POI {
-	
+
 	@Id
 	@GeneratedValue
 	private Long id
 	
-	@Column( length = 100)
-	String domicilio
+	//1 = habilitado, 0 = deshabilitado
+	@Column(length=1)
+	int estaHabilitado
 	
-	//TODO: cuando se hace click en un poi carga las review de ese POI
+	@Column(length=100)
+	String domicilio
+
+	// TODO: cuando se hace click en un poi carga las review de ese POI
 //	@OneToMany( fetch = FetchType.LAZY , cascade = CascadeType.ALL)
 	@Transient
 	List<Opinion> listaOpiniones = newArrayList
