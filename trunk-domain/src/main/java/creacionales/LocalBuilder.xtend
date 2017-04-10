@@ -3,6 +3,7 @@ package creacionales
 import poi.Local
 import poi.Rubro
 import poi.utils.Punto
+import org.joda.time.DateTime
 
 class LocalBuilder {
 	HorarioBuilder horario = new HorarioBuilder
@@ -60,6 +61,21 @@ class LocalBuilder {
 	
 	def estaHabilitado(int validacion) {
 		local.estaHabilitado = validacion
+		this
+	}
+	
+	def descripcionVieja(String descripcion) {
+		local.viejaDescripcion = descripcion
+		this
+	}
+	
+	def descripcionActual(String descripcion) {
+		local.actualDescripcion = descripcion
+		this
+	}
+	
+	def fechaModificacion(DateTime fecha) {
+		local.fechaModificacion = fecha
 		this
 	}
 }

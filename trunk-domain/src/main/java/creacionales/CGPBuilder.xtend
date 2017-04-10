@@ -3,6 +3,7 @@ package creacionales
 import poi.CGP
 import poi.utils.Punto
 import poi.utils.Servicio
+import org.joda.time.DateTime
 
 class CGPBuilder {
 	CGP cgp = new CGP
@@ -48,6 +49,21 @@ class CGPBuilder {
 	
 	def estaHabilitado(int validacion) {
 		cgp.estaHabilitado = validacion
+		this
+	}
+	
+	def descripcionVieja(String descripcion) {
+		cgp.viejaDescripcion = descripcion
+		this
+	}
+	
+	def descripcionActual(String descripcion) {
+		cgp.actualDescripcion = descripcion
+		this
+	}
+	
+	def fechaModificacion(DateTime fecha) {
+		cgp.fechaModificacion = fecha
 		this
 	}
 }

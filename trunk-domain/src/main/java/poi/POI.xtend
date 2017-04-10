@@ -37,6 +37,15 @@ abstract class POI {
 
 	@OneToMany( fetch = FetchType.LAZY , cascade = CascadeType.ALL)
 	List<Opinion> listaOpiniones = newArrayList
+	
+	@Column(length=100)
+	String viejaDescripcion
+	
+	@Column(length=100)
+	String actualDescripcion
+	
+	@Column(length=20)
+	DateTime fechaModificacion
 
 	def boolean estaCerca(Punto coordenada)
 

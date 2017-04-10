@@ -2,6 +2,7 @@ package creacionales
 
 import poi.Banco
 import poi.utils.Punto
+import org.joda.time.DateTime
 
 class BancoBuilder {
 	Banco banco = new Banco => [
@@ -44,6 +45,21 @@ class BancoBuilder {
 
 	def estaHabilitado(int validacion) {
 		banco.estaHabilitado = validacion
+		this
+	}
+	
+	def descripcionVieja(String descripcion) {
+		banco.viejaDescripcion = descripcion
+		this
+	}
+	
+	def descripcionActual(String descripcion) {
+		banco.actualDescripcion = descripcion
+		this
+	}
+	
+	def fechaModificacion(DateTime fecha) {
+		banco.fechaModificacion = fecha
 		this
 	}
 
