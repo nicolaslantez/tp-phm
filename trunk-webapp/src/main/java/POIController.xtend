@@ -114,6 +114,7 @@ class POIController {
 			0).horario("Sabado", 10, 0, 13, 0).build
 
 		val trigoDeOro = new POIBuilder().local.nombre("Trigo de Oro").estaHabilitado(0).rubro(rubroPanaderia).clave("pan").clave(
+
 			"facturas").domicilio("Alcorta 3798").ubicacion(11, 7).horario(
 			#["Martes", "Miercoles", "Jueves", "Viernes", "Domingo"], 7, 0, 20, 0).build
 
@@ -135,23 +136,127 @@ class POIController {
 			create(credicoopVillaLynch)
 		]
 
-		val fede = new UsuarioBuilder().nombre("Fede").contrasenia("123").build
+		val mariana = new UsuarioBuilder().nombre("Mariana").contrasenia("123").build
 		val gaby = new UsuarioBuilder().nombre("Gaby").contrasenia("gg").build
-		val loy = new UsuarioBuilder().nombre("Loy").contrasenia("123").build
+		val pole = new UsuarioBuilder().nombre("Pole").contrasenia("123").build
 		val nico = new UsuarioBuilder().nombre("Nico").contrasenia("abc").build
 		
 		val repoUsuario = RepoUsuario.instance
 
 
-		RepoUsuario.instance => [create(fede) create(gaby) create(loy) create(nico)]
+		RepoUsuario.instance => [create(mariana) create(gaby) create(pole) create(nico)]
 
 		ServiceLocator.instance.gps = new StubGPSService => [
-			addUsuario(fede, new Point(1, 1))
+			addUsuario(mariana, new Point(1, 1))
 			addUsuario(gaby, new Point(2, 1))
-			addUsuario(loy, new Point(3, 1))
+			addUsuario(pole, new Point(3, 1))
 			addUsuario(nico, new Point(4, 1))
 		]
 
+		RepoPOI.instance => [
+			
+		var nicoOpinion = new Opinion()
+		nicoOpinion.calificacion = 4
+		nicoOpinion.comentario = ("Muy bueno el lugar!")
+		nicoOpinion.usuarioOpinador = "nico"
+		
+		maninHnos.addOpinion(nicoOpinion)
+
+		var gabyOpinion = new Opinion()
+		gabyOpinion.calificacion = 1
+		gabyOpinion.comentario = ("Es un desastre!!")
+		gabyOpinion.usuarioOpinador = "gaby"
+		
+		maninHnos.addOpinion(gabyOpinion)
+		
+		var poleOpinion = new Opinion()
+		poleOpinion.calificacion = 3
+		poleOpinion.comentario = ("Mmm le faltan proteinas!!")
+		poleOpinion.usuarioOpinador = "pole"
+		
+		maninHnos.addOpinion(poleOpinion)		
+		
+		update(maninHnos)
+		
+		nicoOpinion = new Opinion()
+		nicoOpinion.calificacion = 2
+		nicoOpinion.comentario = ("Bastante Flojo!!")
+		nicoOpinion.usuarioOpinador = "nico"
+		
+		trigoDeOro.addOpinion(nicoOpinion)
+
+		gabyOpinion = new Opinion()
+		gabyOpinion.calificacion = 5
+		gabyOpinion.comentario = ("Excelente!!")
+		gabyOpinion.usuarioOpinador = "gaby"
+		
+		trigoDeOro.addOpinion(gabyOpinion)
+
+		poleOpinion = new Opinion()
+		poleOpinion.calificacion = 1
+		poleOpinion.comentario = ("No habia banana!!")
+		poleOpinion.usuarioOpinador = "pole"
+		
+		trigoDeOro.addOpinion(poleOpinion)	
+		
+		update(trigoDeOro)
+			
+		
+		var marianaOpinion = new Opinion()
+		marianaOpinion.calificacion = 5
+		marianaOpinion.comentario = ("Excelente lugar!!")
+		marianaOpinion.usuarioOpinador = "mariana"
+		
+		credicoopVillaLynch.addOpinion(marianaOpinion)
+
+		gabyOpinion = new Opinion()
+		gabyOpinion.calificacion = 1
+		gabyOpinion.comentario = ("Es un desastre!!")
+		gabyOpinion.usuarioOpinador = "gaby"
+		
+		credicoopVillaLynch.addOpinion(gabyOpinion)
+		
+		poleOpinion = new Opinion()
+		poleOpinion.calificacion = 5
+		poleOpinion.comentario = ("Me regalaron un mes gratis en el gym!!")
+		poleOpinion.usuarioOpinador = "pole"
+		
+		credicoopVillaLynch.addOpinion(poleOpinion)		
+		
+		update(credicoopVillaLynch)
+		
+		marianaOpinion = new Opinion()
+		marianaOpinion.calificacion = 5
+		marianaOpinion.comentario = ("Excelente atencion!!")
+		marianaOpinion.usuarioOpinador = "mariana"
+		
+		cgp11.addOpinion(marianaOpinion)
+		
+		poleOpinion = new Opinion()
+		poleOpinion.calificacion = 1
+		poleOpinion.comentario = ("Menos mal que yo hago home office!!")
+		poleOpinion.usuarioOpinador = "pole"
+		
+		cgp11.addOpinion(poleOpinion)
+		
+		gabyOpinion = new Opinion()
+		gabyOpinion.calificacion = 5
+		gabyOpinion.comentario = ("No son humildes como yo!!")
+		gabyOpinion.usuarioOpinador = "gaby"
+		
+		cgp11.addOpinion(gabyOpinion)
+		
+		nicoOpinion = new Opinion()
+		nicoOpinion.calificacion = 2
+		nicoOpinion.comentario = ("Cuanta gente incompetente!!")
+		nicoOpinion.usuarioOpinador = "nico"
+		
+		cgp15.addOpinion(nicoOpinion)
+		
+		update(cgp11)
+		update(cgp15)
+		
+		]
 		XTRest.start(POIController, 9000)
 	}
 }

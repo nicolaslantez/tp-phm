@@ -29,20 +29,11 @@ import static extension poi.utils.POIUtils.*
 class Local extends POI {
 	@JsonIgnore
 	
-	//TODO: VER ACA! ONE TO MANY?
-//	@OneToOne( fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	@Transient
 	Horario horario
 	
-	//@Transient
-	//Point ubicacion
 	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	Punto ubicacion
-	//@Column( length = 10)
-	//double coordenadaX
-	
-	//@Column( length = 10)
-	//double coordenadaY
 	
 	@ManyToOne ( fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	Rubro rubro
