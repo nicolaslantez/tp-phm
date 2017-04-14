@@ -16,6 +16,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
 import org.uqbar.commons.utils.Observable
 import poi.utils.Punto
+import javax.persistence.Transient
 
 @Observable
 @Accessors
@@ -35,7 +36,8 @@ abstract class POI {
 	@Column(length=100)
 	String domicilio
 
-	@OneToMany( fetch = FetchType.LAZY , cascade = CascadeType.ALL)
+@Transient
+//	@OneToMany( fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	List<Opinion> listaOpiniones = newArrayList
 	
 	@Column(length=100)

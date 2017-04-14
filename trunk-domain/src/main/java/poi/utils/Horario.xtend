@@ -1,7 +1,8 @@
 package poi.utils
 
 import java.time.DayOfWeek
-import java.util.Map
+import java.util.ArrayList
+import java.util.List
 import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.ElementCollection
@@ -9,14 +10,12 @@ import javax.persistence.Entity
 import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
-import javax.persistence.MapKey
 import javax.persistence.OneToMany
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
 import org.joda.time.LocalTime
 import org.uqbar.commons.utils.Observable
-
-import static extension creacionales.DiasFactory.*
+import org.hibernate.annotations.Type
 
 @Accessors
 @Entity
@@ -26,34 +25,33 @@ class Horario {
 	@Id
 	@GeneratedValue
 	private Long id
-
+	
 	@ElementCollection
-	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)	
-	@MapKey(name="id")
-	@Column(name="lantez")
-	Map<DayOfWeek, RangoHorario> diasHabiles = newLinkedHashMap
-
-	def boolean estaDisponible(DateTime momento) {
-		val dia = DayOfWeek.of(momento.getDayOfWeek())
-		val hora = momento.toLocalTime()
-
-		val rangosDia = diasHabiles.get(dia) ?: new RangoHorario
-
-		rangosDia.estaDisponible(hora)
+	@OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	List<RangoHorario> horarios = new ArrayList()
+	
+	def boolean estaDisponible(DateTime momento){
+		var RangoHorario diaAConsultar 
+		for(RangoHorario horario :  horarios){
+			if(DayOfWeek.of(momento.getDayOfWeek) == horario.dia){
+				diaAConsultar = horario	
+			}
+		}
+		return diaAConsultar.estaDisponible(momento.toLocalTime())
 	}
-
-	override toString() {
+	
+	override toString(){
 		val builder = new StringBuilder
-		diasHabiles.forEach[dia, horario|builder.append(dia.toNombreDia + ": " + horario + "\n")]
-		builder.toString
+		horarios.forEach[rango | builder.append(rango.toString())]
+		return  builder.toString
 	}
+	
 
 	def toJSON() {
 		val array = newArrayList
-		diasHabiles.forEach[dia, listaRango|array.add(new RangoJSON(dia, listaRango))]
+		horarios.forEach[rango|array.add(new RangoJSON(rango))]
 		array
 	}
-
 }
 
 @Accessors
@@ -64,11 +62,17 @@ class RangoHorario {
 	@Id
 	@GeneratedValue
 	private Long id
-
-	// TODO:  datetime sql
+	
 	@Column
+	DayOfWeek dia
+	
+	@Column
+//	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalTime")
 	LocalTime abre
 	@Column
+//	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalTime")
 	LocalTime cierra
 
 	def boolean estaDisponible(LocalTime hora) {
@@ -76,7 +80,7 @@ class RangoHorario {
 	}
 
 	override toString() {
-		abre.toString("HH:mm") + " - " + cierra.toString("HH:mm")
+		dia.toString + "-" + abre.toString("HH:mm") + " - " + cierra.toString("HH:mm")
 	}
 }
 
@@ -85,8 +89,8 @@ class RangoJSON {
 	String abre
 	String cierra
 
-	new(DayOfWeek dia, RangoHorario rango) {
-		abre = new DateTime().withDayOfWeek(dia.value).withTime(rango.abre).toString
-		cierra = new DateTime().withDayOfWeek(dia.value).withTime(rango.cierra).toString
+	new(RangoHorario rango) {
+		abre = new DateTime().withDayOfWeek(rango.dia.value).withTime(rango.abre).toString
+		cierra = new DateTime().withDayOfWeek(rango.dia.value).withTime(rango.cierra).toString
 	}
 }

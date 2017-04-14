@@ -7,6 +7,7 @@ import poi.utils.Horario
 import poi.utils.RangoHorario
 
 import static extension creacionales.DiasFactory.*
+import org.joda.time.DateTime
 
 @Entity
 class HorarioBuilder {
@@ -16,28 +17,22 @@ class HorarioBuilder {
 		horario
 	}
 
-	def HorarioBuilder dia(Iterable<String> listaDias, int horAbre, int minAbre, int horCierra, int minCierra) {
-		listaDias.forEach[dia(horAbre, minAbre, horCierra, minCierra)]
+	def dia(Iterable<String> lista, int horAbre, int minAbre, int horCierra, int minCierra){
+		lista.forEach[ day | this.dia(day,horAbre,minAbre,horCierra,minCierra)]	
 		this
 	}
 
-	def dia(String nombreDia, int horAbre, int minAbre, int horCierra, int minCierra) {
-		nombreDia.toDayOfWeek.dia(horAbre, minAbre, horCierra, minCierra)
-	}
-
-	def dia(int nroDia, int horAbre, int minAbre, int horCierra, int minCierra) {
-		DayOfWeek.of(nroDia).dia(horAbre, minAbre, horCierra, minCierra)
-	}
-
-	def dia(DayOfWeek dia, int horAbre, int minAbre, int horCierra, int minCierra) {		
-		var rangosAux = crearRango(horAbre, minAbre, horCierra, minCierra)
-		horario.diasHabiles.put(dia, rangosAux)
+	def dia(String _dia, int horAbre, int minAbre, int horCierra, int minCierra) {		
+		var dia = _dia.toDayOfWeek
+		var rangosAux = crearRango(dia,horAbre, minAbre, horCierra, minCierra)
+		horario.horarios.add(rangosAux)
 		this
 	}
 
-	def crearRango(int horAbre, int minAbre, int horCierra, int minCierra) {
+	def crearRango(DayOfWeek _dia, int horAbre,  int minAbre,  int horCierra,  int minCierra) {
 		new RangoHorario => [
-			abre = new LocalTime(horAbre, minAbre)
+			dia = _dia
+			abre =new LocalTime(horAbre, minAbre)
 			cierra = new LocalTime(horCierra, minCierra)
 		]
 	}

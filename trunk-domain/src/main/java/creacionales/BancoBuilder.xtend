@@ -17,7 +17,7 @@ class BancoBuilder {
 		banco.compania = _compañia
 		this
 	}
-
+	
 	def barrio(String _barrio) {
 		banco.barrio = _barrio
 		this

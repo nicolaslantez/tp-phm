@@ -11,7 +11,6 @@ import javax.persistence.Entity
 import javax.persistence.FetchType
 import javax.persistence.JoinColumn
 import javax.persistence.OneToOne
-import javax.persistence.Transient
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
 import org.uqbar.commons.utils.Observable
@@ -24,21 +23,13 @@ import static extension poi.utils.POIUtils.*
 @Entity
 @Observable
 class Banco extends POI {
-	@JsonIgnore
-	// TODO: VER ACA! ONE TO MANY?
-//	@OneToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	@Transient
+//	@JsonIgnore
+
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	Horario horario
 
-	//@Transient
-	//Point ubicacion
 	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	Punto ubicacion
-	//@Column(length=10)
-	//double coordenadaX
-
-	//@Column(length=10)
-	//double coordenadaY
 
 	@ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name="ServicioBanco", joinColumns=@JoinColumn(name="Banco_id"))

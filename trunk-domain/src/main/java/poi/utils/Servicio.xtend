@@ -28,7 +28,7 @@ class Servicio {
 	
 	@JsonIgnore
 	
-	@OneToOne( fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@OneToOne( fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	Horario horario
 	
 	@Column( length = 50 )

@@ -1,6 +1,5 @@
 package poi
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import java.util.Set
 import javax.persistence.CascadeType
@@ -14,7 +13,6 @@ import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 import javax.persistence.OneToOne
-import javax.persistence.Transient
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
 import org.uqbar.commons.utils.Observable
@@ -27,15 +25,15 @@ import static extension poi.utils.POIUtils.*
 @Entity
 @Observable
 class Local extends POI {
-	@JsonIgnore
+//	@JsonIgnore
 	
-	@Transient
+	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	Horario horario
 	
 	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	Punto ubicacion
 	
-	@ManyToOne ( fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@ManyToOne ( fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	Rubro rubro
 	
 	@ElementCollection(fetch = FetchType.EAGER)
