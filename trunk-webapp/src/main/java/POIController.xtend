@@ -94,9 +94,9 @@ class POIController {
 			0, 15, 0).horario("Viernes", 10, 0, 18, 0).build
 
 		val rubroFruteria = new Rubro => [nombre = "Fruteria" radio = 5]
-//
+
 		val rubroPanaderia = new Rubro => [nombre = "Panaderia" radio = 3]		
-//		
+		
 		val cgp15 = new POIBuilder().cgp.comuna(15).estaHabilitado(0).ubicacion(2,2).servicio(rentas).servicio(bici).domicilio(
 		"Av. Cordoba 5690").limite(0, 2).limite(2, 0).limite(4, 2).descripcionActual("soy una cgp").build
 
@@ -108,15 +108,15 @@ class POIController {
 
 		val linea237 = new POIBuilder().colectivo.numero(237).estaHabilitado(1).domicilio("Av. Marquez 2711").parada(11, 11).parada(11,
 			10).parada(11, 9).parada(7, 9).parada(7, 7).parada(7, 1).descripcionActual("soy un colectivo").build
-//
+
 		val maninHnos = new POIBuilder().local.nombre("Manin Hnos.").estaHabilitado(1).rubro(rubroFruteria).clave("fruta").domicilio(
 			"Moreno 3146").ubicacion(3, 1).horario(#["Lunes", "Martes", "Miercoles", "Jueves", "Viernes"], 10, 0, 19,
 			0).horario("Sabado", 10, 0, 13, 0).descripcionActual("soy un colectivo").build
-//
+
 		val trigoDeOro = new POIBuilder().local.nombre("Trigo de Oro").estaHabilitado(0).rubro(rubroPanaderia).clave("pan").clave(
 			"facturas").domicilio("Alcorta 3798").ubicacion(11, 7).horario(
 			#["Martes", "Miercoles", "Jueves", "Viernes", "Domingo"], 7, 0, 20, 0).descripcionActual("soy un local comercial").build
-//
+
 		val nacionSanMartin = new POIBuilder().banco.compania("Nacion").estaHabilitado(1).barrio("San Martin").domicilio("Mitre 3920").
 			servicio("Depositos").servicio("Extracciones").servicio("Plazo Fijo").ubicacion(4, 1).descripcionActual("soy un banco").build
 
@@ -150,119 +150,120 @@ class POIController {
 			addUsuario(nico, new Point(4, 1))
 		]
 
-//		RepoPOI.instance => [
-//			
-//		var nicoOpinion = new Opinion()
-//		nicoOpinion.calificacion = 4
-//		nicoOpinion.comentario = ("Muy bueno el lugar!")
-//		nicoOpinion.usuarioOpinador = "nico"
-//		
-//		maninHnos.addOpinion(nicoOpinion)
-//
-//		var gabyOpinion = new Opinion()
-//		gabyOpinion.calificacion = 1
-//		gabyOpinion.comentario = ("Es un desastre!!")
-//		gabyOpinion.usuarioOpinador = "gaby"
-//		
-//		maninHnos.addOpinion(gabyOpinion)
-//		
-//		var poleOpinion = new Opinion()
-//		poleOpinion.calificacion = 3
-//		poleOpinion.comentario = ("Mmm le faltan proteinas!!")
-//		poleOpinion.usuarioOpinador = "pole"
-//		
-//		maninHnos.addOpinion(poleOpinion)		
-//		
-//		update(maninHnos)
-//		
-//		nicoOpinion = new Opinion()
-//		nicoOpinion.calificacion = 2
-//		nicoOpinion.comentario = ("Bastante Flojo!!")
-//		nicoOpinion.usuarioOpinador = "nico"
-//		
-//		trigoDeOro.addOpinion(nicoOpinion)
-//
-//		gabyOpinion = new Opinion()
-//		gabyOpinion.calificacion = 5
-//		gabyOpinion.comentario = ("Excelente!!")
-//		gabyOpinion.usuarioOpinador = "gaby"
-//		
-//		trigoDeOro.addOpinion(gabyOpinion)
-//
-//		poleOpinion = new Opinion()
-//		poleOpinion.calificacion = 1
-//		poleOpinion.comentario = ("No habia banana!!")
-//		poleOpinion.usuarioOpinador = "pole"
-//		
-//		trigoDeOro.addOpinion(poleOpinion)	
-//		
-//		update(trigoDeOro)
-//			
-//		
-//		var marianaOpinion = new Opinion()
-//		marianaOpinion.calificacion = 5
-//		marianaOpinion.comentario = ("Excelente lugar!!")
-//		marianaOpinion.usuarioOpinador = "mariana"
-//		
-//		credicoopVillaLynch.addOpinion(marianaOpinion)
-//
-//		gabyOpinion = new Opinion()
-//		gabyOpinion.calificacion = 1
-//		gabyOpinion.comentario = ("Es un desastre!!")
-//		gabyOpinion.usuarioOpinador = "gaby"
-//		
-//		credicoopVillaLynch.addOpinion(gabyOpinion)
-//		
-//		poleOpinion = new Opinion()
-//		poleOpinion.calificacion = 5
-//		poleOpinion.comentario = ("Me regalaron un mes gratis en el gym!!")
-//		poleOpinion.usuarioOpinador = "pole"
-//		
-//		credicoopVillaLynch.addOpinion(poleOpinion)		
-//		
-//		update(credicoopVillaLynch)
-//		
-//		marianaOpinion = new Opinion()
-//		marianaOpinion.calificacion = 5
-//		marianaOpinion.comentario = ("Excelente atencion!!")
-//		marianaOpinion.usuarioOpinador = "mariana"
-//		
-//		cgp11.addOpinion(marianaOpinion)
-//		
-//		poleOpinion = new Opinion()
-//		poleOpinion.calificacion = 1
-//		poleOpinion.comentario = ("Menos mal que yo hago home office!!")
-//		poleOpinion.usuarioOpinador = "pole"
-//		
-//		cgp11.addOpinion(poleOpinion)
-//		
-//		gabyOpinion = new Opinion()
-//		gabyOpinion.calificacion = 5
-//		gabyOpinion.comentario = ("No son humildes como yo!!")
-//		gabyOpinion.usuarioOpinador = "gaby"
-//		
-//		cgp11.addOpinion(gabyOpinion)
-//		
-//		nicoOpinion = new Opinion()
-//		nicoOpinion.calificacion = 2
-//		nicoOpinion.comentario = ("Cuanta gente incompetente!!")
-//		nicoOpinion.usuarioOpinador = "nico"
-//		
-//		cgp15.addOpinion(nicoOpinion)
-//		
-//
-//		nicoOpinion = new Opinion()
-//		nicoOpinion.calificacion = 10
-//		nicoOpinion.comentario = "TODOS SON GENIOS"
-//		nicoOpinion.usuarioOpinador = "nick"
-//		cgp15.addOpinion(nicoOpinion)
-//		var nicoOpinion = new Opinion(5,"Muy bueno", "nico",  new Long(3) )
-//		maninHnos.addOpinion(nicoOpinion)
-//		
-//		update(maninHnos)
-//		update(cgp15)
-//		
-//		]
+		RepoPOI.instance => [
+			
+		var nicoOpinion = new Opinion()
+		nicoOpinion.calificacion = 4
+		nicoOpinion.comentario = ("Muy bueno el lugar!")
+		nicoOpinion.usuarioOpinador = "nico"
+		
+		maninHnos.addOpinion(nicoOpinion)
+
+		var gabyOpinion = new Opinion()
+		gabyOpinion.calificacion = 1
+		gabyOpinion.comentario = ("Es un desastre!!")
+		gabyOpinion.usuarioOpinador = "gaby"
+		
+		maninHnos.addOpinion(gabyOpinion)
+		
+		var poleOpinion = new Opinion()
+		poleOpinion.calificacion = 3
+		poleOpinion.comentario = ("Mmm le faltan proteinas!!")
+		poleOpinion.usuarioOpinador = "pole"
+		
+		maninHnos.addOpinion(poleOpinion)		
+		
+		update(maninHnos)
+		
+		nicoOpinion = new Opinion()
+		nicoOpinion.calificacion = 2
+		nicoOpinion.comentario = ("Bastante Flojo!!")
+		nicoOpinion.usuarioOpinador = "nico"
+		
+		trigoDeOro.addOpinion(nicoOpinion)
+
+		gabyOpinion = new Opinion()
+		gabyOpinion.calificacion = 5
+		gabyOpinion.comentario = ("Excelente!!")
+		gabyOpinion.usuarioOpinador = "gaby"
+		
+		trigoDeOro.addOpinion(gabyOpinion)
+
+		poleOpinion = new Opinion()
+		poleOpinion.calificacion = 1
+		poleOpinion.comentario = ("No habia banana!!")
+		poleOpinion.usuarioOpinador = "pole"
+		
+		trigoDeOro.addOpinion(poleOpinion)	
+		
+		update(trigoDeOro)
+			
+		
+		var marianaOpinion = new Opinion()
+		marianaOpinion.calificacion = 5
+		marianaOpinion.comentario = ("Excelente lugar!!")
+		marianaOpinion.usuarioOpinador = "mariana"
+		
+		credicoopVillaLynch.addOpinion(marianaOpinion)
+
+		gabyOpinion = new Opinion()
+		gabyOpinion.calificacion = 1
+		gabyOpinion.comentario = ("Es un desastre!!")
+		gabyOpinion.usuarioOpinador = "gaby"
+		
+		credicoopVillaLynch.addOpinion(gabyOpinion)
+		
+		poleOpinion = new Opinion()
+		poleOpinion.calificacion = 5
+		poleOpinion.comentario = ("Me regalaron un mes gratis en el gym!!")
+		poleOpinion.usuarioOpinador = "pole"
+		
+		credicoopVillaLynch.addOpinion(poleOpinion)		
+		
+		update(credicoopVillaLynch)
+		
+		marianaOpinion = new Opinion()
+		marianaOpinion.calificacion = 5
+		marianaOpinion.comentario = ("Excelente atencion!!")
+		marianaOpinion.usuarioOpinador = "mariana"
+		
+		cgp11.addOpinion(marianaOpinion)
+		
+		poleOpinion = new Opinion()
+		poleOpinion.calificacion = 1
+		poleOpinion.comentario = ("Menos mal que yo hago home office!!")
+		poleOpinion.usuarioOpinador = "pole"
+		
+		cgp11.addOpinion(poleOpinion)
+		
+		gabyOpinion = new Opinion()
+		gabyOpinion.calificacion = 5
+		gabyOpinion.comentario = ("No son humildes como yo!!")
+		gabyOpinion.usuarioOpinador = "gaby"
+		
+		cgp11.addOpinion(gabyOpinion)
+		
+		nicoOpinion = new Opinion()
+		nicoOpinion.calificacion = 2
+		nicoOpinion.comentario = ("Cuanta gente incompetente!!")
+		nicoOpinion.usuarioOpinador = "nico"
+		
+		cgp15.addOpinion(nicoOpinion)
+		
+
+		nicoOpinion = new Opinion()
+		nicoOpinion.calificacion = 10
+		nicoOpinion.comentario = "TODOS SON GENIOS"
+		nicoOpinion.usuarioOpinador = "nick"
+		cgp15.addOpinion(nicoOpinion)
+
+        nicoOpinion = new Opinion(5,"Muy bueno", "nico",  new Long(3) )
+		maninHnos.addOpinion(nicoOpinion)
+		
+		update(maninHnos)
+		update(cgp15)
+		
+		]
 		XTRest.start(POIController, 9000)
 	}
 }

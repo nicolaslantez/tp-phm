@@ -18,6 +18,8 @@ class Opinion {
 		this.usuarioOpinador = user
 		this.idPoi = _poi
 	}
+	
+	new(){}
 
 	@Id
 	@GeneratedValue

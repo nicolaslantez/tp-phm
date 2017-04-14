@@ -36,8 +36,7 @@ abstract class POI {
 	@Column(length=100)
 	String domicilio
 
-@Transient
-//	@OneToMany( fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany( fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	List<Opinion> listaOpiniones = newArrayList
 	
 	@Column(length=100)
