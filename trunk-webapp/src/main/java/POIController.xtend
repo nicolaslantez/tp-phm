@@ -37,9 +37,13 @@ class POIController {
 			val usuario = RepoUsuario.instance.searchById(Integer.parseInt(idUsuario))
 
 			if (usuario.esFavorito(poi))
-				usuario.removeFavorito(poi)
+				{usuario.removeFavorito(poi)
+				RepoPOI.instance.saveOrUpdate(poi)}
 			else
-				usuario.addFavorito(poi)
+				{usuario.addFavorito(poi)
+				RepoPOI.instance.delete(poi)	
+				}	
+			
 		} catch (Exception e) {
 			badRequest(e.message)
 		}
