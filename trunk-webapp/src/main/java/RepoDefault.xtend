@@ -56,11 +56,11 @@ abstract class RepoDefault<T> {
 		}
 	}
 	
-	def void create(T t) {
+	def void saveOrUpdate(T t) {
 		val session = sessionFactory.openSession
 		try {
 			session.beginTransaction
-			session.save(t)
+			session.saveOrUpdate(t)
 			session.getTransaction.commit
 		} catch (HibernateException e) {
 			session.getTransaction.rollback
@@ -70,7 +70,7 @@ abstract class RepoDefault<T> {
 		}
 	}
 	
-	def void update(T t) {
+	/*def void update(T t) {
 		val session = sessionFactory.openSession
 		try {
 			session.beginTransaction
@@ -82,7 +82,7 @@ abstract class RepoDefault<T> {
 		} finally {
 			session.close
 		}
-	}
+	}*/
 	
 	def openSession() {
 		sessionFactory.openSession

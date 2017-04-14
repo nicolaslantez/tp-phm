@@ -52,12 +52,13 @@ class POIController {
 			val opinion = body.fromJson(Opinion)
 			val poi = RepoPOI.instance.searchById(Long.parseLong(id))
 			poi.addOpinion(opinion)
+			RepoPOI.instance.saveOrUpdate(poi)
 		} catch (Exception e) {
 			badRequest(e.message)
 		}
 		ok
 	}
-	
+		
 	@Get("/usuarioActivo")
 	def Result getActivo() {
 		val usuario = RepoUsuario.instance.usuarioActivo
@@ -124,14 +125,14 @@ class POIController {
 			"Banca Empresaria").servicio("Plazo Fijo").ubicacion(2, 3).descripcionActual("soy un local comercial").build
 
 		RepoPOI.instance => [
-			create(cgp15)
-			create(linea343)
-			create(maninHnos)
-			create(nacionSanMartin)
-			create(cgp11)
-			create(linea237)
-			create(trigoDeOro)
-			create(credicoopVillaLynch)
+			saveOrUpdate(cgp15)
+			saveOrUpdate(linea343)
+			saveOrUpdate(maninHnos)
+			saveOrUpdate(nacionSanMartin)
+			saveOrUpdate(cgp11)
+			saveOrUpdate(linea237)
+			saveOrUpdate(trigoDeOro)
+			saveOrUpdate(credicoopVillaLynch)
 		]
 
 		val mariana = new UsuarioBuilder().nombre("Mariana").contrasenia("123").build
@@ -140,7 +141,7 @@ class POIController {
 		val nico = new UsuarioBuilder().nombre("Nico").contrasenia("abc").build
 		
 
-		RepoUsuario.instance => [create(mariana) create(gaby) create(pole) create(nico)]
+		RepoUsuario.instance => [saveOrUpdate(mariana) saveOrUpdate(gaby) saveOrUpdate(pole) saveOrUpdate(nico)]
 
 		ServiceLocator.instance.gps = new StubGPSService => [
 			addUsuario(mariana, new Point(1, 1))
