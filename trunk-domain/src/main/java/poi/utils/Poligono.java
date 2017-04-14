@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -14,6 +13,8 @@ import javax.persistence.OneToMany;
 import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Pure;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.uqbar.geodds.NumberUtils;
 
 /**
@@ -32,8 +33,9 @@ public class Poligono {
 	@Id
 	@GeneratedValue
 	private Long id;
-
-	@OneToMany(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	protected List<Punto> surface;
 
 	/**

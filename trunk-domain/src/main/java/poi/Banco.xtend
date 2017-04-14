@@ -29,10 +29,9 @@ class Banco extends POI {
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	Horario horario
-
-
-	@LazyCollection(LazyCollectionOption.FALSE)
+	
 	@OneToOne(cascade=CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	Punto ubicacion
 
 	@ElementCollection(fetch = FetchType.EAGER)

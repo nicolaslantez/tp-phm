@@ -27,13 +27,12 @@ class CGP extends POI {
 	@Column( length = 10)
 	int nroComuna
 		
-
-	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToOne(cascade=CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	Punto ubicacion
 	
+	@OneToOne (cascade=CascadeType.ALL)	
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@OneToOne ( cascade=CascadeType.ALL)	
 	Poligono limites = new Poligono
 	
 	@OneToMany ( fetch = FetchType.EAGER, cascade=CascadeType.ALL)	

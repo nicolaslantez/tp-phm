@@ -33,10 +33,9 @@ class Local extends POI {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	Horario horario
-	
-
-	@LazyCollection(LazyCollectionOption.FALSE)
+		
 	@OneToOne( cascade=CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	Punto ubicacion
 	
 	@ManyToOne ( fetch = FetchType.EAGER, cascade=CascadeType.ALL)

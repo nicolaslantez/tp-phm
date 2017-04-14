@@ -5,12 +5,13 @@ import creacionales.ServiceLocator
 import java.util.List
 import javax.persistence.Column
 import javax.persistence.Entity
-import javax.persistence.FetchType
 import javax.persistence.Id
 import javax.persistence.Inheritance
 import javax.persistence.InheritanceType
 import javax.persistence.ManyToMany
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.hibernate.annotations.LazyCollection
+import org.hibernate.annotations.LazyCollectionOption
 import org.uqbar.commons.utils.Observable
 import org.uqbar.geodds.Point
 import poi.POI
@@ -29,7 +30,8 @@ class Usuario {
 	@Column ( length = 50 )
 	String contrasenia
 	
-	@ManyToMany ( fetch = FetchType.EAGER)
+	@ManyToMany
+	@LazyCollection(LazyCollectionOption.FALSE)
 	List<POI> listaFavoritos = newArrayList
 
 	/* @JsonIgnore
