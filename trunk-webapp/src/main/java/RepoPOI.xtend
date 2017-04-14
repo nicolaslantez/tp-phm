@@ -29,7 +29,7 @@ class RepoPOI extends RepoDefault<POI> {
 		}
 	}
 
-	def POI searchById(Integer id) {
+	def POI searchById(Long id) {
 		val session = openSession
 		try {
 			session.createCriteria(POI).setFetchMode("Pois", FetchMode.JOIN).add(Restrictions.eq("id", id)).

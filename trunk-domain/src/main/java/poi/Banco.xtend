@@ -12,6 +12,8 @@ import javax.persistence.FetchType
 import javax.persistence.JoinColumn
 import javax.persistence.OneToOne
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.hibernate.annotations.LazyCollection
+import org.hibernate.annotations.LazyCollectionOption
 import org.joda.time.DateTime
 import org.uqbar.commons.utils.Observable
 import poi.utils.Horario
@@ -28,7 +30,9 @@ class Banco extends POI {
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	Horario horario
 
-	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToOne(cascade=CascadeType.ALL)
 	Punto ubicacion
 
 	@ElementCollection(fetch = FetchType.EAGER)

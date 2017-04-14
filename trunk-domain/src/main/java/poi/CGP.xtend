@@ -16,6 +16,8 @@ import poi.utils.Punto
 import poi.utils.Servicio
 
 import static extension poi.utils.POIUtils.*
+import org.hibernate.annotations.LazyCollection
+import org.hibernate.annotations.LazyCollectionOption
 
 @Accessors
 @Entity
@@ -25,10 +27,13 @@ class CGP extends POI {
 	@Column( length = 10)
 	int nroComuna
 		
-	@OneToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToOne(cascade=CascadeType.ALL)
 	Punto ubicacion
 	
-	@OneToOne ( fetch = FetchType.EAGER, cascade=CascadeType.ALL)	
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToOne ( cascade=CascadeType.ALL)	
 	Poligono limites = new Poligono
 	
 	@OneToMany ( fetch = FetchType.EAGER, cascade=CascadeType.ALL)	

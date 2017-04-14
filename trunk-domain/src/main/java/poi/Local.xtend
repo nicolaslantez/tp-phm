@@ -1,5 +1,6 @@
 package poi
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import java.util.Set
 import javax.persistence.CascadeType
@@ -14,6 +15,8 @@ import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 import javax.persistence.OneToOne
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.hibernate.annotations.LazyCollection
+import org.hibernate.annotations.LazyCollectionOption
 import org.joda.time.DateTime
 import org.uqbar.commons.utils.Observable
 import poi.utils.Horario
@@ -25,12 +28,15 @@ import static extension poi.utils.POIUtils.*
 @Entity
 @Observable
 class Local extends POI {
-//	@JsonIgnore
-	
+
+	@JsonIgnore
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	Horario horario
 	
-	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToOne( cascade=CascadeType.ALL)
 	Punto ubicacion
 	
 	@ManyToOne ( fetch = FetchType.EAGER, cascade=CascadeType.ALL)

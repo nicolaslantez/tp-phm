@@ -16,6 +16,8 @@ import org.joda.time.DateTime
 import org.joda.time.LocalTime
 import org.uqbar.commons.utils.Observable
 import org.hibernate.annotations.Type
+import org.hibernate.annotations.LazyCollection
+import org.hibernate.annotations.LazyCollectionOption
 
 @Accessors
 @Entity
@@ -27,6 +29,7 @@ class Horario {
 	private Long id
 	
 	@ElementCollection
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	List<RangoHorario> horarios = new ArrayList()
 	

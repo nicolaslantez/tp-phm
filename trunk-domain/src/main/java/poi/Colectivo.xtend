@@ -19,22 +19,9 @@ import static extension poi.utils.POIUtils.*
 @Observable
 class Colectivo extends POI {
 	
-	//@Transient
-	//Set<Point> paradas = newHashSet
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	Set<Punto> paradas = newHashSet
 	
-	//TODO: VER COMO JUNTAR AMBAS LISTAS EN LA MISMA FILA
-	/* @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name="Paradas", joinColumns=@JoinColumn(name="Colectivo_id"))
-    @Column(name="coordenadaX")
-	List<Double> coordenadasX = newArrayList
-	
-	@ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name="Paradas", joinColumns=@JoinColumn(name="Colectivo_id"))
-    @Column(name="coordenadaY")
-	List<Double> coordenadasY = newArrayList*/
-
 	@Column( length = 10)
 	int nroLinea
 
