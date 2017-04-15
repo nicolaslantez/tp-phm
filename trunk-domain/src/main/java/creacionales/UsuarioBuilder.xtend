@@ -1,6 +1,7 @@
 package creacionales
 
 import busqueda.Usuario
+import poi.utils.Punto
 
 class UsuarioBuilder {
 	Usuario usuario = new Usuario
@@ -33,6 +34,11 @@ class UsuarioBuilder {
 	
 	def contrasenia(String string) {
 		usuario.setContrasenia(string)
+		this
+	}
+	
+	def ubicacion(double x, double y){
+		usuario.ubicacion = new Punto(x, y)
 		this
 	}
 }

@@ -20,6 +20,7 @@ import poi.utils.Horario
 import poi.utils.Punto
 
 import static extension poi.utils.POIUtils.*
+import poi.utils.POIUtils
 
 @Accessors
 @Entity
@@ -46,7 +47,7 @@ class Banco extends POI {
 	String compania
 
 	override estaCerca(Punto coordenada) {
-		ubicacion.estaCerca(coordenada, 5)
+		POIUtils.estaCerca(ubicacion,coordenada, 5)
 	}
 
 	override coincideBusqueda(String string) {

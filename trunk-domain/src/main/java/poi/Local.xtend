@@ -23,6 +23,7 @@ import poi.utils.Horario
 import poi.utils.Punto
 
 import static extension poi.utils.POIUtils.*
+import poi.utils.POIUtils
 
 @Accessors
 @Entity
@@ -50,7 +51,7 @@ class Local extends POI {
 	String nombre
 
 	override estaCerca(Punto coordenada) {
-		ubicacion.estaCerca(coordenada, rubro.radio)
+		POIUtils.estaCerca(ubicacion,coordenada, rubro.radio)
 	}
 
 	override coincideBusqueda(String string) {

@@ -3,18 +3,20 @@ package busqueda
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import creacionales.ServiceLocator
 import java.util.List
+import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.Id
 import javax.persistence.Inheritance
 import javax.persistence.InheritanceType
 import javax.persistence.ManyToMany
+import javax.persistence.OneToOne
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.hibernate.annotations.LazyCollection
 import org.hibernate.annotations.LazyCollectionOption
 import org.uqbar.commons.utils.Observable
-import org.uqbar.geodds.Point
 import poi.POI
+import poi.utils.Punto
 
 @Observable
 @Accessors
@@ -34,6 +36,10 @@ class Usuario {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	List<POI> listaFavoritos = newArrayList
 
+	@OneToOne(cascade = CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	Punto ubicacion
+	
 	/* @JsonIgnore
 	@ElementCollection
 	Set<BusquedaObserver> listaObservers = newHashSet*/
@@ -66,8 +72,9 @@ class Usuario {
 		listaFavoritos.contains(poi)
 	}
 	
-	def Point getUbicacion(){
-		ServiceLocator.instance.gps.getUbicacion(this)
+	def Punto getUbicacion(){
+//		ServiceLocator.instance.gps.getUbicacion(this)
+		this.ubicacion
 	}
 
 	override toString() {

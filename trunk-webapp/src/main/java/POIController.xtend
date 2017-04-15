@@ -22,7 +22,7 @@ class POIController {
 	@Put("/usuarioActivo")
 	def Result putActivo(@Body String body) {
 		try {
-			val usuario = RepoUsuario.instance.searchById(body.fromJson(Integer))
+			val usuario = RepoUsuario.instance.searchByName(body.fromJson(String))
 			RepoUsuario.instance.usuarioActivo = usuario
 		} catch (Exception e) {
 			badRequest(e.message)
@@ -30,11 +30,11 @@ class POIController {
 		ok
 	}
 
-	@Put("/usuario/:idUsuario/favoritos")
+	@Put("/usuario/:nombreUsuario/favoritos")
 	def Result putFavorito(@Body String body) {
 		try {
 			val poi = RepoPOI.instance.searchById(body.fromJson(Long))
-			val usuario = RepoUsuario.instance.searchById(Integer.parseInt(idUsuario))
+			val usuario = RepoUsuario.instance.searchByName(nombreUsuario)
 
 			if (usuario.esFavorito(poi))
 				{usuario.removeFavorito(poi)
@@ -80,6 +80,7 @@ class POIController {
 	@Get("/pois")
 	def Result getPois() {
 		val pois = RepoPOI.instance.allInstances
+		println(RepoPOI.instance.allInstances)
 		response.contentType = ContentType.APPLICATION_JSON
 		ok(pois.toJson)
 	}
@@ -107,14 +108,14 @@ class POIController {
 		val cgp11 = new POIBuilder().cgp.comuna(11).estaHabilitado(1).ubicacion(11, 11).servicio(dni).servicio(cuit_cuil).domicilio(
 			"Ayacucho 2742").limite(7, 11).limite(11, 7).limite(11, 13).descripcionActual("soy una cgp").build
 			
-		val linea343 = new POIBuilder().colectivo.numero(343).estaHabilitado(1).domicilio("Gdor. Ugarte 4071").parada(1, 1).parada(2, 1).descripcionActual("soy un colectivo").
+		val linea343 = new POIBuilder().colectivo.numero(343).estaHabilitado(1).domicilio("Gdor. Ugarte 4071").parada(1, 1).parada(2, 1).parada(4,1).descripcionActual("soy un colectivo").
 			build
 
 		val linea237 = new POIBuilder().colectivo.numero(237).estaHabilitado(1).domicilio("Av. Marquez 2711").parada(11, 11).parada(11,
 			10).parada(11, 9).parada(7, 9).parada(7, 7).parada(7, 1).descripcionActual("soy un colectivo").build
 
 		val maninHnos = new POIBuilder().local.nombre("Manin Hnos.").estaHabilitado(1).rubro(rubroFruteria).clave("fruta").domicilio(
-			"Moreno 3146").ubicacion(3, 1).horario(#["Lunes", "Martes", "Miercoles", "Jueves", "Viernes"], 10, 0, 19,
+			"Moreno 3146").ubicacion(4, 1).horario(#["Lunes", "Martes", "Miercoles", "Jueves", "Viernes"], 10, 0, 19,
 			0).horario("Sabado", 10, 0, 13, 0).descripcionActual("soy un colectivo").build
 
 		val trigoDeOro = new POIBuilder().local.nombre("Trigo de Oro").estaHabilitado(0).rubro(rubroPanaderia).clave("pan").clave(
@@ -139,10 +140,10 @@ class POIController {
 			saveOrUpdate(credicoopVillaLynch)
 		]
 
-		val mariana = new UsuarioBuilder().nombre("Mariana").contrasenia("123").build
-		val gaby = new UsuarioBuilder().nombre("Gaby").contrasenia("gg").build
-		val pole = new UsuarioBuilder().nombre("Pole").contrasenia("123").build
-		val nico = new UsuarioBuilder().nombre("Nico").contrasenia("abc").build
+		val mariana = new UsuarioBuilder().nombre("Mariana").contrasenia("123").ubicacion(1,1).build
+		val gaby = new UsuarioBuilder().nombre("Gaby").contrasenia("gg").ubicacion(2,1).build
+		val pole = new UsuarioBuilder().nombre("Pole").contrasenia("123").ubicacion(3,1).build
+		val nico = new UsuarioBuilder().nombre("Nico").contrasenia("abc").ubicacion(4,1).build
 		
 
 		RepoUsuario.instance => [saveOrUpdate(mariana) saveOrUpdate(gaby) saveOrUpdate(pole) saveOrUpdate(nico)]

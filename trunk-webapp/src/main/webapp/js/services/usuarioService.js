@@ -6,8 +6,8 @@ app.service("usuarioService", function($http) {
     };
 
     this.putFavorito = function(usuario, poi) {
-        $http.put('/usuario/' + usuario.id + '/favoritos', poi.id).then(self.getUsuarios());
-    }
+        $http.put('/usuario/' + usuario.nombre + '/favoritos', poi.id).then(self.getUsuarios());
+    };
 
     this.logIn = function(usuario) {
         this.usuarioActivo = usuario;

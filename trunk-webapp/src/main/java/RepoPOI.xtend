@@ -16,6 +16,18 @@ class RepoPOI extends RepoDefault<POI> {
 
 	private new() {
 	}
+	 
+//	override List<POI> allInstances(){
+//		var List<POI> result = null
+//		val session = sessionFactory.openSession
+//		try{
+//			result = session
+//							.createCriteria(typeof(POI))
+//							.uniqueResult
+//							.list
+//			
+//		}
+//	}
 
 	def List<POI> search(String string) {
 		repoPois.allInstances.filter[coincideBusqueda(string)].toList
@@ -26,6 +38,7 @@ class RepoPOI extends RepoDefault<POI> {
 	override addQueryByExample(Criteria criteria, POI poi) {
 		if (poi.domicilio != null) {
 			criteria.add(Restrictions.eq("domicilio", poi.domicilio))
+			criteria.uniqueResult as POI
 		}
 	}
 

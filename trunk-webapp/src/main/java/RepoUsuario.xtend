@@ -29,12 +29,12 @@ class RepoUsuario extends RepoDefault<Usuario> {
 		}
 	}
 
-	def Usuario searchById(Integer id) {
+	def Usuario searchByName(String nombre) {
 		val session = openSession
 		try {
 			session.createCriteria(Usuario)
 				.setFetchMode("usuarios", FetchMode.JOIN)
-				.add(Restrictions.eq("id", id)).
+				.add(Restrictions.eq("nombre", nombre)).
 				uniqueResult as Usuario
 		} catch (HibernateException e) {
 			throw new RuntimeException(e)

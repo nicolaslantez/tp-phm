@@ -37,7 +37,8 @@ abstract class RepoDefault<T> {
  	def List<T> allInstances() {
 		val session = sessionFactory.openSession
 		try {
-			return session.createCriteria(getEntityType).list()
+			var results = session.createCriteria(getEntityType).resultTransformer =  Criteria.DISTINCT_ROOT_ENTITY
+			return results.list()
 		} finally {
 			session.close
 		}
@@ -70,19 +71,19 @@ abstract class RepoDefault<T> {
 		}
 	}
 	
-	/*def void update(T t) {
-		val session = sessionFactory.openSession
-		try {
-			session.beginTransaction
-			session.update(t)
-			session.getTransaction.commit
-		} catch (HibernateException e) {
-			session.getTransaction.rollback
-			throw new RuntimeException(e)
-		} finally {
-			session.close
-		}
-	}*/
+//	def void update(T t) {
+//		val session = sessionFactory.openSession
+//		try {
+//			session.beginTransaction
+//			session.update(t)
+//			session.getTransaction.commit
+//		} catch (HibernateException e) {
+//			session.getTransaction.rollback
+//			throw new RuntimeException(e)
+//		} finally {
+//			session.close
+//		}
+//	}
 	
 	def void delete(T t) {
 		val session = sessionFactory.openSession

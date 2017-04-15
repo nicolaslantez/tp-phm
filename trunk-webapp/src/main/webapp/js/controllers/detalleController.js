@@ -27,7 +27,7 @@ function DetalleController($stateParams, usuarioService, poiService) {
             this.usuario.removeFavorito(this.poi);
         else
             this.usuario.addFavorito(this.poi);
-
+      
         usuarioService.putFavorito(this.usuario,this.poi);
     };
 
