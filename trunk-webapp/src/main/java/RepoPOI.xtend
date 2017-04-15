@@ -53,5 +53,16 @@ class RepoPOI extends RepoDefault<POI> {
 			session.close
 		}
 	}
+	
+	def List<POI> getDisabledPois(){
+		val session= openSession
+		try{
+			return session.createCriteria(POI).setFetchMode("Pois",FetchMode.JOIN).add(Restrictions.eq("estaHabilitado",0)).list
+		} catch (HibernateException e){
+			throw new RuntimeException(e)
+		} finally {
+			session.close
+		}
+	}
 
 }

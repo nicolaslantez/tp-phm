@@ -14,6 +14,8 @@ import org.uqbar.xtrest.json.JSONUtils
 import poi.Opinion
 import poi.Rubro
 import stubs.StubGPSService
+import poi.POI
+import java.util.List
 
 @Controller
 class POIController {
@@ -80,8 +82,14 @@ class POIController {
 	@Get("/pois")
 	def Result getPois() {
 		val pois = RepoPOI.instance.allInstances
-		println(RepoPOI.instance.allInstances)
 		response.contentType = ContentType.APPLICATION_JSON
+		ok(pois.toJson)
+	}
+	
+	@Get("/disabledPois")
+	def Result getDisabledPois(){
+		 var List<POI> pois = RepoPOI.instance.getDisabledPois()
+		 response.contentType = ContentType.APPLICATION_JSON
 		ok(pois.toJson)
 	}
 
