@@ -4,6 +4,7 @@ import org.hibernate.FetchMode
 import org.hibernate.HibernateException
 import org.hibernate.criterion.Restrictions
 import poi.POI
+import java.util.Map
 
 class RepoPOI extends RepoDefault<POI> {
 	static RepoPOI repoPois
@@ -57,12 +58,33 @@ class RepoPOI extends RepoDefault<POI> {
 	def List<POI> getDisabledPois(){
 		val session= openSession
 		try{
-			return session.createCriteria(POI).setFetchMode("Pois",FetchMode.JOIN).add(Restrictions.eq("estaHabilitado",0)).list
+			var results = session.createCriteria(POI).setFetchMode("Pois",FetchMode.JOIN).add(Restrictions.eq("estaHabilitado",0)).resultTransformer = Criteria.DISTINCT_ROOT_ENTITY
+			return results.list
 		} catch (HibernateException e){
 			throw new RuntimeException(e)
 		} finally {
 			session.close
 		}
 	}
-
+	
+	def List<POI> getCGPConMasDe2Reviews() {
+		val session = openSession
+		try {
+			var query = session.createSQLQuery("
+			SELECT initialQuery.*, CGP.nroComuna, domicilio, actualDescripcion
+			FROM CGP JOIN (
+			SELECT CGP.id, count(Opinion.comentario) as 'Cantidad de Opiniones'
+			FROM CGP JOIN Opinion ON (CGP.id = Opinion.idPoi)
+			group by CGP.id
+			HAVING count(Opinion.comentario) > 1
+			) as initialQuery on (CGP.id = initialQuery.id)
+		")
+		
+		query.list
+		} catch (HibernateException e) {
+			throw new RuntimeException(e)
+		} finally {
+			session.close
+		}
+	}		
 }
