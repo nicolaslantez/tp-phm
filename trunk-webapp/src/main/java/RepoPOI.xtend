@@ -4,6 +4,7 @@ import org.hibernate.FetchMode
 import org.hibernate.HibernateException
 import org.hibernate.criterion.Restrictions
 import poi.POI
+import org.hibernate.Query
 
 class RepoPOI extends RepoDefault<POI> {
 	static RepoPOI repoPois
@@ -16,18 +17,6 @@ class RepoPOI extends RepoDefault<POI> {
 
 	private new() {
 	}
-	 
-//	override List<POI> allInstances(){
-//		var List<POI> result = null
-//		val session = sessionFactory.openSession
-//		try{
-//			result = session
-//							.createCriteria(typeof(POI))
-//							.uniqueResult
-//							.list
-//			
-//		}
-//	}
 
 	def List<POI> search(String string) {
 		repoPois.allInstances.filter[coincideBusqueda(string)].toList
@@ -55,14 +44,28 @@ class RepoPOI extends RepoDefault<POI> {
 	}
 	
 	def List<POI> getDisabledPois(){
-		val session= openSession
+		val session = openSession
 		try{
-			return session.createCriteria(POI).setFetchMode("Pois",FetchMode.JOIN).add(Restrictions.eq("estaHabilitado",0)).list
+			var result = session.createCriteria(POI).setFetchMode("Pois",FetchMode.JOIN).add(Restrictions.eq("estaHabilitado",0)).resultTransformer =  Criteria.DISTINCT_ROOT_ENTITY
+			return result.list()
 		} catch (HibernateException e){
 			throw new RuntimeException(e)
 		} finally {
 			session.close
 		}
 	}
+	
+//	def List<POI> getTotalScorePois(){
+//		val session = openSession
+//		try{
+//			var String query = "SELECT POI_id , AVG(calificacion) FROM tabla group by POI_id";
+//			var Query result = session.createQuery(query).resultTransformer = Criteria.DISTINCT_ROOT_ENTITY
+//			return result.list()
+//		} catch (HibernateException e){
+//			throw new RuntimeException(e)
+//		} finally {
+//			session.close
+//		}
+//	}
 
 }

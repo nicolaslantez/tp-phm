@@ -7,7 +7,6 @@ import poi.utils.Horario
 import poi.utils.RangoHorario
 
 import static extension creacionales.DiasFactory.*
-import org.joda.time.DateTime
 
 @Entity
 class HorarioBuilder {
