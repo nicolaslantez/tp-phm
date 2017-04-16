@@ -26,7 +26,6 @@ import poi.utils.POIUtils
 @Entity
 @Observable
 class Banco extends POI {
-//	@JsonIgnore
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	Horario horario

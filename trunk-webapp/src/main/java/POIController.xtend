@@ -93,12 +93,7 @@ class POIController {
 		ok(pois.toJson)
 	}
 	
-//	@Get("/promedios")
-//	def Result getPromedios(){
-//			var result = RepoPOI.instance.getPromedio()
-//			response.contentType = ContentType.APPLICATION_JSON
-//			ok(result.toJson)
-//	}
+
 	
 	@Get("/cgpConMasDe2Reviews")
 		def Result getCGPConMasDe2Reviews(){
@@ -107,6 +102,13 @@ class POIController {
 			ok(pois.toJson)
 		}
 	
+//	@Get("/totalScorePois")
+//	def Result getTotalScorePois(){
+//		 var List<POI> pois = RepoPOI.instance.getTotalScorePois()
+//		 response.contentType = ContentType.APPLICATION_JSON
+//		ok(pois.toJson)
+//	}
+
 	def static void main(String[] args) {
 		val rentas = new ServicioBuilder().nombre("Rentas").horario("Lunes", 10, 0, 13, 0).horario("Miercoles", 10, 0,
 			13, 0).horario("Sabado", 10, 0, 13, 0).build
