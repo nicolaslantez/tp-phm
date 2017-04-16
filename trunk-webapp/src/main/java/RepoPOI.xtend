@@ -4,6 +4,7 @@ import org.hibernate.FetchMode
 import org.hibernate.HibernateException
 import org.hibernate.criterion.Restrictions
 import poi.POI
+import poi.CGP
 
 class RepoPOI extends RepoDefault<POI> {
 	static RepoPOI repoPois
@@ -67,11 +68,11 @@ class RepoPOI extends RepoDefault<POI> {
 //		}
 //	}
 
-	def List<POI> getCGPConMasDe2Reviews() {
+	def List<CGP> getCGPConMasDe2Reviews() {
 		val session = openSession
 		try {
 			var query = session.createSQLQuery("
-			SELECT initialQuery.*, CGP.nroComuna, domicilio, actualDescripcion
+			SELECT CGP.*
 			FROM CGP JOIN (
 			SELECT CGP.id, count(Opinion.comentario) as 'Cantidad de Opiniones'
 			FROM CGP JOIN Opinion ON (CGP.id = Opinion.idPoi)
@@ -80,6 +81,7 @@ class RepoPOI extends RepoDefault<POI> {
 			) as initialQuery on (CGP.id = initialQuery.id)
 		")
 		
+		query.addEntity(CGP)
 		query.list
 		} catch (HibernateException e) {
 			throw new RuntimeException(e)

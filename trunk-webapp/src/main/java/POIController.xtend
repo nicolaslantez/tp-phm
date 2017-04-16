@@ -16,6 +16,7 @@ import poi.Rubro
 import stubs.StubGPSService
 import poi.POI
 import java.util.List
+import poi.CGP
 
 @Controller
 class POIController {
@@ -97,7 +98,7 @@ class POIController {
 	
 	@Get("/cgpConMasDe2Reviews")
 		def Result getCGPConMasDe2Reviews(){
-			var List<POI> pois = RepoPOI.instance.CGPConMasDe2Reviews
+		var List<CGP> pois = RepoPOI.instance.CGPConMasDe2Reviews
 			response.contentType = ContentType.APPLICATION_JSON
 			ok(pois.toJson)
 		}
