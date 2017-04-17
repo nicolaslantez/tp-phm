@@ -59,10 +59,10 @@ class RepoPOI extends RepoDefault<POI> {
 	def List<POI> getTotalScorePois() {
 		val session = openSession
 		try {
-			var query = session.createSQLQuery("SELECT POI_id, AVG(calificacion)
+			var query = session.createSQLQuery("SELECT POI_id, nombre, AVG(calificacion)
 			FROM GET_ALL_THE_OPINIONES
 			group by POI_id
-			")		
+			")				
 			query.list						
 		} catch (HibernateException e) {
 			throw new RuntimeException(e)
