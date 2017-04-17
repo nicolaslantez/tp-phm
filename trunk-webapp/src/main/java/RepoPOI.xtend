@@ -42,31 +42,34 @@ class RepoPOI extends RepoDefault<POI> {
 			session.close
 		}
 	}
-	
-	def List<POI> getDisabledPois(){
+
+	def List<POI> getDisabledPois() {
 		val session = openSession
-		try{
-			var result = session.createCriteria(POI).setFetchMode("Pois",FetchMode.JOIN).add(Restrictions.eq("estaHabilitado",0)).resultTransformer =  Criteria.DISTINCT_ROOT_ENTITY
+		try {
+			var result = session.createCriteria(POI).setFetchMode("Pois", FetchMode.JOIN).add(
+				Restrictions.eq("estaHabilitado", 0)).resultTransformer = Criteria.DISTINCT_ROOT_ENTITY
 			return result.list()
-		} catch (HibernateException e){
+		} catch (HibernateException e) {
 			throw new RuntimeException(e)
 		} finally {
 			session.close
 		}
 	}
-	
-//	def List<POI> getTotalScorePois(){
-//		val session = openSession
-//		try{
-//			var String query = "SELECT POI_id , AVG(calificacion) FROM tabla group by POI_id";
-//			var Query result = session.createQuery(query).resultTransformer = Criteria.DISTINCT_ROOT_ENTITY
-//			return result.list()
-//		} catch (HibernateException e){
-//			throw new RuntimeException(e)
-//		} finally {
-//			session.close
-//		}
-//	}
+
+	def List<POI> getTotalScorePois() {
+		val session = openSession
+		try {
+			var query = session.createSQLQuery("SELECT POI_id, AVG(calificacion)
+			FROM GET_ALL_THE_OPINIONES
+			group by POI_id
+			")		
+			query.list						
+		} catch (HibernateException e) {
+			throw new RuntimeException(e)
+		} finally {
+			session.close
+		}
+	}
 
 	def List<CGP> getCGPConMasDe2Reviews() {
 		val session = openSession
@@ -78,16 +81,15 @@ class RepoPOI extends RepoDefault<POI> {
 			FROM CGP JOIN Opinion ON (CGP.id = Opinion.idPoi)
 			group by CGP.id
 			HAVING count(Opinion.comentario) > 1
-			) as initialQuery on (CGP.id = initialQuery.id)
-		")
-		
-		query.addEntity(CGP)
-		query.list
+			) as initialQuery on (CGP.id = initialQuery.id)")
+
+			query.addEntity(CGP)
+			query.list
 		} catch (HibernateException e) {
 			throw new RuntimeException(e)
 		} finally {
 			session.close
 		}
-	}		
+	}
 
 }
