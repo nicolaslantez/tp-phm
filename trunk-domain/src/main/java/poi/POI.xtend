@@ -3,6 +3,7 @@ package poi
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import java.util.List
+import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
@@ -16,7 +17,6 @@ import org.hibernate.annotations.LazyCollectionOption
 import org.joda.time.DateTime
 import org.uqbar.commons.utils.Observable
 import poi.utils.Punto
-import javax.persistence.CascadeType
 
 @Observable
 @Accessors
@@ -64,7 +64,12 @@ abstract class POI {
 	def String getTipo() {
 		class.name.replace("poi.", "")
 	}
-
+	
+	
+	def void modificarDato(POI poi){
+		this.actualDescripcion = poi.actualDescripcion
+	}
+	
 	@JsonIgnore
 	def double getCalificacionGeneral() {
 		val nroOpiniones = listaOpiniones.size

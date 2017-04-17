@@ -65,6 +65,21 @@ class POIController {
 		}
 		ok
 	}
+	
+	@Put("/modificarDescripcion/:id")
+	def Result putModificarDescripcion(@Body String body){
+		try {
+			//val nuevaDescripcion = RepoPOI.instance.searchById(Long.parseLong(body))
+			val nuevaDescripcion = body.fromJson(POI)
+			val poi = RepoPOI.instance.searchById(Long.parseLong(id))
+			//poi.actualDescripcion = nuevaDescripcion
+			poi.modificarDato(nuevaDescripcion)
+			RepoPOI.instance.saveOrUpdate(poi)
+		} catch (Exception e) {
+			badRequest(e.message)
+		}
+		ok
+	}
 		
 	@Get("/usuarioActivo")
 	def Result getActivo() {
@@ -93,8 +108,6 @@ class POIController {
 		 response.contentType = ContentType.APPLICATION_JSON
 		ok(pois.toJson)
 	}
-	
-
 	
 	@Get("/cgpConMasDe2Reviews")
 		def Result getCGPConMasDe2Reviews(){
