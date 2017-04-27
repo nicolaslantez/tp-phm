@@ -2,13 +2,10 @@ package poi.utils;
 
 import java.math.BigDecimal;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
+import org.bson.types.ObjectId;
 import org.eclipse.xtend.lib.annotations.Accessors;
-import org.uqbar.commons.utils.Observable;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
 import org.uqbar.geodds.NumberUtils;
 
 /**
@@ -20,12 +17,11 @@ import org.uqbar.geodds.NumberUtils;
 @Accessors
 @SuppressWarnings("all")
 public class Punto {
-	@Id
-	@GeneratedValue
-	private Long id;
-	@Column
+	
+	@Id ObjectId id;
+
 	private BigDecimal x;
-	@Column
+	
 	private BigDecimal y;
 
 	/**

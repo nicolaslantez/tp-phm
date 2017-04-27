@@ -4,17 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
+import org.bson.types.ObjectId;
 import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Pure;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
 import org.uqbar.geodds.NumberUtils;
 
 /**
@@ -30,12 +25,9 @@ import org.uqbar.geodds.NumberUtils;
 @Accessors
 @SuppressWarnings("all")
 public class Poligono {
-	@Id
-	@GeneratedValue
-	private Long id;
 	
-	@OneToMany(cascade=CascadeType.ALL)
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@Id ObjectId id;
+	
 	protected List<Punto> surface;
 
 	/**

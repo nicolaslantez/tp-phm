@@ -3,18 +3,11 @@ package poi
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import java.util.List
-import javax.persistence.CascadeType
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
-import javax.persistence.Inheritance
-import javax.persistence.InheritanceType
-import javax.persistence.OneToMany
+import org.bson.types.ObjectId
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.hibernate.annotations.LazyCollection
-import org.hibernate.annotations.LazyCollectionOption
 import org.joda.time.DateTime
+import org.mongodb.morphia.annotations.Entity
+import org.mongodb.morphia.annotations.Id
 import org.uqbar.commons.utils.Observable
 import poi.utils.Punto
 
@@ -22,31 +15,21 @@ import poi.utils.Punto
 @Accessors
 @JsonIgnoreProperties(ignoreUnknown=true)
 @Entity
-@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 abstract class POI {
 
-	@Id
-	@GeneratedValue
-	private Long id
+	@Id ObjectId id
 
-	// 1 = habilitado, 0 = deshabilitado
-	@Column(length=1)
+	// 1 = habilitado, 0 = deshabilitado	
 	int estaHabilitado
 
-	@Column(length=100)
 	String domicilio
 
-	 @LazyCollection(LazyCollectionOption.FALSE)
-	@OneToMany(cascade= CascadeType.ALL)
 	List<Opinion> listaOpiniones = newArrayList
 
-	@Column(length=100)
 	String viejaDescripcion
 
-	@Column(length=100)
 	String actualDescripcion
 
-	@Column(length=20)
 	DateTime fechaModificacion
 
 	def boolean estaCerca(Punto coordenada)

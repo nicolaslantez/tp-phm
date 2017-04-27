@@ -3,17 +3,10 @@ package busqueda
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import creacionales.ServiceLocator
 import java.util.List
-import javax.persistence.CascadeType
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.Id
-import javax.persistence.Inheritance
-import javax.persistence.InheritanceType
-import javax.persistence.ManyToMany
-import javax.persistence.OneToOne
+import org.bson.types.ObjectId
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.hibernate.annotations.LazyCollection
-import org.hibernate.annotations.LazyCollectionOption
+import org.mongodb.morphia.annotations.Entity
+import org.mongodb.morphia.annotations.Id
 import org.uqbar.commons.utils.Observable
 import poi.POI
 import poi.utils.Punto
@@ -22,22 +15,16 @@ import poi.utils.Punto
 @Accessors
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 class Usuario {
 	
-	@Id
-	@Column (length = 50 )
+	@Id ObjectId id
+	
 	String nombre
 	
-	@Column ( length = 50 )
 	String contrasenia
 	
-	@ManyToMany
-	@LazyCollection(LazyCollectionOption.FALSE)
 	List<POI> listaFavoritos = newArrayList
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@LazyCollection(LazyCollectionOption.FALSE)
 	Punto ubicacion
 	
 	/* @JsonIgnore

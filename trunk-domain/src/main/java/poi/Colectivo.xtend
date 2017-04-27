@@ -2,14 +2,11 @@ package poi
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import java.util.Set
-import javax.persistence.CascadeType
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.OneToMany
+import org.bson.types.ObjectId
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.hibernate.annotations.LazyCollection
-import org.hibernate.annotations.LazyCollectionOption
 import org.joda.time.DateTime
+import org.mongodb.morphia.annotations.Entity
+import org.mongodb.morphia.annotations.Id
 import org.uqbar.commons.utils.Observable
 import poi.utils.Punto
 
@@ -20,11 +17,10 @@ import static extension poi.utils.POIUtils.*
 @Observable
 class Colectivo extends POI {
 	
-	@OneToMany(cascade=CascadeType.ALL)
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@Id ObjectId id
+	
 	Set<Punto> paradas = newHashSet
 	
-	@Column( length = 10)
 	int nroLinea
 
 	override estaCerca(Punto coordenada) {

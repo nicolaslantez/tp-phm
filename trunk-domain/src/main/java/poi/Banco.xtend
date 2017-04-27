@@ -3,46 +3,33 @@ package poi
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import java.util.Set
-import javax.persistence.CascadeType
-import javax.persistence.CollectionTable
-import javax.persistence.Column
-import javax.persistence.ElementCollection
-import javax.persistence.Entity
-import javax.persistence.FetchType
-import javax.persistence.JoinColumn
-import javax.persistence.OneToOne
+import org.bson.types.ObjectId
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.hibernate.annotations.LazyCollection
-import org.hibernate.annotations.LazyCollectionOption
 import org.joda.time.DateTime
+import org.mongodb.morphia.annotations.Entity
+import org.mongodb.morphia.annotations.Id
 import org.uqbar.commons.utils.Observable
 import poi.utils.Horario
+import poi.utils.POIUtils
 import poi.utils.Punto
 
 import static extension poi.utils.POIUtils.*
-import poi.utils.POIUtils
 
 @Accessors
 @Entity
 @Observable
 class Banco extends POI {
-
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	
+	@Id ObjectId id
+	
 	Horario horario
 	
-	@OneToOne(cascade=CascadeType.ALL)
-	@LazyCollection(LazyCollectionOption.FALSE)
 	Punto ubicacion
 
-	@ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name="ServicioBanco", joinColumns=@JoinColumn(name="Banco_id"))
-    @Column(name="servicio")
 	Set<String> servicios = newHashSet
 
-	@Column(length=50)
 	String barrio
 
-	@Column(length=50)
 	String compania
 
 	override estaCerca(Punto coordenada) {

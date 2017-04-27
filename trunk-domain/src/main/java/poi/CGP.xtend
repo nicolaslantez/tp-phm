@@ -2,40 +2,31 @@ package poi
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import java.util.Set
-import javax.persistence.CascadeType
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.FetchType
-import javax.persistence.OneToMany
-import javax.persistence.OneToOne
+import org.bson.types.ObjectId
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
+import org.mongodb.morphia.annotations.Entity
+import org.mongodb.morphia.annotations.Id
 import org.uqbar.commons.utils.Observable
 import poi.utils.Poligono
 import poi.utils.Punto
 import poi.utils.Servicio
 
 import static extension poi.utils.POIUtils.*
-import org.hibernate.annotations.LazyCollection
-import org.hibernate.annotations.LazyCollectionOption
 
 @Accessors
 @Entity
 @Observable
 class CGP extends POI {
 	
-	@Column( length = 10)
+	@Id ObjectId id
+	
 	int nroComuna
 		
-	@OneToOne(cascade=CascadeType.ALL)
-	@LazyCollection(LazyCollectionOption.FALSE)
 	Punto ubicacion
 	
-	@OneToOne (cascade=CascadeType.ALL)	
-	@LazyCollection(LazyCollectionOption.FALSE)
 	Poligono limites = new Poligono
-	
-	@OneToMany ( fetch = FetchType.EAGER, cascade=CascadeType.ALL)	
+		
 	Set<Servicio> servicios = newHashSet
 
 	override estaCerca(Punto coordenada) {

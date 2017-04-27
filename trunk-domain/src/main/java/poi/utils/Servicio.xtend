@@ -3,15 +3,11 @@ package poi.utils
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
-import javax.persistence.CascadeType
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.FetchType
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
-import javax.persistence.OneToOne
+import org.bson.types.ObjectId
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
+import org.mongodb.morphia.annotations.Entity
+import org.mongodb.morphia.annotations.Id
 import org.uqbar.commons.utils.Observable
 
 import static extension poi.utils.POIUtils.*
@@ -21,17 +17,11 @@ import static extension poi.utils.POIUtils.*
 @Observable
 class Servicio {
 	
-	@Id
-	@GeneratedValue
-	private Long id
-	
+	@Id ObjectId id
 	
 	@JsonIgnore
-	
-	@OneToOne( fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	Horario horario
 	
-	@Column( length = 50 )
 	String nombre
 
 	def boolean coincideNombre(String string) {

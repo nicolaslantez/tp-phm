@@ -3,34 +3,21 @@ package poi.utils
 import java.time.DayOfWeek
 import java.util.ArrayList
 import java.util.List
-import javax.persistence.CascadeType
-import javax.persistence.Column
-import javax.persistence.ElementCollection
-import javax.persistence.Entity
-import javax.persistence.FetchType
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
-import javax.persistence.OneToMany
+import org.bson.types.ObjectId
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
 import org.joda.time.LocalTime
+import org.mongodb.morphia.annotations.Entity
+import org.mongodb.morphia.annotations.Id
 import org.uqbar.commons.utils.Observable
-import org.hibernate.annotations.Type
-import org.hibernate.annotations.LazyCollection
-import org.hibernate.annotations.LazyCollectionOption
 
 @Accessors
 @Entity
 @Observable
 class Horario {
 
-	@Id
-	@GeneratedValue
-	private Long id
+	@Id ObjectId id
 	
-	@ElementCollection
-	@LazyCollection(LazyCollectionOption.FALSE)
-	@OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	List<RangoHorario> horarios = new ArrayList()
 	
 	def boolean estaDisponible(DateTime momento){
@@ -62,20 +49,12 @@ class Horario {
 @Observable
 class RangoHorario {
 
-	@Id
-	@GeneratedValue
-	private Long id
+	@Id ObjectId id
 	
-	@Column
 	DayOfWeek dia
 	
-	@Column
-//	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalTime")
 	LocalTime abre
-	@Column
-//	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalTime")
+	
 	LocalTime cierra
 
 	def boolean estaDisponible(LocalTime hora) {
