@@ -19,11 +19,11 @@ class TestHorario {
 		comuna15 = new POIBuilder().cgp
 					.servicio(new ServicioBuilder()
 								.nombre("Rentas")
-								.horario(#["Martes", "Jueves"], 9, 0, 14, 0)
+								.horario("Lunes", 9, 0, 14, 0)
 								.build)
 					.servicio(new ServicioBuilder()
 								.nombre("Eco Bici")
-								.horario(#["Lunes", "Miercoles", "Viernes"], 9, 0, 14, 0)
+								.horario("Lunes", 9, 0, 14, 0)
 								.build)
 					.build
 

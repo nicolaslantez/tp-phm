@@ -10,6 +10,7 @@ import poi.POI
 
 import static extension adapters.AdapterBanco.*
 import static extension adapters.AdapterCGP.*
+import interfacesExternas.CentroDTO
 
 @Observable
 @Accessors
