@@ -1,9 +1,5 @@
 import busqueda.Usuario
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.hibernate.Criteria
-import org.hibernate.FetchMode
-import org.hibernate.HibernateException
-import org.hibernate.criterion.Restrictions
 
 @Accessors
 class RepoUsuario extends RepoDefault<Usuario> {
@@ -22,25 +18,33 @@ class RepoUsuario extends RepoDefault<Usuario> {
 	override getEntityType() {
 		typeof(Usuario)
 	}
-
-	override addQueryByExample(Criteria criteria, Usuario usuario) {
-		if (usuario.nombre != null) {
-			criteria.add(Restrictions.eq("nombre", usuario.nombre))
+	
+	def createWhenNew(Usuario usuario) {
+		if (searchByExample(usuario).isEmpty) {
+			this.create(usuario)
 		}
 	}
-
+	
+	override searchByExample(Usuario usuario) {
+		ds.createQuery(entityType)
+			.field("nombre").equal(usuario.nombre)
+			.asList
+	}
+	
 	def Usuario searchByName(String nombre) {
-		val session = openSession
-		try {
-			session.createCriteria(Usuario)
-				.setFetchMode("usuarios", FetchMode.JOIN)
-				.add(Restrictions.eq("nombre", nombre)).
-				uniqueResult as Usuario
-		} catch (HibernateException e) {
-			throw new RuntimeException(e)
-		} finally {
-			session.close
-		}
+		ds.createQuery(entityType)
+			.field("nombre").equal(nombre)
+			as Usuario
+	}
+	
+
+	
+	override defineUpdateOperations(Usuario usuario) {
+		ds.createUpdateOperations(entityType)
+			.set("nombre", usuario.nombre)
+			.set("contrasenia", usuario.contrasenia)
+			.set("ubicacion", usuario.ubicacion)
+			.set("listaFavoritos", usuario.listaFavoritos)
 	}
 
 }

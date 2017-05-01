@@ -2,6 +2,7 @@ import creacionales.POIBuilder
 import creacionales.ServiceLocator
 import creacionales.ServicioBuilder
 import creacionales.UsuarioBuilder
+import org.bson.types.ObjectId
 import org.uqbar.geodds.Point
 import org.uqbar.xtrest.api.Result
 import org.uqbar.xtrest.api.XTRest
@@ -14,9 +15,6 @@ import org.uqbar.xtrest.json.JSONUtils
 import poi.Opinion
 import poi.Rubro
 import stubs.StubGPSService
-import poi.POI
-import java.util.List
-import poi.CGP
 
 @Controller
 class POIController {
@@ -36,12 +34,12 @@ class POIController {
 	@Put("/usuario/:nombreUsuario/favoritos")
 	def Result putFavorito(@Body String body) {
 		try {
-			val poi = RepoPOI.instance.searchById(body.fromJson(Long))
+			val poi = RepoPOI.instance.searchById(body.fromJson(ObjectId))
 			val usuario = RepoUsuario.instance.searchByName(nombreUsuario)
 
 			if (usuario.esFavorito(poi))
 				{usuario.removeFavorito(poi)
-				RepoPOI.instance.saveOrUpdate(poi)}
+				RepoPOI.instance.update(poi)}
 			else
 				{usuario.addFavorito(poi)
 				RepoPOI.instance.delete(poi)	
@@ -57,16 +55,16 @@ class POIController {
 	def Result putOpinion(@Body String body) {
 		try {
 			val opinion = body.fromJson(Opinion)
-			val poi = RepoPOI.instance.searchById(Long.parseLong(id))
+			val poi = RepoPOI.instance.searchById(id.fromJson(ObjectId))
 			poi.addOpinion(opinion)
-			RepoPOI.instance.saveOrUpdate(poi)
+			RepoPOI.instance.create(poi)
 		} catch (Exception e) {
 			badRequest(e.message)
 		}
 		ok
 	}
 	
-	@Put("/modificarDescripcion/:id")
+	/*@Put("/modificarDescripcion/:id")
 	def Result putModificarDescripcion(@Body String body){
 		try {
 			//val nuevaDescripcion = RepoPOI.instance.searchById(Long.parseLong(body))
@@ -79,7 +77,7 @@ class POIController {
 			badRequest(e.message)
 		}
 		ok
-	}
+	}*/
 		
 	@Get("/usuarioActivo")
 	def Result getActivo() {
@@ -102,26 +100,26 @@ class POIController {
 		ok(pois.toJson)
 	}
 	
-	@Get("/disabledPois")
+	/*@Get("/disabledPois")
 	def Result getDisabledPois(){
 		 var List<POI> pois = RepoPOI.instance.getDisabledPois()
 		 response.contentType = ContentType.APPLICATION_JSON
 		ok(pois.toJson)
-	}
+	}*/
 	
-	@Get("/cgpConMasDe2Reviews")
+	/*@Get("/cgpConMasDe2Reviews")
 		def Result getCGPConMasDe2Reviews(){
 		var List<CGP> pois = RepoPOI.instance.CGPConMasDe2Reviews
 			response.contentType = ContentType.APPLICATION_JSON
 			ok(pois.toJson)
-		}
+		}*/
 	
-	@Get("/totalScorePois")
+	/*@Get("/totalScorePois")
 	def Result getTotalScorePois(){
 		 var List<POI> pois = RepoPOI.instance.getTotalScorePois()
 		 response.contentType = ContentType.APPLICATION_JSON
 		ok(pois.toJson)
-	}
+	}*/
 
 	def static void main(String[] args) {
 		val rentas = new ServicioBuilder().nombre("Rentas").horario("Lunes", 10, 0, 13, 0).horario("Miercoles", 10, 0,
@@ -168,14 +166,14 @@ class POIController {
 			"Banca Empresaria").servicio("Plazo Fijo").ubicacion(2, 3).descripcionActual("soy un local comercial").build
 
 		RepoPOI.instance => [
-			saveOrUpdate(cgp15)
-			saveOrUpdate(linea343)
-			saveOrUpdate(maninHnos)
-			saveOrUpdate(nacionSanMartin)
-			saveOrUpdate(cgp11)
-			saveOrUpdate(linea237)
-			saveOrUpdate(trigoDeOro)
-			saveOrUpdate(credicoopVillaLynch)
+			create(cgp15)
+			create(linea343)
+			create(maninHnos)
+			create(nacionSanMartin)
+			create(cgp11)
+			create(linea237)
+			create(trigoDeOro)
+			create(credicoopVillaLynch)
 		]
 
 		val mariana = new UsuarioBuilder().nombre("Mariana").contrasenia("123").ubicacion(1,1).build
@@ -184,7 +182,7 @@ class POIController {
 		val nico = new UsuarioBuilder().nombre("Nico").contrasenia("abc").ubicacion(4,1).build
 		
 
-		RepoUsuario.instance => [saveOrUpdate(mariana) saveOrUpdate(gaby) saveOrUpdate(pole) saveOrUpdate(nico)]
+		RepoUsuario.instance => [create(mariana) create(gaby) create(pole) create(nico)]
 
 		ServiceLocator.instance.gps = new StubGPSService => [
 			addUsuario(mariana, new Point(1, 1))
@@ -216,7 +214,7 @@ class POIController {
 		
 		maninHnos.addOpinion(poleOpinion)		
 		
-		saveOrUpdate(maninHnos)
+		update(maninHnos)
 		
 		nicoOpinion = new Opinion()
 		nicoOpinion.calificacion = 2
@@ -239,7 +237,7 @@ class POIController {
 		
 		trigoDeOro.addOpinion(poleOpinion)	
 		
-		saveOrUpdate(trigoDeOro)
+		update(trigoDeOro)
 			
 		
 		var marianaOpinion = new Opinion()
@@ -263,7 +261,7 @@ class POIController {
 		
 		credicoopVillaLynch.addOpinion(poleOpinion)		
 		
-		saveOrUpdate(credicoopVillaLynch)
+		update(credicoopVillaLynch)
 		
 		marianaOpinion = new Opinion()
 		marianaOpinion.calificacion = 5
@@ -300,11 +298,11 @@ class POIController {
 		nicoOpinion.usuarioOpinador = "nick"
 		cgp15.addOpinion(nicoOpinion)
 
-        nicoOpinion = new Opinion(5,"Muy bueno", "Nico",  new Long(20) )
+        nicoOpinion = new Opinion(5,"Muy bueno", "Nico", maninHnos.id )
 		maninHnos.addOpinion(nicoOpinion)
 		
-		saveOrUpdate(maninHnos)
-		saveOrUpdate(cgp15)
+		update(maninHnos)
+		update(cgp15)
 		
 		]
 		XTRest.start(POIController, 9000)

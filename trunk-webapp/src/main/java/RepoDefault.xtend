@@ -1,9 +1,9 @@
 import busqueda.Usuario
+import com.mongodb.MongoClient
 import java.util.List
-import org.hibernate.Criteria
-import org.hibernate.HibernateException
-import org.hibernate.SessionFactory
-import org.hibernate.cfg.Configuration
+import org.mongodb.morphia.Datastore
+import org.mongodb.morphia.Morphia
+import org.mongodb.morphia.query.UpdateOperations
 import poi.Banco
 import poi.CGP
 import poi.Colectivo
@@ -18,78 +18,59 @@ import poi.utils.RangoHorario
 import poi.utils.Servicio
 
 abstract class RepoDefault<T> {
- 	protected static final SessionFactory sessionFactory = new Configuration().configure()
- 	.addAnnotatedClass(POI)
- 	.addAnnotatedClass(Banco)
- 	.addAnnotatedClass(Local)
- 	.addAnnotatedClass(Colectivo)
- 	.addAnnotatedClass(CGP)
- 	.addAnnotatedClass(Horario)
- 	.addAnnotatedClass(Rubro)
- 	.addAnnotatedClass(Usuario)
- 	.addAnnotatedClass(Servicio)
- 	.addAnnotatedClass(RangoHorario)
- 	.addAnnotatedClass(Opinion)
- 	.addAnnotatedClass(Punto)
- 	.addAnnotatedClass(Poligono)
- 	.buildSessionFactory()
- 	
- 	def List<T> allInstances() {
-		val session = sessionFactory.openSession
-		try {
-			var results = session.createCriteria(getEntityType).resultTransformer =  Criteria.DISTINCT_ROOT_ENTITY
-			return results.list()
-		} finally {
-			session.close
+	
+	static protected Datastore ds
+	static Morphia morphia
+	
+	new() {
+		if (ds == null) {
+			val mongo = new MongoClient("localhost", 27017)
+			morphia = new Morphia => [
+				map(typeof(Usuario)).map(typeof(POI)).map(typeof(Banco)).map(typeof(Local)).map(typeof(Colectivo)).map(typeof(CGP)).map(typeof(Horario)).map(typeof(Rubro)).map(typeof(Servicio)).map(typeof(RangoHorario)).map(typeof(Opinion)).map(typeof(Punto)).map(typeof(Poligono))
+				ds = createDatastore(mongo, "local")
+				ds.ensureIndexes
+			]
+			println("Conectado a MongoDB. Bases: " + ds.getDB.collectionNames)
 		}
 	}
-	
-	def List<T> searchByExample(T t) {
-		val session = sessionFactory.openSession
-		try {
-			val criteria = session.createCriteria(getEntityType)
-			this.addQueryByExample(criteria, t)
-			return criteria.list()
-		} catch (HibernateException e) {
-			throw new RuntimeException(e)
-		} finally {
-			session.close
+ 
+	def T getByExample(T example) {
+		val result = searchByExample(example)
+		if (result.isEmpty) {
+			return null
+		} else {
+			return result.get(0)
 		}
 	}
-	
-	def void saveOrUpdate(T t) {
-		val session = sessionFactory.openSession
-		try {
-			session.beginTransaction
-			session.saveOrUpdate(t)
-			session.getTransaction.commit
-		} catch (HibernateException e) {
-			session.getTransaction.rollback
-			throw new RuntimeException(e)
-		} finally {
-			session.close
-		}
-	}
-	
-	def void delete(T t) {
-		val session = sessionFactory.openSession
-		try {
-			session.beginTransaction
-			session.delete(t)
-			session.getTransaction.commit
-		} catch (HibernateException e) {
-			session.getTransaction.rollback
-			throw new RuntimeException(e)
-		} finally {
-			session.close
-		}
-	}
-	
-	def openSession() {
-		sessionFactory.openSession
-	}
-	
-	def abstract Class<T> getEntityType()
 
-	def abstract void addQueryByExample(Criteria criteria, T t)
+	def List<T> searchByExample(T t)
+
+	def T createIfNotExists(T t) {
+		val entidadAModificar = getByExample(t)
+		if (entidadAModificar != null) {
+			return entidadAModificar
+		}
+		create(t)
+	}
+
+	def void update(T t) {
+		ds.update(t, this.defineUpdateOperations(t))
+	}
+
+	abstract def UpdateOperations<T> defineUpdateOperations(T t)
+
+	def T create(T t) {
+		ds.save(t)
+		t
+	}
+
+	def void delete(T t) {
+		ds.delete(t)
+	}
+
+	def List<T> allInstances() {
+		ds.createQuery(this.getEntityType()).asList
+	}
+
+	abstract def Class<T> getEntityType()
 }

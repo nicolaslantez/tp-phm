@@ -1,10 +1,6 @@
 import java.util.List
-import org.hibernate.Criteria
-import org.hibernate.FetchMode
-import org.hibernate.HibernateException
-import org.hibernate.criterion.Restrictions
+import org.bson.types.ObjectId
 import poi.POI
-import poi.CGP
 
 class RepoPOI extends RepoDefault<POI> {
 	static RepoPOI repoPois
@@ -14,36 +10,40 @@ class RepoPOI extends RepoDefault<POI> {
 			repoPois = new RepoPOI
 		repoPois
 	}
-
-	private new() {
+	
+	def createWhenNew(POI poi) {
+		if (searchByExample(poi).isEmpty) {
+			this.create(poi)
+		}
 	}
 
 	def List<POI> search(String string) {
 		repoPois.allInstances.filter[coincideBusqueda(string)].toList
 	}
+	
+	def POI searchById(ObjectId id) {
+		ds.createQuery(entityType)
+			.field("id").equal(id)
+			as POI
+	}
 
 	override getEntityType() { typeof(POI) }
-
-	override addQueryByExample(Criteria criteria, POI poi) {
-		if (poi.domicilio != null) {
-			criteria.add(Restrictions.eq("domicilio", poi.domicilio))
-			criteria.uniqueResult as POI
-		}
+	
+	override searchByExample(POI poi) {
+		ds.createQuery(entityType)
+			.field("domicilio").equal(poi.domicilio)
+			.asList
 	}
-
-	def POI searchById(Long id) {
-		val session = openSession
-		try {
-			session.createCriteria(POI).setFetchMode("Pois", FetchMode.JOIN).add(Restrictions.eq("id", id)).
-				uniqueResult as POI
-		} catch (HibernateException e) {
-			throw new RuntimeException(e)
-		} finally {
-			session.close
-		}
+	
+	override defineUpdateOperations(POI poi) {
+		ds.createUpdateOperations(entityType)
+			.set("domicilio", poi.domicilio)
+			.set("actualDescripcion", poi.actualDescripcion)
+			.set("viejaDescripcion", poi.viejaDescripcion)
+			.set("fechaModificacion", poi.fechaModificacion)
 	}
-
-	def List<POI> getDisabledPois() {
+	
+	/*def List<POI> getDisabledPois() {
 		val session = openSession
 		try {
 			var result = session.createCriteria(POI).setFetchMode("Pois", FetchMode.JOIN).add(
@@ -54,9 +54,9 @@ class RepoPOI extends RepoDefault<POI> {
 		} finally {
 			session.close
 		}
-	}
+	}*/
 
-	def List<POI> getTotalScorePois() {
+	/*def List<POI> getTotalScorePois() {
 		val session = openSession
 		try {
 			var query = session.createSQLQuery("SELECT POI_id, nombre, AVG(calificacion)
@@ -69,9 +69,9 @@ class RepoPOI extends RepoDefault<POI> {
 		} finally {
 			session.close
 		}
-	}
+	}*/
 
-	def List<CGP> getCGPConMasDe2Reviews() {
+	/*def List<CGP> getCGPConMasDe2Reviews() {
 		val session = openSession
 		try {
 			var query = session.createSQLQuery("
@@ -90,6 +90,6 @@ class RepoPOI extends RepoDefault<POI> {
 		} finally {
 			session.close
 		}
-	}
+	}*/
 
 }

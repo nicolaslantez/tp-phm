@@ -1,8 +1,8 @@
 package creacionales
 
 import java.time.DayOfWeek
-import javax.persistence.Entity
 import org.joda.time.LocalTime
+import org.mongodb.morphia.annotations.Entity
 import poi.utils.Horario
 import poi.utils.RangoHorario
 
