@@ -5,8 +5,6 @@ import creacionales.ServiceLocator
 import creacionales.ServicioDTOBuilder
 import interfacesExternas.CGPService
 import interfacesExternas.CentroDTO
-import java.time.DayOfWeek
-import org.joda.time.LocalTime
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -14,8 +12,6 @@ import stubs.StubCGPService
 
 import static org.mockito.Matchers.*
 import static org.mockito.Mockito.*
-
-import static extension adapters.AdapterCGP.*
 
 class TestCGPService {
 	CentroDTO centroDTO15
@@ -62,7 +58,7 @@ class TestCGPService {
 	}
 
 
-	@Test
+	/*@Test
 	def void sePasaDeClaseCentroDTOAClaseCGP() {
 		val cgp = centroDTO15.toCGP
 		Assert.assertEquals(15, cgp.nroComuna)
@@ -74,7 +70,7 @@ class TestCGPService {
 		val horarioLunes = servicioDNI.horario.diasHabiles.get(DayOfWeek.MONDAY)
 		Assert.assertEquals(new LocalTime(8,0), horarioLunes.abre)
 		Assert.assertEquals(new LocalTime(17,30), horarioLunes.cierra)
-	}
+	}*/
 
 	@Test
 	def void buscarLlamaAlCGPService() {
