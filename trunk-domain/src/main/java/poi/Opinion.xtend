@@ -1,15 +1,14 @@
 package poi
 
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
 import javax.persistence.Id
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.mongodb.morphia.annotations.Entity
 import org.uqbar.commons.utils.Observable
+import org.bson.types.ObjectId
 
 @Observable
 @Accessors
-@Entity
+@Entity(value="Opinion")
 class Opinion {
 	
 	new(int calif, String coment, String user, Long  _poi){
@@ -20,21 +19,14 @@ class Opinion {
 	}
 	
 	new(){}
-
-	@Id
-	@GeneratedValue
-	private Long id
 	
-	@Column ( length = 1)
+	@Id ObjectId id
+	
 	int calificacion
 	
-	@Column ( length  = 250) 
 	String comentario
 	
-	@Column ( length = 50 )
 	String usuarioOpinador
 	
-//	@ManyToOne(fetch = FetchType.EAGER)
-		@Column
-		Long idPoi
+	Long idPoi
 }
