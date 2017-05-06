@@ -15,6 +15,7 @@ import poi.utils.Poligono
 import poi.utils.Punto
 import poi.utils.RangoHorario
 import poi.utils.Servicio
+import busqueda.Log
 
 abstract class RepoMongo<T> {
 
@@ -25,7 +26,8 @@ abstract class RepoMongo<T> {
 		if (ds == null) {
 			val mongo = new MongoClient("localhost", 27017)
 			morphia = new Morphia => [
-				map(typeof(Usuario)).map(typeof(POI)).map(typeof(Banco)).map(typeof(Local)).map(typeof(CGP)).map(typeof(Horario)).map(typeof(Banco)).map(typeof(Rubro)).map(typeof(Servicio)).map(typeof(RangoHorario)).map(typeof(Opinion)).map(typeof(Punto)).map(typeof(Poligono))
+				//map(typeof(Usuario)).map(typeof(POI)).map(typeof(Banco)).map(typeof(Local)).map(typeof(CGP)).map(typeof(Horario)).map(typeof(Banco)).map(typeof(Rubro)).map(typeof(Servicio)).map(typeof(RangoHorario)).map(typeof(Opinion)).map(typeof(Punto)).map(typeof(Poligono)).map(typeof(Log))
+				map(typeof(Log))
 				ds = createDatastore(mongo, "local")
 				ds.ensureIndexes
 			]

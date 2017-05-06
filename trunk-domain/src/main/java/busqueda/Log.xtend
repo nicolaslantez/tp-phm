@@ -1,13 +1,12 @@
 package busqueda
 
-import org.joda.time.LocalTime
-import org.uqbar.commons.utils.Observable
+import java.util.Date
+import org.bson.types.ObjectId
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.mongodb.morphia.annotations.Entity
 import org.mongodb.morphia.annotations.Id
 import org.mongodb.morphia.annotations.Property
-import org.bson.types.ObjectId
-import org.mongodb.morphia.annotations.Embedded
+import org.uqbar.commons.utils.Observable
 
 @Observable
 @Accessors
@@ -17,12 +16,11 @@ class Log {
 	@Id ObjectId id
 	
 	@Property("fechaLogin")
-	var LocalTime fecha
+	Date fecha
 	
-	@Embedded
-	@Property("Usuario")
-	var Usuario usuario
+	//@Property("Usuario")
+	Usuario usuario
 	
 	@Property("Estado")
-	var Boolean estado
+	Boolean estado
 }

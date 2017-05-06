@@ -31,7 +31,7 @@ class RepoLog extends RepoMongo<Log> {
 			ds.createUpdateOperations(entityType)
 			.set("fecha", log.fecha)
 			.set("estado", log.estado)
-			.set("usuario", log.usuario)		
+			.set("nombreUsuario", log.usuario)		
 	}
 
 }

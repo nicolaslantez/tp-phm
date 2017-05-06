@@ -3,8 +3,8 @@ import creacionales.POIBuilder
 import creacionales.ServiceLocator
 import creacionales.ServicioBuilder
 import creacionales.UsuarioBuilder
+import java.util.Date
 import java.util.List
-import org.joda.time.LocalTime
 import org.uqbar.geodds.Point
 import org.uqbar.xtrest.api.Result
 import org.uqbar.xtrest.api.XTRest
@@ -23,7 +23,7 @@ import stubs.StubGPSService
 @Controller
 class POIController {
 	extension JSONUtils = new JSONUtils
-
+	
 	@Put("/usuarioActivo")
 	def Result putActivo(@Body String body) {
 		try {
@@ -87,9 +87,10 @@ class POIController {
 	def Result putLog(@Body String body){
 		try {		
 			val usuario = RepoUsuario.instance.searchByName(nombreUsuario)
+			//val usuario = nombreUsuario
 			val actualEstado = Boolean.parseBoolean(body)
 			var nuevoLog = new Log()
-			nuevoLog.fecha = LocalTime.now
+			nuevoLog.fecha = new Date
 			nuevoLog.usuario = usuario
 			nuevoLog.estado = actualEstado
 			RepoLog.instance.create(nuevoLog)
@@ -195,7 +196,11 @@ class POIController {
 			saveOrUpdate(trigoDeOro)
 			saveOrUpdate(credicoopVillaLynch)
 		]
-
+				
+		if (!RepoUsuario.instance.allInstances.isEmpty) {
+			return
+		}
+		
 		val mariana = new UsuarioBuilder().nombre("Mariana").contrasenia("123").ubicacion(1,1).build
 		val gaby = new UsuarioBuilder().nombre("Gaby").contrasenia("gg").ubicacion(2,1).build
 		val pole = new UsuarioBuilder().nombre("Pole").contrasenia("123").ubicacion(3,1).build
@@ -325,6 +330,16 @@ class POIController {
 		saveOrUpdate(cgp15)
 		
 		]	
+		
+		//var repoLog = new RepoLog()
+		
+		
+		val pruebaLog = new Log() => [
+			usuario = pole
+			fecha = new Date
+			estado = true
+		]
+		RepoLog.instance => [createIfNotExists(pruebaLog)]
 		
 		XTRest.start(POIController, 9000)
 	}
