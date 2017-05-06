@@ -1,21 +1,9 @@
-import busqueda.Usuario
+import busqueda.Log
 import com.mongodb.MongoClient
 import java.util.List
 import org.mongodb.morphia.Datastore
 import org.mongodb.morphia.Morphia
 import org.mongodb.morphia.query.UpdateOperations
-import poi.Banco
-import poi.CGP
-import poi.Local
-import poi.Opinion
-import poi.POI
-import poi.Rubro
-import poi.utils.Horario
-import poi.utils.Poligono
-import poi.utils.Punto
-import poi.utils.RangoHorario
-import poi.utils.Servicio
-import busqueda.Log
 
 abstract class RepoMongo<T> {
 

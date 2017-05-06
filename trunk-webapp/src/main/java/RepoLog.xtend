@@ -22,8 +22,9 @@ class RepoLog extends RepoMongo<Log> {
 	}
 	
 	override searchByExample(Log log) { 		
-		ds.createQuery(entityType) 			
-		.field("id").equal(log.id) 			
+		ds.createQuery(entityType)
+		.field("fecha").equal(log.fecha)
+		.field("estado").equal(log.estado)
 		.asList
 	}
 	

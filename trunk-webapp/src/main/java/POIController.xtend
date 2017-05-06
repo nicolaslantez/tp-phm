@@ -19,6 +19,7 @@ import poi.Opinion
 import poi.POI
 import poi.Rubro
 import stubs.StubGPSService
+import java.text.SimpleDateFormat
 
 @Controller
 class POIController {
@@ -197,9 +198,9 @@ class POIController {
 			saveOrUpdate(credicoopVillaLynch)
 		]
 				
-		if (!RepoUsuario.instance.allInstances.isEmpty) {
+		/*if (!RepoUsuario.instance.allInstances.isEmpty) {
 			return
-		}
+		}*/
 		
 		val mariana = new UsuarioBuilder().nombre("Mariana").contrasenia("123").ubicacion(1,1).build
 		val gaby = new UsuarioBuilder().nombre("Gaby").contrasenia("gg").ubicacion(2,1).build
@@ -331,15 +332,13 @@ class POIController {
 		
 		]	
 		
-		//var repoLog = new RepoLog()
-		
-		
-		val pruebaLog = new Log() => [
+		val primerLog = new Log() => [
 			usuario = pole
-			fecha = new Date
-			estado = true
+			fecha = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse("2016-04-01 00:00:00")
+			estado = false
 		]
-		RepoLog.instance => [createIfNotExists(pruebaLog)]
+		
+		RepoLog.instance => [createIfNotExists(primerLog)]
 		
 		XTRest.start(POIController, 9000)
 	}
