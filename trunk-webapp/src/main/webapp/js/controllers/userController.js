@@ -16,14 +16,22 @@ function UserController($state, usuarioService, localStorageService) {
 
     this.logIn = function() {
         this.errorMessage = "";
+        this.estado = false;
         try {
             this.validarCampos();
 
             var usuario = usuarioService.getUsuarioByNombre(this.textoNombre);
-            usuario.validarContrasenia(this.textoContrasenia);
-            usuarioService.logIn(usuario);
 
-            $state.go('busqueda');
+            if(usuario.validarContrasenia(this.textoContrasenia)){
+                this.estado = true;
+                usuarioService.putLog(usuario, this.estado);
+                usuarioService.logIn(usuario);
+                $state.go('busqueda');
+            }
+            else{
+                usuarioService.putLog(usuario, this.estado);
+                throw "La contraseña no es correcta";
+            }       
         } catch (exception) {
             this.errorMessage = exception;
         }

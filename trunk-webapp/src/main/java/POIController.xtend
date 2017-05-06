@@ -1,7 +1,10 @@
+import busqueda.Log
 import creacionales.POIBuilder
 import creacionales.ServiceLocator
 import creacionales.ServicioBuilder
 import creacionales.UsuarioBuilder
+import java.util.List
+import org.joda.time.LocalTime
 import org.uqbar.geodds.Point
 import org.uqbar.xtrest.api.Result
 import org.uqbar.xtrest.api.XTRest
@@ -11,12 +14,11 @@ import org.uqbar.xtrest.api.annotation.Get
 import org.uqbar.xtrest.api.annotation.Put
 import org.uqbar.xtrest.http.ContentType
 import org.uqbar.xtrest.json.JSONUtils
+import poi.CGP
 import poi.Opinion
+import poi.POI
 import poi.Rubro
 import stubs.StubGPSService
-import poi.POI
-import java.util.List
-import poi.CGP
 
 @Controller
 class POIController {
@@ -75,6 +77,22 @@ class POIController {
 			//poi.actualDescripcion = nuevaDescripcion
 			poi.modificarDato(nuevaDescripcion)
 			RepoPOI.instance.saveOrUpdate(poi)
+		} catch (Exception e) {
+			badRequest(e.message)
+		}
+		ok
+	}
+	
+	@Put("/usuario/:nombreUsuario/estado")
+	def Result putLog(@Body String body){
+		try {		
+			val usuario = RepoUsuario.instance.searchByName(nombreUsuario)
+			val actualEstado = Boolean.parseBoolean(body)
+			var nuevoLog = new Log()
+			nuevoLog.fecha = LocalTime.now
+			nuevoLog.usuario = usuario
+			nuevoLog.estado = actualEstado
+			RepoLog.instance.create(nuevoLog)
 		} catch (Exception e) {
 			badRequest(e.message)
 		}
@@ -306,7 +324,8 @@ class POIController {
 		saveOrUpdate(maninHnos)
 		saveOrUpdate(cgp15)
 		
-		]
+		]	
+		
 		XTRest.start(POIController, 9000)
 	}
 }

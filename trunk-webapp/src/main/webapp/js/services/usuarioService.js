@@ -13,6 +13,10 @@ app.service("usuarioService", function($http) {
         this.usuarioActivo = usuario;
     };
 
+    this.putLog = function(usuario, estado) {
+        $http.put('/usuario/' + usuario.nombre + '/estado', estado).then(self.getUsuarios());
+    };
+
     this.getUsuarios = function() {
         this.findAll(function(response) {
             self.usuarios = _.map(response.data, asUsuario);

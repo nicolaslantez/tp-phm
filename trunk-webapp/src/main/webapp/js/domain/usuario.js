@@ -21,8 +21,8 @@ function Usuario() {
     }
 
     this.validarContrasenia = function(unaContrasenia) {
-        if (this.contrasenia != unaContrasenia)
-            throw "La contraseña no es correcta";
+        return this.contrasenia == unaContrasenia        
+            //throw "La contraseña no es correcta";  
     }
 };
 
