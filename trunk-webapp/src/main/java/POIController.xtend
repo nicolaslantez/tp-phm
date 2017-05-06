@@ -91,7 +91,7 @@ class POIController {
 			//val usuario = nombreUsuario
 			val actualEstado = Boolean.parseBoolean(body)
 			var nuevoLog = new Log()
-			nuevoLog.fecha = new Date
+			nuevoLog.fecha = new Date()
 			nuevoLog.usuario = usuario
 			nuevoLog.estado = actualEstado
 			RepoLog.instance.create(nuevoLog)
@@ -186,7 +186,7 @@ class POIController {
 		val credicoopVillaLynch = new POIBuilder().banco.compania("Credicoop").estaHabilitado(1).barrio("Villa Lynch").domicilio(
 			"Profesor M. Ashkar 1103").servicio("Depositos").servicio("Extracciones").servicio("Prestamos").servicio(
 			"Banca Empresaria").servicio("Plazo Fijo").ubicacion(2, 3).descripcionActual("soy un local comercial").build
-
+		
 		RepoPOI.instance => [
 			saveOrUpdate(cgp15)
 			saveOrUpdate(linea343)
@@ -197,10 +197,6 @@ class POIController {
 			saveOrUpdate(trigoDeOro)
 			saveOrUpdate(credicoopVillaLynch)
 		]
-				
-		/*if (!RepoUsuario.instance.allInstances.isEmpty) {
-			return
-		}*/
 		
 		val mariana = new UsuarioBuilder().nombre("Mariana").contrasenia("123").ubicacion(1,1).build
 		val gaby = new UsuarioBuilder().nombre("Gaby").contrasenia("gg").ubicacion(2,1).build
@@ -339,7 +335,7 @@ class POIController {
 		]
 		
 		RepoLog.instance => [createIfNotExists(primerLog)]
-		
+
 		XTRest.start(POIController, 9000)
 	}
 }

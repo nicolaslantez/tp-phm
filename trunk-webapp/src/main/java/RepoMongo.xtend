@@ -4,6 +4,7 @@ import java.util.List
 import org.mongodb.morphia.Datastore
 import org.mongodb.morphia.Morphia
 import org.mongodb.morphia.query.UpdateOperations
+import busqueda.BigDecimalConverter
 
 abstract class RepoMongo<T> {
 
@@ -19,6 +20,7 @@ abstract class RepoMongo<T> {
 				ds = createDatastore(mongo, "local")
 				ds.ensureIndexes
 			]
+			morphia.getMapper().getConverters().addConverter(BigDecimalConverter)
 			println("Conectado a MongoDB. Bases: " + ds.getDB.collectionNames)
 		}
 	}
