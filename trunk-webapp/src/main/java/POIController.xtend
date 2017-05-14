@@ -20,10 +20,19 @@ import poi.Opinion
 import poi.POI
 import poi.Rubro
 import stubs.StubGPSService
+import java.util.Map
+import java.util.HashMap
 
 @Controller
 class POIController {
 	extension JSONUtils = new JSONUtils
+
+	HashMap<String, Object> repositorio = new HashMap 
+	
+	repositorio.put("Mongo", RepoOpinion.instance)
+	repositorio.put("MySQL", RepoPOI.instance)
+	
+	val static guardarEn = repositorio.get("Mongo") as RepoOpinion
 	
 	@Put("/usuarioActivo")
 	def Result putActivo(@Body String body) {
@@ -61,10 +70,7 @@ class POIController {
 		try {
 			val opinion = body.fromJson(Opinion)
 			opinion.idPoi = Long.parseLong(id)
-			val poi = RepoPOI.instance.searchById(Long.parseLong(id))
-			poi.addOpinion(opinion)
-			RepoPOI.instance.saveOrUpdate(poi)
-			RepoOpinion.instance.saveOrUpdate(opinion)
+			guardarEn.saveOpinion(opinion)
 		} catch (Exception e) {
 			badRequest(e.message)
 		}
@@ -220,8 +226,7 @@ class POIController {
 		nicoOpinion.comentario = ("Muy bueno el lugar!")
 		nicoOpinion.usuarioOpinador = "Nico"
 		
-		maninHnos.addOpinion(nicoOpinion)
-		RepoOpinion.instance.saveOrUpdate(nicoOpinion)
+		guardarEn.saveOpinion(nicoOpinion)
 		
 
 		var gabyOpinion = new Opinion()
@@ -229,8 +234,7 @@ class POIController {
 		gabyOpinion.comentario = ("Es un desastre!!")
 		gabyOpinion.usuarioOpinador = "Gaby"
 		
-		maninHnos.addOpinion(gabyOpinion)
-		RepoOpinion.instance.saveOrUpdate(gabyOpinion)
+		guardarEn.saveOpinion(gabyOpinion)
 	
 		
 		var poleOpinion = new Opinion()
@@ -238,8 +242,7 @@ class POIController {
 		poleOpinion.comentario = ("Mmm le faltan proteinas!!")
 		poleOpinion.usuarioOpinador = "Pole"
 		
-		maninHnos.addOpinion(poleOpinion)		
-		RepoOpinion.instance.saveOrUpdate(poleOpinion)
+		guardarEn.saveOpinion(poleOpinion)
 
 		
 		nicoOpinion = new Opinion()
@@ -247,24 +250,21 @@ class POIController {
 		nicoOpinion.comentario = ("Bastante Flojo!!")
 		nicoOpinion.usuarioOpinador = "Nico"
 		
-		trigoDeOro.addOpinion(nicoOpinion)
-		RepoOpinion.instance.saveOrUpdate(nicoOpinion)
+		guardarEn.saveOpinion(nicoOpinion)
 
 		gabyOpinion = new Opinion()
 		gabyOpinion.calificacion = 5
 		gabyOpinion.comentario = ("Excelente!!")
 		gabyOpinion.usuarioOpinador = "Gaby"
 		
-		trigoDeOro.addOpinion(gabyOpinion)
-		RepoOpinion.instance.saveOrUpdate(gabyOpinion)
+		guardarEn.saveOpinion(gabyOpinion)
 
 		poleOpinion = new Opinion()
 		poleOpinion.calificacion = 1
 		poleOpinion.comentario = ("No habia banana!!")
 		poleOpinion.usuarioOpinador = "Pole"
 		
-		trigoDeOro.addOpinion(poleOpinion)	
-		RepoOpinion.instance.saveOrUpdate(poleOpinion)
+		guardarEn.saveOpinion(poleOpinion)
 		
 			
 		
@@ -273,24 +273,21 @@ class POIController {
 		marianaOpinion.comentario = ("Excelente lugar!!")
 		marianaOpinion.usuarioOpinador = "Mariana"
 		
-		credicoopVillaLynch.addOpinion(marianaOpinion)
-		RepoOpinion.instance.saveOrUpdate(marianaOpinion)
+		guardarEn.saveOpinion(marianaOpinion)
 
 		gabyOpinion = new Opinion()
 		gabyOpinion.calificacion = 1
 		gabyOpinion.comentario = ("Es un desastre!!")
 		gabyOpinion.usuarioOpinador = "Gaby"
 		
-		credicoopVillaLynch.addOpinion(gabyOpinion)
-		RepoOpinion.instance.saveOrUpdate(gabyOpinion)
+		guardarEn.saveOpinion(gabyOpinion)
 		
 		poleOpinion = new Opinion()
 		poleOpinion.calificacion = 5
 		poleOpinion.comentario = ("Me regalaron un mes gratis en el gym!!")
 		poleOpinion.usuarioOpinador = "Pole"
 		
-		credicoopVillaLynch.addOpinion(poleOpinion)		
-		RepoOpinion.instance.saveOrUpdate(poleOpinion)
+		guardarEn.saveOpinion(poleOpinion)
 		
 		
 		marianaOpinion = new Opinion()
@@ -298,32 +295,28 @@ class POIController {
 		marianaOpinion.comentario = ("Excelente atencion!!")
 		marianaOpinion.usuarioOpinador = "Mariana"
 		
-		cgp11.addOpinion(marianaOpinion)
-		RepoOpinion.instance.saveOrUpdate(marianaOpinion)
+		guardarEn.saveOpinion(marianaOpinion)
 
 		poleOpinion = new Opinion()
 		poleOpinion.calificacion = 1
 		poleOpinion.comentario = ("Menos mal que yo hago home office!!")
 		poleOpinion.usuarioOpinador = "Pole"
 		
-		cgp11.addOpinion(poleOpinion)
-		RepoOpinion.instance.saveOrUpdate(poleOpinion)
+		guardarEn.saveOpinion(poleOpinion)
 		
 		gabyOpinion = new Opinion()
 		gabyOpinion.calificacion = 5
 		gabyOpinion.comentario = ("No son humildes como yo!!")
 		gabyOpinion.usuarioOpinador = "Gaby"
 		
-		cgp11.addOpinion(gabyOpinion)
-		RepoOpinion.instance.saveOrUpdate(gabyOpinion)
+		guardarEn.saveOpinion(gabyOpinion)
 		
 		nicoOpinion = new Opinion()
 		nicoOpinion.calificacion = 2
 		nicoOpinion.comentario = ("Cuanta gente incompetente!!")
 		nicoOpinion.usuarioOpinador = "Nico"
 		
-		cgp15.addOpinion(nicoOpinion)
-		RepoOpinion.instance.saveOrUpdate(nicoOpinion)
+		guardarEn.saveOpinion(nicoOpinion)
 		
 
 		nicoOpinion = new Opinion()
@@ -333,17 +326,7 @@ class POIController {
 		cgp15.addOpinion(nicoOpinion)
 
         nicoOpinion = new Opinion(5,"Muy bueno", "Nico",  new Long(20) )
-		maninHnos.addOpinion(nicoOpinion)
-		RepoOpinion.instance.saveOrUpdate(nicoOpinion)
-		
-				
-		RepoPOI.instance => [
-		saveOrUpdate(maninHnos)
-		saveOrUpdate(trigoDeOro)
-		saveOrUpdate(cgp15)
-		saveOrUpdate(credicoopVillaLynch)
-		
-		]
+		guardarEn.saveOpinion(nicoOpinion)
 		
 		
 		val primerLog = new Log() => [

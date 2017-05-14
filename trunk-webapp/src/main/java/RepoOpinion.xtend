@@ -20,6 +20,10 @@ class RepoOpinion extends RepoMongo<Opinion>{
 			this.create(opinion)
 		}
 	}
+	
+	def saveOpinion(Opinion opinion){
+		saveOrUpdate(opinion)
+	}
 
 	override searchByExample(Opinion opinion) { 		
 		ds.createQuery(entityType)
