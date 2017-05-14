@@ -43,9 +43,17 @@ abstract class RepoMongo<T> {
 		}
 		create(t)
 	}
+	
+	def void createOrUpdate(T t){
+		if(this.searchByExample(t).size > 0){
+			this.update(t)
+		} else {
+			this.create(t)
+		}
+	}
 
 	def void update(T t) {
-		ds.update(t, this.defineUpdateOperations(t))
+		ds.update(this.searchByExample(t).get(0), this.defineUpdateOperations(t))
 	}
 
 	abstract def UpdateOperations<T> defineUpdateOperations(T t)

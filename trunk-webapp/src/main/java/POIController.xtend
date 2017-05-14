@@ -64,7 +64,7 @@ class POIController {
 			val poi = RepoPOI.instance.searchById(Long.parseLong(id))
 			poi.addOpinion(opinion)
 			RepoPOI.instance.saveOrUpdate(poi)
-			RepoOpinion.instance.create(opinion)
+			RepoOpinion.instance.createOrUpdate(opinion)
 		} catch (Exception e) {
 			badRequest(e.message)
 		}
