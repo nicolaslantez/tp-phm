@@ -17,7 +17,7 @@ import poi.utils.Punto
 import poi.utils.RangoHorario
 import poi.utils.Servicio
 
-abstract class RepoDefault<T> {
+abstract class RepoDefault<T> implements RepoGeneral<T> {
  	protected static final SessionFactory sessionFactory = new Configuration().configure()
  	.addAnnotatedClass(POI)
  	.addAnnotatedClass(Banco)
@@ -44,7 +44,7 @@ abstract class RepoDefault<T> {
 		}
 	}
 	
-	def List<T> searchByExample(T t) {
+	override List<T> searchByExample(T t) {
 		val session = sessionFactory.openSession
 		try {
 			val criteria = session.createCriteria(getEntityType)
@@ -57,7 +57,7 @@ abstract class RepoDefault<T> {
 		}
 	}
 	
-	def void saveOrUpdate(T t) {
+	override void saveOrUpdate(T t) {
 		val session = sessionFactory.openSession
 		try {
 			session.beginTransaction
@@ -71,7 +71,7 @@ abstract class RepoDefault<T> {
 		}
 	}
 	
-	def void delete(T t) {
+	override void delete(T t) {
 		val session = sessionFactory.openSession
 		try {
 			session.beginTransaction
@@ -89,7 +89,7 @@ abstract class RepoDefault<T> {
 		sessionFactory.openSession
 	}
 	
-	def abstract Class<T> getEntityType()
+	//def abstract Class<T> getEntityType()
 
 	def abstract void addQueryByExample(Criteria criteria, T t)
 }

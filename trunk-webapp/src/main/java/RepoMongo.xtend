@@ -6,7 +6,7 @@ import org.mongodb.morphia.Morphia
 import org.mongodb.morphia.query.UpdateOperations
 import busqueda.BigDecimalConverter
 
-abstract class RepoMongo<T> {
+abstract class RepoMongo<T> implements RepoGeneral<T> {
 
 	static protected Datastore ds
 	static Morphia morphia
@@ -34,7 +34,7 @@ abstract class RepoMongo<T> {
 		}
 	}
 
-	def List<T> searchByExample(T t)
+	override List<T> searchByExample(T t)
 
 	def T createIfNotExists(T t) {
 		val entidadAModificar = getByExample(t)
@@ -44,7 +44,7 @@ abstract class RepoMongo<T> {
 		create(t)
 	}
 	
-	def void createOrUpdate(T t){
+	override void saveOrUpdate(T t){
 		if(this.searchByExample(t).size > 0){
 			this.update(t)
 		} else {
@@ -63,7 +63,7 @@ abstract class RepoMongo<T> {
 		t
 	}
 
-	def void delete(T t) {
+	override void delete(T t) {
 		ds.delete(t)
 	}
 
@@ -71,6 +71,6 @@ abstract class RepoMongo<T> {
 		ds.createQuery(this.getEntityType()).asList
 	}
 
-	abstract def Class<T> getEntityType()
+	//abstract def Class<T> getEntityType()
 
 }

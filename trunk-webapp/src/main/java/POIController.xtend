@@ -3,6 +3,7 @@ import creacionales.POIBuilder
 import creacionales.ServiceLocator
 import creacionales.ServicioBuilder
 import creacionales.UsuarioBuilder
+import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.List
 import org.uqbar.geodds.Point
@@ -19,7 +20,6 @@ import poi.Opinion
 import poi.POI
 import poi.Rubro
 import stubs.StubGPSService
-import java.text.SimpleDateFormat
 
 @Controller
 class POIController {
@@ -64,7 +64,7 @@ class POIController {
 			val poi = RepoPOI.instance.searchById(Long.parseLong(id))
 			poi.addOpinion(opinion)
 			RepoPOI.instance.saveOrUpdate(poi)
-			RepoOpinion.instance.createOrUpdate(opinion)
+			RepoOpinion.instance.saveOrUpdate(opinion)
 		} catch (Exception e) {
 			badRequest(e.message)
 		}
@@ -215,13 +215,13 @@ class POIController {
 			addUsuario(nico, new Point(4, 1))
 		]
 
-var nicoOpinion = new Opinion()
+		var nicoOpinion = new Opinion()
 		nicoOpinion.calificacion = 4
 		nicoOpinion.comentario = ("Muy bueno el lugar!")
 		nicoOpinion.usuarioOpinador = "Nico"
 		
 		maninHnos.addOpinion(nicoOpinion)
-		RepoOpinion.instance.createOrUpdate(nicoOpinion)
+		RepoOpinion.instance.saveOrUpdate(nicoOpinion)
 		
 
 		var gabyOpinion = new Opinion()
@@ -230,7 +230,7 @@ var nicoOpinion = new Opinion()
 		gabyOpinion.usuarioOpinador = "Gaby"
 		
 		maninHnos.addOpinion(gabyOpinion)
-		RepoOpinion.instance.createOrUpdate(gabyOpinion)
+		RepoOpinion.instance.saveOrUpdate(gabyOpinion)
 	
 		
 		var poleOpinion = new Opinion()
@@ -239,7 +239,7 @@ var nicoOpinion = new Opinion()
 		poleOpinion.usuarioOpinador = "Pole"
 		
 		maninHnos.addOpinion(poleOpinion)		
-		RepoOpinion.instance.createOrUpdate(poleOpinion)
+		RepoOpinion.instance.saveOrUpdate(poleOpinion)
 
 		
 		nicoOpinion = new Opinion()
@@ -248,7 +248,7 @@ var nicoOpinion = new Opinion()
 		nicoOpinion.usuarioOpinador = "Nico"
 		
 		trigoDeOro.addOpinion(nicoOpinion)
-		RepoOpinion.instance.createOrUpdate(nicoOpinion)
+		RepoOpinion.instance.saveOrUpdate(nicoOpinion)
 
 		gabyOpinion = new Opinion()
 		gabyOpinion.calificacion = 5
@@ -256,7 +256,7 @@ var nicoOpinion = new Opinion()
 		gabyOpinion.usuarioOpinador = "Gaby"
 		
 		trigoDeOro.addOpinion(gabyOpinion)
-		RepoOpinion.instance.createOrUpdate(gabyOpinion)
+		RepoOpinion.instance.saveOrUpdate(gabyOpinion)
 
 		poleOpinion = new Opinion()
 		poleOpinion.calificacion = 1
@@ -264,7 +264,7 @@ var nicoOpinion = new Opinion()
 		poleOpinion.usuarioOpinador = "Pole"
 		
 		trigoDeOro.addOpinion(poleOpinion)	
-		RepoOpinion.instance.createOrUpdate(poleOpinion)
+		RepoOpinion.instance.saveOrUpdate(poleOpinion)
 		
 			
 		
@@ -274,7 +274,7 @@ var nicoOpinion = new Opinion()
 		marianaOpinion.usuarioOpinador = "Mariana"
 		
 		credicoopVillaLynch.addOpinion(marianaOpinion)
-		RepoOpinion.instance.createOrUpdate(marianaOpinion)
+		RepoOpinion.instance.saveOrUpdate(marianaOpinion)
 
 		gabyOpinion = new Opinion()
 		gabyOpinion.calificacion = 1
@@ -282,7 +282,7 @@ var nicoOpinion = new Opinion()
 		gabyOpinion.usuarioOpinador = "Gaby"
 		
 		credicoopVillaLynch.addOpinion(gabyOpinion)
-		RepoOpinion.instance.createOrUpdate(gabyOpinion)
+		RepoOpinion.instance.saveOrUpdate(gabyOpinion)
 		
 		poleOpinion = new Opinion()
 		poleOpinion.calificacion = 5
@@ -290,7 +290,7 @@ var nicoOpinion = new Opinion()
 		poleOpinion.usuarioOpinador = "Pole"
 		
 		credicoopVillaLynch.addOpinion(poleOpinion)		
-		RepoOpinion.instance.createOrUpdate(poleOpinion)
+		RepoOpinion.instance.saveOrUpdate(poleOpinion)
 		
 		
 		marianaOpinion = new Opinion()
@@ -299,7 +299,7 @@ var nicoOpinion = new Opinion()
 		marianaOpinion.usuarioOpinador = "Mariana"
 		
 		cgp11.addOpinion(marianaOpinion)
-		RepoOpinion.instance.createOrUpdate(marianaOpinion)
+		RepoOpinion.instance.saveOrUpdate(marianaOpinion)
 
 		poleOpinion = new Opinion()
 		poleOpinion.calificacion = 1
@@ -307,7 +307,7 @@ var nicoOpinion = new Opinion()
 		poleOpinion.usuarioOpinador = "Pole"
 		
 		cgp11.addOpinion(poleOpinion)
-		RepoOpinion.instance.createOrUpdate(poleOpinion)
+		RepoOpinion.instance.saveOrUpdate(poleOpinion)
 		
 		gabyOpinion = new Opinion()
 		gabyOpinion.calificacion = 5
@@ -315,7 +315,7 @@ var nicoOpinion = new Opinion()
 		gabyOpinion.usuarioOpinador = "Gaby"
 		
 		cgp11.addOpinion(gabyOpinion)
-		RepoOpinion.instance.createOrUpdate(gabyOpinion)
+		RepoOpinion.instance.saveOrUpdate(gabyOpinion)
 		
 		nicoOpinion = new Opinion()
 		nicoOpinion.calificacion = 2
@@ -323,7 +323,7 @@ var nicoOpinion = new Opinion()
 		nicoOpinion.usuarioOpinador = "Nico"
 		
 		cgp15.addOpinion(nicoOpinion)
-		RepoOpinion.instance.createOrUpdate(nicoOpinion)
+		RepoOpinion.instance.saveOrUpdate(nicoOpinion)
 		
 
 		nicoOpinion = new Opinion()
@@ -334,7 +334,7 @@ var nicoOpinion = new Opinion()
 
         nicoOpinion = new Opinion(5,"Muy bueno", "Nico",  new Long(20) )
 		maninHnos.addOpinion(nicoOpinion)
-		RepoOpinion.instance.createOrUpdate(nicoOpinion)
+		RepoOpinion.instance.saveOrUpdate(nicoOpinion)
 		
 				
 		RepoPOI.instance => [
