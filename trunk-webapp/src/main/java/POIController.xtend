@@ -60,9 +60,11 @@ class POIController {
 	def Result putOpinion(@Body String body) {
 		try {
 			val opinion = body.fromJson(Opinion)
+			opinion.idPoi = Long.parseLong(id)
 			val poi = RepoPOI.instance.searchById(Long.parseLong(id))
 			poi.addOpinion(opinion)
 			RepoPOI.instance.saveOrUpdate(poi)
+			RepoOpinion.instance.create(opinion)
 		} catch (Exception e) {
 			badRequest(e.message)
 		}

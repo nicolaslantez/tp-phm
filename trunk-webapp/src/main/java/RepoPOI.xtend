@@ -42,7 +42,7 @@ class RepoPOI extends RepoDefault<POI> {
 			session.close
 		}
 	}
-
+	
 	def List<POI> getDisabledPois() {
 		val session = openSession
 		try {

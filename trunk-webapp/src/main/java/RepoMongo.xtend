@@ -17,7 +17,7 @@ abstract class RepoMongo<T> {
 			morphia = new Morphia => [
 				//map(typeof(Usuario)).map(typeof(POI)).map(typeof(Banco)).map(typeof(Local)).map(typeof(CGP)).map(typeof(Horario)).map(typeof(Banco)).map(typeof(Rubro)).map(typeof(Servicio)).map(typeof(RangoHorario)).map(typeof(Opinion)).map(typeof(Punto)).map(typeof(Poligono)).map(typeof(Log))
 				map(typeof(Log))
-				ds = createDatastore(mongo, "local")
+				ds = createDatastore(mongo, "tp")
 				ds.ensureIndexes
 			]
 			morphia.getMapper().getConverters().addConverter(BigDecimalConverter)
