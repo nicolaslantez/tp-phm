@@ -5,6 +5,7 @@ import org.hibernate.HibernateException
 import org.hibernate.criterion.Restrictions
 import poi.POI
 import poi.CGP
+import poi.Opinion
 
 class RepoPOI extends RepoDefault<POI> {
 	static RepoPOI repoPois
@@ -41,6 +42,12 @@ class RepoPOI extends RepoDefault<POI> {
 		} finally {
 			session.close
 		}
+	}
+	
+	def saveOpinion(Opinion opinion){
+		var poi = this.searchById(opinion.idPoi)
+		poi.addOpinion(opinion)
+		saveOrUpdate(poi)
 	}
 	
 	def List<POI> getDisabledPois() {
