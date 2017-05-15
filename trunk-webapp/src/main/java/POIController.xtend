@@ -1,12 +1,13 @@
 import busqueda.Log
+import com.google.common.collect.ImmutableMap
 import creacionales.POIBuilder
 import creacionales.ServiceLocator
 import creacionales.ServicioBuilder
 import creacionales.UsuarioBuilder
 import java.text.SimpleDateFormat
 import java.util.Date
-import java.util.HashMap
 import java.util.List
+import java.util.Map
 import org.uqbar.geodds.Point
 import org.uqbar.xtrest.api.Result
 import org.uqbar.xtrest.api.XTRest
@@ -21,8 +22,6 @@ import poi.Opinion
 import poi.POI
 import poi.Rubro
 import stubs.StubGPSService
-import java.util.Map
-import com.google.common.collect.ImmutableMap
 
 @Controller
 class POIController {
@@ -226,7 +225,7 @@ static final Map<String, Object> repositorio = ImmutableMap.of(
 		nicoOpinion.calificacion = 4
 		nicoOpinion.comentario = ("Muy bueno el lugar!")
 		nicoOpinion.usuarioOpinador = "Nico"
-		
+		nicoOpinion.idPoi = maninHnos.id
 		guardarEn.saveOpinion(nicoOpinion)
 		
 
@@ -234,6 +233,7 @@ static final Map<String, Object> repositorio = ImmutableMap.of(
 		gabyOpinion.calificacion = 1
 		gabyOpinion.comentario = ("Es un desastre!!")
 		gabyOpinion.usuarioOpinador = "Gaby"
+		gabyOpinion.idPoi = maninHnos.id
 		
 		guardarEn.saveOpinion(gabyOpinion)
 	
@@ -242,6 +242,7 @@ static final Map<String, Object> repositorio = ImmutableMap.of(
 		poleOpinion.calificacion = 3
 		poleOpinion.comentario = ("Mmm le faltan proteinas!!")
 		poleOpinion.usuarioOpinador = "Pole"
+		poleOpinion.idPoi = maninHnos.id
 		
 		guardarEn.saveOpinion(poleOpinion)
 
@@ -250,13 +251,15 @@ static final Map<String, Object> repositorio = ImmutableMap.of(
 		nicoOpinion.calificacion = 2
 		nicoOpinion.comentario = ("Bastante Flojo!!")
 		nicoOpinion.usuarioOpinador = "Nico"
-		
+	    nicoOpinion.idPoi = trigoDeOro.id
+	    	
 		guardarEn.saveOpinion(nicoOpinion)
 
 		gabyOpinion = new Opinion()
 		gabyOpinion.calificacion = 5
 		gabyOpinion.comentario = ("Excelente!!")
 		gabyOpinion.usuarioOpinador = "Gaby"
+		gabyOpinion.idPoi = trigoDeOro.id
 		
 		guardarEn.saveOpinion(gabyOpinion)
 
@@ -264,6 +267,7 @@ static final Map<String, Object> repositorio = ImmutableMap.of(
 		poleOpinion.calificacion = 1
 		poleOpinion.comentario = ("No habia banana!!")
 		poleOpinion.usuarioOpinador = "Pole"
+		poleOpinion.idPoi = trigoDeOro.id
 		
 		guardarEn.saveOpinion(poleOpinion)
 		
@@ -273,6 +277,7 @@ static final Map<String, Object> repositorio = ImmutableMap.of(
 		marianaOpinion.calificacion = 5
 		marianaOpinion.comentario = ("Excelente lugar!!")
 		marianaOpinion.usuarioOpinador = "Mariana"
+		marianaOpinion.idPoi = nacionSanMartin.id
 		
 		guardarEn.saveOpinion(marianaOpinion)
 
@@ -280,6 +285,7 @@ static final Map<String, Object> repositorio = ImmutableMap.of(
 		gabyOpinion.calificacion = 1
 		gabyOpinion.comentario = ("Es un desastre!!")
 		gabyOpinion.usuarioOpinador = "Gaby"
+		gabyOpinion.idPoi = nacionSanMartin.id
 		
 		guardarEn.saveOpinion(gabyOpinion)
 		
@@ -287,6 +293,7 @@ static final Map<String, Object> repositorio = ImmutableMap.of(
 		poleOpinion.calificacion = 5
 		poleOpinion.comentario = ("Me regalaron un mes gratis en el gym!!")
 		poleOpinion.usuarioOpinador = "Pole"
+		poleOpinion.idPoi = nacionSanMartin.id
 		
 		guardarEn.saveOpinion(poleOpinion)
 		
@@ -295,6 +302,7 @@ static final Map<String, Object> repositorio = ImmutableMap.of(
 		marianaOpinion.calificacion = 5
 		marianaOpinion.comentario = ("Excelente atencion!!")
 		marianaOpinion.usuarioOpinador = "Mariana"
+		marianaOpinion.idPoi = linea343.id
 		
 		guardarEn.saveOpinion(marianaOpinion)
 
@@ -302,6 +310,7 @@ static final Map<String, Object> repositorio = ImmutableMap.of(
 		poleOpinion.calificacion = 1
 		poleOpinion.comentario = ("Menos mal que yo hago home office!!")
 		poleOpinion.usuarioOpinador = "Pole"
+		poleOpinion.idPoi = linea343.id
 		
 		guardarEn.saveOpinion(poleOpinion)
 		
@@ -309,6 +318,7 @@ static final Map<String, Object> repositorio = ImmutableMap.of(
 		gabyOpinion.calificacion = 5
 		gabyOpinion.comentario = ("No son humildes como yo!!")
 		gabyOpinion.usuarioOpinador = "Gaby"
+		gabyOpinion.idPoi = credicoopVillaLynch.id
 		
 		guardarEn.saveOpinion(gabyOpinion)
 		
@@ -316,6 +326,7 @@ static final Map<String, Object> repositorio = ImmutableMap.of(
 		nicoOpinion.calificacion = 2
 		nicoOpinion.comentario = ("Cuanta gente incompetente!!")
 		nicoOpinion.usuarioOpinador = "Nico"
+		nicoOpinion.idPoi = credicoopVillaLynch.id
 		
 		guardarEn.saveOpinion(nicoOpinion)
 		
@@ -324,9 +335,9 @@ static final Map<String, Object> repositorio = ImmutableMap.of(
 		nicoOpinion.calificacion = 10
 		nicoOpinion.comentario = "TODOS SON GENIOS"
 		nicoOpinion.usuarioOpinador = "nick"
-		cgp15.addOpinion(nicoOpinion)
+		nicoOpinion.idPoi = cgp15.id
 
-        nicoOpinion = new Opinion(5,"Muy bueno", "Nico",  new Long(20) )
+        nicoOpinion = new Opinion(5,"Muy bueno", "Nico",  linea237.id )
 		guardarEn.saveOpinion(nicoOpinion)
 		
 		

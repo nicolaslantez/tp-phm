@@ -71,6 +71,6 @@ abstract class RepoMongo<T> implements RepoGeneral<T> {
 		ds.createQuery(this.getEntityType()).asList
 	}
 
-	//abstract def Class<T> getEntityType()
+//	abstract def Class<T> getEntityType()
 
 }
