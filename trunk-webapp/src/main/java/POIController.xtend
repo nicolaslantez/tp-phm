@@ -5,6 +5,7 @@ import creacionales.ServicioBuilder
 import creacionales.UsuarioBuilder
 import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.HashMap
 import java.util.List
 import org.uqbar.geodds.Point
 import org.uqbar.xtrest.api.Result
@@ -21,18 +22,18 @@ import poi.POI
 import poi.Rubro
 import stubs.StubGPSService
 import java.util.Map
-import java.util.HashMap
+import com.google.common.collect.ImmutableMap
 
 @Controller
 class POIController {
 	extension JSONUtils = new JSONUtils
 
-	HashMap<String, Object> repositorio = new HashMap 
+static final Map<String, Object> repositorio = ImmutableMap.of(
+    "Mongo", RepoOpinion.instance,
+    "MySQL", RepoPOI.instance
+);
 	
-	repositorio.put("Mongo", RepoOpinion.instance)
-	repositorio.put("MySQL", RepoPOI.instance)
-	
-	val static guardarEn = repositorio.get("Mongo") as RepoOpinion
+	var static  guardarEn = repositorio.get("Mongo") as RepoOpinion
 	
 	@Put("/usuarioActivo")
 	def Result putActivo(@Body String body) {
